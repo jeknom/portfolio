@@ -1,12 +1,13 @@
 CREATE TABLE Images (
-  id serial,
+  id INTEGER,
   data BYTEA UNIQUE,
   PRIMARY KEY (id)
 );
 
 CREATE TABLE Maintainers (
-  id serial,
+  id INTEGER,
   name TEXT NOT NULL,
+  headline TEXT NOT NULL,
   bio TEXT NOT NULL,
   image_id INTEGER,
   PRIMARY KEY (id),
@@ -15,7 +16,7 @@ CREATE TABLE Maintainers (
 );
 
 CREATE TABLE Skills (
-  id serial,
+  id INTEGER,
   name TEXT NOT NULL,
   description TEXT NOT NULL,
   rank INTEGER,
@@ -26,7 +27,7 @@ CREATE TABLE Skills (
 );
 
 CREATE TABLE Achievements (
-  id serial,
+  id INTEGER,
   title TEXT NOT NULL,
   subtitle TEXT NOT NULL,
   date TIMESTAMP NOT NULL,
@@ -36,7 +37,7 @@ CREATE TABLE Achievements (
 );
 
 CREATE TABLE Highlights (
-  id serial,
+  id INTEGER,
   name TEXT NOT NULL,
   description TEXT NOT NULL,
   date TIMESTAMP NOT NULL,
