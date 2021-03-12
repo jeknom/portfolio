@@ -1,8 +1,7 @@
 import ReactMarkdown from 'react-markdown'
 
 interface ParagraphProps {
-  text: string,
-  shouldBoldFirst: boolean
+  text: string
 }
 
 export default function index({text}: ParagraphProps) {

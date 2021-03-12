@@ -1,0 +1,35 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 500;
+}
+
+.rank {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  border-radius: 10px;
+  color: rgb(255, 255, 255);
+  height: 27.5px;
+  width: 30px;
+  composes: tooltip from "/styles/tooltip.css";
+}
+
+.nameIconContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.icon {
+  width: 25px;
+  height: 25px;
+  margin-right: 6px;
+}
+
+.rankTooltipText {
+  width: 150px;
+  margin-left: -75px;
+  composes: tooltiptext from "/styles/tooltip.css";
+}

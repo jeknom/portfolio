@@ -2,11 +2,18 @@ import sqlite3 from 'sqlite3'
 import { open } from 'sqlite'
 import { QUERY_MAINTAINER_SQL, QUERY_SKILLS_SQL, NO_DATA } from './constants'
 
-interface MaintainerProps {
+export interface MaintainerProps {
   name: string,
   headline: string,
   bio: string,
   image: string
+}
+
+export interface SkillProps {
+  name: string,
+  description: string,
+  rank: number,
+  image: string | null
 }
 
 let dataCache: any = null;
@@ -29,10 +36,13 @@ async function getData() {
   }
 }
 
-async function validateCache(): Promise {
-  if (dataCache === null) {
+async function validateCache() {
+  if (process.env) {
     dataCache = await getData()
+    console.log('Data downloaded')
   }
+
+  console.log('Cache validated')
 }
 
 export async function getMaintainer(): Promise<MaintainerProps> {
@@ -46,7 +56,7 @@ export async function getMaintainer(): Promise<MaintainerProps> {
   }
 }
 
-export async function getSkills(): Promise<any[]> {
+export async function getSkills(): Promise<SkillProps[]> {
   await validateCache()
 
   return dataCache?.skills ?? []
