@@ -1,5 +1,5 @@
 import { SkillProps } from '../../../lib/data'
-import { Paragraph } from '../../CoreComponents'
+import { Paragraph } from '../../Core'
 import styles from './skill.module.css'
 
 export default function index({ name, description, rank, image }: SkillProps) {

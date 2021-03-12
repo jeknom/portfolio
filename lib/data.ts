@@ -16,6 +16,13 @@ export interface SkillProps {
   image: string | null
 }
 
+export interface AchievementProps {
+  title: string,
+  subtitle: string,
+  date: string,
+  image: string | null
+}
+
 let dataCache: any = null;
 
 async function getData() {

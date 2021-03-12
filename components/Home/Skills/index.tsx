@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Skill from './Skill'
 import { SkillProps } from '../../../lib/data'
-import { Title, Divider, Button } from '../../CoreComponents'
+import { Title, Divider, Button } from '../../Core'
 
 interface SkillsProps {
   skills: SkillProps[]

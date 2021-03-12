@@ -1,6 +1,6 @@
-import { Head } from '../components/CoreComponents'
+import { Head } from '../components/Core'
 import { getMaintainer, getSkills, MaintainerProps, SkillProps } from '../lib/data'
-import { Header, Intro, Skills } from '../components/HomeComponents'
+import { Header, Intro, Skills } from '../components/Home'
 import styles from '../styles/Home.module.css'
 
 interface HomeProps {

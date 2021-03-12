@@ -1,4 +1,4 @@
-import { Title, Divider, Paragraph } from '../../CoreComponents'
+import { Title, Divider, Paragraph } from '../../Core'
 import styles from '../../../styles/Home.module.css'
 
 interface IntroProps {
