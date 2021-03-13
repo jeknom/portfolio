@@ -1,5 +1,5 @@
 import { SkillProps } from '../../../lib/data'
-import { Paragraph } from '../../Core'
+import { Paragraph, Base64Image } from '../../Core'
 import styles from './skill.module.css'
 
 export default function index({ name, description, rank, image }: SkillProps) {
@@ -18,17 +18,13 @@ export default function index({ name, description, rank, image }: SkillProps) {
     }
   }
 
-  const skillIconToRender = image ? (
-    <img
-      className={styles.icon}
-      src={`data:image/png;base64, ${image}`}
-      alt={`${name} skill icon.`} />
-  ) : null
-
   return (
     <div>
       <p className={styles.header}>
-        <span className={styles.nameIconContainer}>{skillIconToRender}{name}</span>
+        <span className={styles.nameIconContainer}>
+          <Base64Image image={image} alt={`${name} skill icon.`} className={styles.icon} hideNull />
+          <span className='subtitle'>{name}</span>
+        </span>
         <span className={styles.rank} style={{ backgroundColor: getColorForRank(rank) }}>
           {rank * 20}
           <span className={styles.rankTooltipText}>Confidence score</span>      

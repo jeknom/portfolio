@@ -6,6 +6,6 @@ interface ParagraphProps {
 
 export default function index({text}: ParagraphProps) {
   return (
-    <ReactMarkdown>{text}</ReactMarkdown>
+    <ReactMarkdown className='secondaryText'>{text}</ReactMarkdown>
   );
 }

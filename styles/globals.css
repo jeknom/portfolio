@@ -25,3 +25,18 @@ img {
   max-width: 100%;
   display: block;
 }
+
+.primaryText {
+  font-size: x-large;
+  font-weight: 200;
+}
+
+.subtitle {
+  font-weight: 200;
+  font-size: large;
+}
+
+.secondaryText {
+  font-weight: 300;
+  font-size: medium;
+}

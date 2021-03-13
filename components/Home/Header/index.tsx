@@ -1,4 +1,5 @@
 import styles from '../../../styles/Home.module.css'
+import { Base64Image } from '../../Core'
 
 interface HeaderProps {
   name: string,
@@ -9,9 +10,9 @@ interface HeaderProps {
 export default function index({ name, headline, image }: HeaderProps) {
   return (
     <section className={styles.header}>
-      <img className={styles.profilePicture} src={`data:image/png;base64, ${image}`} alt='Profile picture' />
-      <span className={styles.title}>{name}</span>
-      <span className={styles.headline}>{headline}</span>
+      <Base64Image className={styles.profilePicture} image={image} alt='Profile picture' hideNull={false} />
+      <span className='primaryText'>{name}</span>
+      <span className='subtitle'>{headline}</span>
     </section>
   )
 }

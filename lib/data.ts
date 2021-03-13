@@ -1,6 +1,28 @@
 import sqlite3 from 'sqlite3'
 import { open } from 'sqlite'
-import { QUERY_MAINTAINER_SQL, QUERY_SKILLS_SQL, NO_DATA } from './constants'
+import { NO_DATA } from './constants'
+
+const QUERY_MAINTAINER_SQL = `
+  SELECT name, headline, bio, data as image
+  FROM Maintainers
+  LEFT JOIN Images ON Maintainers.image_id = Images.id
+  WHERE Maintainers.id = 1`
+const QUERY_SKILLS_SQL = `
+  SELECT name, description, rank, data as image
+  FROM Skills
+  LEFT JOIN Images ON Skills.image_id = Images.id
+  ORDER BY rank DESC, name`
+const QUERY_ACHIEVEMENTS_SQL = `
+  SELECT title, subtitle, date, data as image
+  FROM Achievements
+  LEFT JOIN Images ON Achievements.image_id = Images.id
+  ORDER BY date DESC, title`
+
+interface DataProps {
+  maintainer: MaintainerProps,
+  skills: SkillProps[],
+  achievements: AchievementProps[]
+}
 
 export interface MaintainerProps {
   name: string,
@@ -25,46 +47,48 @@ export interface AchievementProps {
 
 let dataCache: any = null;
 
-async function getData() {
+async function getData(): Promise<DataProps> {
   try {
-    const db = await open({
-      filename: process.env.SQLITE_DATABASE_PATH,
-      driver: sqlite3.Database
-    })
-  
-    const maintainer = await db.get(QUERY_MAINTAINER_SQL)
-    const skills = await db.all(QUERY_SKILLS_SQL)
+    if (dataCache === null || process.env.ENVIRONMENT === 'DEV') {
+      const db = await open({
+        filename: process.env.SQLITE_DATABASE_PATH,
+        driver: sqlite3.Database
+      })
     
-    await db.close()
-    
-    return { maintainer, skills }
+      const maintainer = await db.get(QUERY_MAINTAINER_SQL)
+      const skills = await db.all(QUERY_SKILLS_SQL)
+      const achievements = await db.all(QUERY_ACHIEVEMENTS_SQL)
+      
+      await db.close()
+      
+      return { maintainer, skills, achievements }
+    } else {
+      return dataCache;
+    }
   } catch (error) {
-    console.error('Failed to get maintainer:', error)
+    console.error('Fetch failed:', error)
   }
-}
-
-async function validateCache() {
-  if (process.env) {
-    dataCache = await getData()
-    console.log('Data downloaded')
-  }
-
-  console.log('Cache validated')
 }
 
 export async function getMaintainer(): Promise<MaintainerProps> {
-  await validateCache()
+  const data = await getData()
 
-  return {
-    name: dataCache?.maintainer?.name ?? NO_DATA,
-    headline: dataCache?.maintainer?.headline ?? NO_DATA,
-    bio: dataCache?.maintainer?.bio ?? NO_DATA,
-    image: dataCache?.maintainer?.image ?? NO_DATA
-  }
+  return data?.maintainer ?? ({
+    name: NO_DATA,
+    headline: NO_DATA,
+    bio: NO_DATA,
+    image: NO_DATA
+  })
 }
 
 export async function getSkills(): Promise<SkillProps[]> {
-  await validateCache()
+  const data = await getData()
+  
+  return data?.skills ?? []
+}
 
-  return dataCache?.skills ?? []
+export async function getAchievements(): Promise<AchievementProps[]> {
+  const data = await getData()
+
+  return data?.achievements ?? []
 }
