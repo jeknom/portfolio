@@ -3,20 +3,26 @@ import { AchievementProps } from '../../../lib/data'
 import TopAchievement from './TopAchievement'
 import styles from './achievements.module.css'
 
-interface AchievementsProps {
+interface TimelineProps {
   achievements: AchievementProps[]
 }
 
-export default function index({ achievements }: AchievementsProps) {
+export default function index({ achievements }: TimelineProps) {
   const renderTopAchievements = () => {
     return achievements.map((a, index) => (
-      <TopAchievement key={index} title={a.title} subtitle={a.subtitle} image={a.image} date={a.date} />
+      <TopAchievement
+        key={index}
+        title={a.title}
+        subtitle={a.subtitle}
+        image={a.image}
+        startDate={a.startDate}
+        endDate={a.endDate} />
     ))
   }
 
   return (
     <section>
-      <Title text='Achievements' />
+      <Title text='Timeline' />
       <Divider />
       <div className={styles.topAchievements}>
         {renderTopAchievements()}

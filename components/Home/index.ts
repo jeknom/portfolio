@@ -1,11 +1,11 @@
 import Header from './Header'
 import Intro from './Intro'
 import Skills from './Skills'
-import Achievements from './Achievements'
+import Timeline from './Timeline'
 
 export {
   Header,
   Intro,
   Skills,
-  Achievements
+  Timeline
 }

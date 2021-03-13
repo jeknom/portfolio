@@ -1,6 +1,6 @@
 import { Head } from '../components/Core'
 import { getMaintainer, getSkills, getAchievements, MaintainerProps, SkillProps, AchievementProps } from '../lib/data'
-import { Header, Intro, Skills, Achievements } from '../components/Home'
+import { Header, Intro, Skills, Timeline } from '../components/Home'
 import styles from '../styles/Home.module.css'
 
 interface HomeProps {
@@ -22,7 +22,7 @@ export default function Home({ maintainer, skills, achievements }: HomeProps) {
         <br />
         <Skills skills={skills} />
         <br />
-        <Achievements achievements={achievements} />
+        <Timeline achievements={achievements} />
       </div>
     </div>
   )

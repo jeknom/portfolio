@@ -13,10 +13,10 @@ const QUERY_SKILLS_SQL = `
   LEFT JOIN Images ON Skills.image_id = Images.id
   ORDER BY rank DESC, name`
 const QUERY_ACHIEVEMENTS_SQL = `
-  SELECT title, subtitle, date, data as image
+  SELECT title, subtitle, startDate, endDate, data as image
   FROM Achievements
   LEFT JOIN Images ON Achievements.image_id = Images.id
-  ORDER BY date DESC, title`
+  ORDER BY startDate DESC, title`
 
 interface DataProps {
   maintainer: MaintainerProps,
@@ -41,7 +41,8 @@ export interface SkillProps {
 export interface AchievementProps {
   title: string,
   subtitle: string,
-  date: string,
+  startDate: string,
+  endDate: string,
   image: string | null
 }
 
