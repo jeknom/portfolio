@@ -2,7 +2,7 @@ import { Base64Image } from '../../Core'
 import { AchievementProps } from '../../../lib/data'
 import styles from './achievements.module.css'
 
-export default function TopAchievements({ title, subtitle, image, startDate, endDate }: AchievementProps) {
+export default function Achievement({ title, subtitle, image, startDate, endDate }: AchievementProps) {
   const dateToShow = startDate === endDate ? startDate : `${startDate} - ${endDate}`
 
   return (

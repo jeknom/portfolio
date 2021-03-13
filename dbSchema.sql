@@ -20,7 +20,6 @@ CREATE TABLE Skills (
   name TEXT NOT NULL,
   description TEXT NOT NULL,
   rank INTEGER,
-  image_id INTEGER,
   PRIMARY KEY (id),
   FOREIGN KEY (image_id) REFERENCES Images (id),
   CHECK (rank BETWEEN 1 AND 5)

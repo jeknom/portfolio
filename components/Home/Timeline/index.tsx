@@ -1,16 +1,20 @@
 import { Title, Divider } from '../../Core'
 import { AchievementProps } from '../../../lib/data'
-import TopAchievement from './TopAchievement'
+import Achievement from './Achievement'
 import styles from './achievements.module.css'
+
+const LATEST_ACHIEVEMENTS_TO_SHOW = 3;
 
 interface TimelineProps {
   achievements: AchievementProps[]
 }
 
 export default function index({ achievements }: TimelineProps) {
-  const renderTopAchievements = () => {
-    return achievements.map((a, index) => (
-      <TopAchievement
+  const renderLatestAchievements = () => {
+    const achievementsToShow = Math.min(achievements.length, LATEST_ACHIEVEMENTS_TO_SHOW)
+
+    return achievements.slice(0, achievementsToShow).map((a, index) => (
+      <Achievement
         key={index}
         title={a.title}
         subtitle={a.subtitle}
@@ -25,7 +29,7 @@ export default function index({ achievements }: TimelineProps) {
       <Title text='Timeline' />
       <Divider />
       <div className={styles.topAchievements}>
-        {renderTopAchievements()}
+        {renderLatestAchievements()}
       </div>
     </section>
   )

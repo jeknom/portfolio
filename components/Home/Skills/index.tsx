@@ -7,22 +7,26 @@ interface SkillsProps {
   skills: SkillProps[]
 }
 
-const SKILLS_TO_SHOW = 5;
+const SKILLS_TO_SHOW = 3;
 
 export default function index({ skills }: SkillsProps) {
   const [shouldShowAllSkills, setShouldShowAllSkills] = useState(false)
   const toggleShouldShowAllSkills = () => setShouldShowAllSkills(!shouldShowAllSkills)
-  const skillsToRender = shouldShowAllSkills ?  skills : skills.slice(0, SKILLS_TO_SHOW)
+  const renderCount = Math.min(skills.length, SKILLS_TO_SHOW)
+  const skillsToRender = shouldShowAllSkills ?  skills : skills.slice(0, renderCount)
   const renderSkills = skillsToRender.map((s, index) =>
-    <Skill key={index} name={s.name} description={s.description} rank={s.rank} image={s.image} />
+    <Skill key={index} name={s.name} description={s.description} rank={s.rank} />
   )
+  const toggleShowButton = renderCount < skills.length ?
+    <Button onClick={toggleShouldShowAllSkills}>{shouldShowAllSkills ? 'Show less' : 'Show all'}</Button> :
+    null
 
   return (
     <section>
       <Title text='Skills' />
       <Divider />
       {renderSkills}
-      <Button onClick={toggleShouldShowAllSkills}>{shouldShowAllSkills ? 'Show less' : 'Show all'}</Button>
+      {toggleShowButton}
     </section>
   )
 }

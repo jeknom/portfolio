@@ -8,9 +8,8 @@ const QUERY_MAINTAINER_SQL = `
   LEFT JOIN Images ON Maintainers.image_id = Images.id
   WHERE Maintainers.id = 1`
 const QUERY_SKILLS_SQL = `
-  SELECT name, description, rank, data as image
+  SELECT name, description, rank
   FROM Skills
-  LEFT JOIN Images ON Skills.image_id = Images.id
   ORDER BY rank DESC, name`
 const QUERY_ACHIEVEMENTS_SQL = `
   SELECT title, subtitle, startDate, endDate, data as image
@@ -34,8 +33,7 @@ export interface MaintainerProps {
 export interface SkillProps {
   name: string,
   description: string,
-  rank: number,
-  image: string | null
+  rank: number
 }
 
 export interface AchievementProps {

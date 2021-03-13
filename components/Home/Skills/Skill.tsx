@@ -1,8 +1,8 @@
 import { SkillProps } from '../../../lib/data'
-import { Paragraph, Base64Image } from '../../Core'
+import { Paragraph } from '../../Core'
 import styles from './skill.module.css'
 
-export default function index({ name, description, rank, image }: SkillProps) {
+export default function index({ name, description, rank }: SkillProps) {
   const getColorForRank = (rank: number) => {
     switch (rank) {
       case 5:
@@ -19,18 +19,15 @@ export default function index({ name, description, rank, image }: SkillProps) {
   }
 
   return (
-    <div>
-      <p className={styles.header}>
-        <span className={styles.nameIconContainer}>
-          <Base64Image image={image} alt={`${name} skill icon.`} className={styles.icon} hideNull />
-          <span className='subtitle'>{name}</span>
-        </span>
-        <span className={styles.rank} style={{ backgroundColor: getColorForRank(rank) }}>
-          {rank * 20}
-          <span className={styles.rankTooltipText}>Confidence score</span>      
-        </span>
-      </p>
-      <Paragraph text={description} />
+    <div className={styles.root}>
+      <span>
+        <p className={styles.title}><span className='subtitle'>{name}</span></p>
+        <Paragraph text={description} />
+      </span>
+      <span className={styles.rank} style={{ backgroundColor: getColorForRank(rank) }}>
+        {rank * 20}
+        <span className={styles.rankTooltipText}>Confidence score</span>      
+      </span>
     </div>
   )
 }
