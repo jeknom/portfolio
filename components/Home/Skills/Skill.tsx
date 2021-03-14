@@ -26,7 +26,7 @@ export default function index({ name, description, rank }: SkillProps) {
       </span>
       <span className={styles.rank} style={{ backgroundColor: getColorForRank(rank) }}>
         {rank * 20}
-        <span className={styles.rankTooltipText}>Confidence score</span>      
+        <span className={styles.rankTooltipText}>Confidence score</span>
       </span>
     </div>
   )
