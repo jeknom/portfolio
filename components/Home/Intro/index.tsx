@@ -5,7 +5,7 @@ interface IntroProps {
   bio: string
 }
 
-export default function index({ bio }: IntroProps) {
+export default function Intro({ bio }: IntroProps) {
   return (
     <section className={styles.bio}>
       <Title text='Introduction' />

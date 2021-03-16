@@ -7,7 +7,7 @@ interface HeaderProps {
   image: string
 }
 
-export default function index({ name, headline, image }: HeaderProps) {
+export default function Header({ name, headline, image }: HeaderProps) {
   return (
     <section className={styles.header}>
       <Base64Image className={styles.profilePicture} image={image} alt='Profile picture' hideNull={false} />

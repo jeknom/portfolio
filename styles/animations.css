@@ -1,10 +1,5 @@
 .fadeInPrimary {
-  animation: fadeIn ease 3s;
-  -webkit-animation: fadeIn ease 5s;
-}
-
-.fadeInSecondary {
-  animation: fadeIn ease 6s;
+  animation: fadeIn ease 1s;
   -webkit-animation: fadeIn ease 5s;
 }
 

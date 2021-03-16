@@ -16,31 +16,44 @@ const QUERY_ACHIEVEMENTS_SQL = `
   FROM Achievements
   LEFT JOIN Images ON Achievements.image_id = Images.id
   ORDER BY startDate DESC, title`
+const QUERY_HIGHLIGHTS_SQL = `
+  SELECT name, description, date, data as image
+  FROM Highlights
+  LEFT JOIN Images ON Highlights.image_id = Images.id
+  ORDER BY date DESC, name`
 
-interface DataProps {
-  maintainer: MaintainerProps,
-  skills: SkillProps[],
-  achievements: AchievementProps[]
+export interface DataProps {
+  maintainer: MaintainerData,
+  skills: SkillData[],
+  achievements: AchievementData[],
+  highlights: HighlightData[]
 }
 
-export interface MaintainerProps {
+export interface MaintainerData {
   name: string,
   headline: string,
   bio: string,
   image: string
 }
 
-export interface SkillProps {
+export interface SkillData {
   name: string,
   description: string,
   rank: number
 }
 
-export interface AchievementProps {
+export interface AchievementData {
   title: string,
   subtitle: string,
   startDate: string,
   endDate: string,
+  image: string | null
+}
+
+export interface HighlightData {
+  name: string,
+  description: string,
+  date: string,
   image: string | null
 }
 
@@ -57,10 +70,11 @@ async function getData(): Promise<DataProps> {
       const maintainer = await db.get(QUERY_MAINTAINER_SQL)
       const skills = await db.all(QUERY_SKILLS_SQL)
       const achievements = await db.all(QUERY_ACHIEVEMENTS_SQL)
+      const highlights = await db.all(QUERY_HIGHLIGHTS_SQL)
       
       await db.close()
       
-      return { maintainer, skills, achievements }
+      return { maintainer, skills, achievements, highlights }
     } else {
       return dataCache;
     }
@@ -69,7 +83,7 @@ async function getData(): Promise<DataProps> {
   }
 }
 
-export async function getMaintainer(): Promise<MaintainerProps> {
+export async function getMaintainer(): Promise<MaintainerData> {
   const data = await getData()
 
   return data?.maintainer ?? ({
@@ -80,14 +94,20 @@ export async function getMaintainer(): Promise<MaintainerProps> {
   })
 }
 
-export async function getSkills(): Promise<SkillProps[]> {
+export async function getSkills(): Promise<SkillData[]> {
   const data = await getData()
   
   return data?.skills ?? []
 }
 
-export async function getAchievements(): Promise<AchievementProps[]> {
+export async function getAchievements(): Promise<AchievementData[]> {
   const data = await getData()
 
   return data?.achievements ?? []
+}
+
+export async function getHighlights(): Promise<HighlightData[]> {
+  const data = await getData()
+
+  return data?.highlights ?? []
 }

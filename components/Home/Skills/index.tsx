@@ -1,15 +1,15 @@
 import { useState } from 'react'
 import Skill from './Skill'
-import { SkillProps } from '../../../lib/data'
+import { SkillData } from '../../../lib/data'
 import { Title, Divider, Button } from '../../Core'
 
 interface SkillsProps {
-  skills: SkillProps[]
+  skills: SkillData[]
 }
 
 const SKILLS_TO_SHOW = 3;
 
-export default function index({ skills }: SkillsProps) {
+export default function Skills({ skills }: SkillsProps) {
   const [shouldShowAllSkills, setShouldShowAllSkills] = useState(false)
   const toggleShouldShowAllSkills = () => setShouldShowAllSkills(!shouldShowAllSkills)
   const renderCount = Math.min(skills.length, SKILLS_TO_SHOW)

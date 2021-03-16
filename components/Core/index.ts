@@ -4,6 +4,8 @@ import Head from './Head'
 import Paragraph from './Paragraph'
 import Title from './Title'
 import Base64Image from './Base64Image'
+import VerticalLine from './VerticalLine'
+import FlatButton from './FlatButton'
 
 export {
   Button,
@@ -11,5 +13,7 @@ export {
   Head,
   Paragraph,
   Title,
-  Base64Image
+  Base64Image,
+  VerticalLine,
+  FlatButton
 }

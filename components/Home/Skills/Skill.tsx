@@ -1,8 +1,8 @@
-import { SkillProps } from '../../../lib/data'
+import { SkillData } from '../../../lib/data'
 import { Paragraph } from '../../Core'
 import styles from './skill.module.css'
 
-export default function index({ name, description, rank }: SkillProps) {
+export default function Skill({ name, description, rank }: SkillData) {
   const getColorForRank = (rank: number) => {
     switch (rank) {
       case 5:
