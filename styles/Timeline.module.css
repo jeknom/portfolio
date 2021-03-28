@@ -1,0 +1,9 @@
+.closeButton {
+  position: fixed;
+  width: 3.5rem;
+  height: 3.5rem;
+  font-size: x-large;
+  text-align: center;
+  top: 2rem;
+  right: 5vw;
+}

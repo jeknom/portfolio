@@ -18,10 +18,8 @@ CREATE TABLE Maintainers (
 CREATE TABLE Skills (
   id INTEGER,
   name TEXT NOT NULL,
-  description TEXT NOT NULL,
   rank INTEGER,
   PRIMARY KEY (id),
-  FOREIGN KEY (image_id) REFERENCES Images (id),
   CHECK (rank BETWEEN 1 AND 5)
 );
 

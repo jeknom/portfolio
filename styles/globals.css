@@ -1,11 +1,53 @@
 html,
 body {
-  padding: 0;
-  margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   line-height: 1.6;
   font-size: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  body {
+    width: auto;
+    padding: 0.5rem;
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  body {
+    width: auto;
+    padding: 0.5rem;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  body {
+    width: auto;
+    padding: 2rem;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  body {
+    width: 60vw;
+    padding: 2rem;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  body {
+    width: 45vw;
+    padding: 2rem;
+  }
 }
 
 * {
@@ -21,6 +63,10 @@ a:hover {
   text-decoration: underline;
 }
 
+p {
+  margin: 8px 0 8px 0;
+}
+
 img {
   max-width: 100%;
   display: block;
@@ -29,6 +75,7 @@ img {
 .primaryText {
   font-size: x-large;
   font-weight: 200;
+  color: rgba(0, 0, 0, 0.479);
 }
 
 .subtitle {
@@ -44,4 +91,8 @@ img {
 .captionText {
   font-weight: 300;
   font-size: small;
+}
+
+.fullWidth {
+  width: 100%;
 }

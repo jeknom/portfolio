@@ -1,4 +1,3 @@
-import { AchievementData } from '../../../lib/data'
 import { Title, Divider, Base64Image } from '../../Core'
 import { getShortDateOr } from '../../../lib/utils'
 import styles from './Achievements.module.css'
@@ -34,8 +33,8 @@ export default function Achievements({ amountToShow, achievements }: Achievement
   )
 
   return (
-    <section>
-      <Title text='Achievements' />
+    <section className='fullWidth'>
+      <Title text='Experience' />
       <Divider />
       {renderAchievements}
     </section>

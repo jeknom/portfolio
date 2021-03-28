@@ -2,13 +2,15 @@ import sqlite3 from 'sqlite3'
 import { open } from 'sqlite'
 import { NO_DATA } from './constants'
 
+const BEGIN_TRANSACTION = 'BEGIN'
+const COMMIT_TRANSACTION = 'COMMIT'
 const QUERY_MAINTAINER_SQL = `
   SELECT name, headline, bio, data as image
   FROM Maintainers
   LEFT JOIN Images ON Maintainers.image_id = Images.id
   WHERE Maintainers.id = 1`
 const QUERY_SKILLS_SQL = `
-  SELECT name, description, rank
+  SELECT name, rank
   FROM Skills
   ORDER BY rank DESC, name`
 const QUERY_ACHIEVEMENTS_SQL = `
@@ -16,46 +18,15 @@ const QUERY_ACHIEVEMENTS_SQL = `
   FROM Achievements
   LEFT JOIN Images ON Achievements.image_id = Images.id
   ORDER BY startDate DESC, title`
+const QUERY_MIN_ACHIEVEMENT_DATE_SQL = `
+  SELECT MIN(startDate) as min
+  FROM Achievements
+  LIMIT 1`
 const QUERY_HIGHLIGHTS_SQL = `
   SELECT name, description, date, data as image
   FROM Highlights
   LEFT JOIN Images ON Highlights.image_id = Images.id
   ORDER BY date DESC, name`
-
-export interface DataProps {
-  maintainer: MaintainerData,
-  skills: SkillData[],
-  achievements: AchievementData[],
-  highlights: HighlightData[]
-}
-
-export interface MaintainerData {
-  name: string,
-  headline: string,
-  bio: string,
-  image: string
-}
-
-export interface SkillData {
-  name: string,
-  description: string,
-  rank: number
-}
-
-export interface AchievementData {
-  title: string,
-  subtitle: string,
-  startDate: string,
-  endDate: string,
-  image: string | null
-}
-
-export interface HighlightData {
-  name: string,
-  description: string,
-  date: string,
-  image: string | null
-}
 
 let dataCache: any = null;
 
@@ -67,14 +38,17 @@ async function getData(): Promise<DataProps> {
         driver: sqlite3.Database
       })
     
+      await db.exec(BEGIN_TRANSACTION)
       const maintainer = await db.get(QUERY_MAINTAINER_SQL)
       const skills = await db.all(QUERY_SKILLS_SQL)
       const achievements = await db.all(QUERY_ACHIEVEMENTS_SQL)
+      const minAchievementDate = await db.get(QUERY_MIN_ACHIEVEMENT_DATE_SQL)
       const highlights = await db.all(QUERY_HIGHLIGHTS_SQL)
+      await db.exec(COMMIT_TRANSACTION)
       
       await db.close()
       
-      return { maintainer, skills, achievements, highlights }
+      return { maintainer, skills, achievements, minAchievementDate, highlights }
     } else {
       return dataCache;
     }
@@ -104,6 +78,12 @@ export async function getAchievements(): Promise<AchievementData[]> {
   const data = await getData()
 
   return data?.achievements ?? []
+}
+
+export async function getMinAchievementDate(): Promise<MinAchievementDateData> {
+  const data = await getData()
+
+  return data?.minAchievementDate ?? { min: Date.now().toString() }
 }
 
 export async function getHighlights(): Promise<HighlightData[]> {

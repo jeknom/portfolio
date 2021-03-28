@@ -1,4 +1,3 @@
-import { SkillData } from '../../../lib/data'
 import { Paragraph } from '../../Core'
 import styles from './skill.module.css'
 

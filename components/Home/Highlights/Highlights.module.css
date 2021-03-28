@@ -1,0 +1,11 @@
+.highlightroot {
+  composes: fadeInPrimary from "../../../styles/animations.css";
+}
+
+.image {
+  border-radius: 12px;
+  object-fit: cover;
+  margin-left: 1rem;
+  width: 75px;
+  height: 75px;
+}

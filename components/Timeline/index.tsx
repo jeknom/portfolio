@@ -1,10 +1,7 @@
 import { Fragment } from 'react'
-import { VerticalLine } from '../../Core'
-import { AchievementData, HighlightData } from '../../../lib/data'
-import styles from './timeline.module.css'
+import { VerticalLine } from '../Core'
+import styles from './Timeline.module.css'
 import YearRecord from './YearRecord'
-
-const YEARS_TO_RENDER_ON_TIMELINE = 10
 
 export interface YearRecordProps {
   year: number,
@@ -13,24 +10,25 @@ export interface YearRecordProps {
 }
 
 interface TimelineProps {
-  showFullTimeline: boolean,
   achievements: AchievementData[],
+  minAchievementDate: MinAchievementDateData,
   highlights: HighlightData[]
 }
 
-export default function Timeline({ achievements, highlights }: TimelineProps) {
+export default function Timeline({ achievements, minAchievementDate, highlights }: TimelineProps) {
   const renderTimeline = () => {
     const yearRecords = []
     const currentYear = new Date().getFullYear()
-    const lastYearToRender = currentYear - YEARS_TO_RENDER_ON_TIMELINE
+    const minAchievementYear = new Date(minAchievementDate.min).getFullYear()
+    const lastYearToRender = currentYear - (currentYear - minAchievementYear)
     
-    for (let i = currentYear; i > lastYearToRender; i--) {
+    for (let i = currentYear; i >= lastYearToRender; i--) {
       const isSameYear = (date: string | number | Date, year: number) => new Date(date).getFullYear() === year
       const yearsAchievements = achievements.filter(a => isSameYear(a.startDate, i))
       const yearsHighlights = highlights.filter(h => isSameYear(h.date, i))
       const componentToRender = (
         <Fragment key={i}>
-          {i !== currentYear && i !== lastYearToRender + 1 ? <VerticalLine height={18} /> : null}
+          {i !== currentYear && i !== lastYearToRender + 1 ? <VerticalLine height={8} /> : null}
           <YearRecord key={i} year={i} achievements={yearsAchievements} highlights={yearsHighlights} />
         </Fragment>
       )
@@ -44,7 +42,7 @@ export default function Timeline({ achievements, highlights }: TimelineProps) {
   }
 
   return (
-    <section>
+    <section className='fullWidth'>
       {renderTimeline()}
     </section>
   )

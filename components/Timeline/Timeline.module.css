@@ -1,0 +1,22 @@
+.achievement {
+  margin-bottom: 2rem;
+}
+
+.achievementImage {
+  width: 35px;
+  height: 35px;
+}
+
+.timelineContent {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  composes: fadeInPrimary from "../../styles/animations.css";
+}
+
+.highlight {
+  margin-bottom: 2rem;
+  font-weight: 200;
+  font-size: small;
+}

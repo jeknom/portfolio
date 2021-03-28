@@ -1,3 +1,5 @@
+import { FC, ImgHTMLAttributes } from 'react'
+
 interface Base64ImageProps {
   image: string,
   alt: string,
@@ -6,12 +8,19 @@ interface Base64ImageProps {
   style?: object
 }
 
-export default function Base64Image({ image, alt, hideNull, className, style }: Base64ImageProps) {
+const Base64Image: FC<Base64ImageProps & ImgHTMLAttributes<HTMLElement>> =
+  ({ image, alt, hideNull, className, style }) => {
   if (!image && hideNull) {
     return null
   }
 
   return (
-    <img className={className} style={style} src={`data:image/png;base64, ${image}`} alt={alt} />
+    <img
+      className={className}
+      style={style}
+      src={`data:image/png;base64,${image}`}
+      alt={alt} />
   )
 }
+
+export default Base64Image
