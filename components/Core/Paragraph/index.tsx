@@ -4,7 +4,7 @@ interface ParagraphProps {
   text: string
 }
 
-export default function Paragraph({ text, allowDangerousHtml }: ParagraphProps) {
+export default function Paragraph({ text }: ParagraphProps) {
   return (
     <ReactMarkdown
       allowDangerousHtml
