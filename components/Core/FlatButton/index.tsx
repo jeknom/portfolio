@@ -6,7 +6,7 @@ interface FlatButtonProps {
   className?: string
 }
 
-class FlatButton extends Component<FlatButtonProps & React.ButtonHTMLAttributes<HTMLButtonElement>> {
+class FlatButton extends Component<FlatButtonProps & ButtonHTMLAttributes<HTMLButtonElement>> {
   render() {
     const { children, className, ...rest } = this.props
     return (

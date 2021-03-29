@@ -1,3 +1,4 @@
+import { FC } from 'react'
 import Link from 'next/link'
 import { Head, Button, HorizontalLayout } from '../components/Core'
 import {
@@ -5,15 +6,24 @@ import {
   getSkills,
   getAchievements,
   getMinAchievementDate,
-  getHighlights } from '../lib/data'
-import { Header, Intro, Skills, Achievements, Highlights } from '../components/Home'
+  getHighlights,
+  getContactInformation } from '../lib/data'
+import {
+  Header,
+  Intro,
+  Skills,
+  Achievements,
+  Highlights, 
+  ContactInformation } from '../components/Home'
 import styles from '../styles/Home.module.css'
 
-export default function Home({
+const Home: FC<DataProps> = ({
   maintainer,
   skills,
   achievements,
-  highlights }: DataProps) {
+  highlights,
+  contactInformation
+  }) => {
 
   const renderContent = () => {
       return (
@@ -33,6 +43,8 @@ export default function Home({
               <Button>See my full story</Button>
             </Link>
           </HorizontalLayout>
+          <br />
+          <ContactInformation information={contactInformation} />
         </>
       )
   }
@@ -53,8 +65,18 @@ export async function getServerSideProps() {
   const achievements: AchievementData[] = await getAchievements()
   const minAchievementDate: MinAchievementDateData = await getMinAchievementDate()
   const highlights: HighlightData[] = await getHighlights()
+  const contactInformation: ContactInformationData[] = await getContactInformation()
 
   return {
-    props: { maintainer, skills, achievements, minAchievementDate, highlights }
+    props: {
+      maintainer,
+      skills,
+      achievements,
+      minAchievementDate,
+      highlights,
+      contactInformation
+    }
   }
 }
+
+export default Home

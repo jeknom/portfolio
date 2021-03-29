@@ -42,3 +42,10 @@ CREATE TABLE Highlights (
   PRIMARY KEY (id),
   FOREIGN KEY (image_id) REFERENCES Images (id)
 );
+
+CREATE TABLE ContactInformation (
+  id INTEGER,
+  name TEXT NOT NULL,
+  link TEXT NOT NULL,
+  PRIMARY KEY (id)
+);

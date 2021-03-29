@@ -4,4 +4,5 @@ declare type DataProps = {
   achievements: AchievementData[];
   minAchievementDate: MinAchievementDateData;
   highlights: HighlightData[];
-};
+  contactInformation: ContactInformationData[];
+}

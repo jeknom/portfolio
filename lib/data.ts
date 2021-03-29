@@ -27,6 +27,9 @@ const QUERY_HIGHLIGHTS_SQL = `
   FROM Highlights
   LEFT JOIN Images ON Highlights.image_id = Images.id
   ORDER BY date DESC, name`
+const QUERY_CONTACT_INFORMATION_SQL = `
+  SELECT *
+  FROM ContactInformation`
 
 let dataCache: any = null;
 
@@ -44,11 +47,19 @@ async function getData(): Promise<DataProps> {
       const achievements = await db.all(QUERY_ACHIEVEMENTS_SQL)
       const minAchievementDate = await db.get(QUERY_MIN_ACHIEVEMENT_DATE_SQL)
       const highlights = await db.all(QUERY_HIGHLIGHTS_SQL)
+      const contactInformation = await db.all(QUERY_CONTACT_INFORMATION_SQL)
       await db.exec(COMMIT_TRANSACTION)
       
       await db.close()
       
-      return { maintainer, skills, achievements, minAchievementDate, highlights }
+      return {
+        maintainer,
+        skills,
+        achievements,
+        minAchievementDate,
+        highlights,
+        contactInformation
+      }
     } else {
       return dataCache;
     }
@@ -90,4 +101,10 @@ export async function getHighlights(): Promise<HighlightData[]> {
   const data = await getData()
 
   return data?.highlights ?? []
+}
+
+export async function getContactInformation(): Promise<ContactInformationData[]> {
+  const data = await getData()
+
+  return data?.contactInformation ?? []
 }
