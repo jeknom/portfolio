@@ -1,5 +1,4 @@
 import { FC } from 'react'
-import Link from 'next/link'
 import { Head, Button, HorizontalLayout } from '../components/Core'
 import {
   getMaintainer,
@@ -39,9 +38,9 @@ const Home: FC<DataProps> = ({
           <Achievements amountToShow={4} achievements={achievements} />
           <br />
           <HorizontalLayout className={styles.timelineLink}>
-            <Link href='/Timeline'>
+            <a href='/Timeline'>
               <Button>See my full story</Button>
-            </Link>
+            </a>
           </HorizontalLayout>
           <br />
           <ContactInformation information={contactInformation} />

@@ -1,5 +1,4 @@
 import { FC } from 'react'
-import Link from 'next/link'
 import { getAchievements, getMinAchievementDate, getHighlights } from '../lib/data'
 import { Head, FlatButton } from '../components/Core'
 import TimelineComponent from '../components/Timeline'
@@ -17,11 +16,11 @@ const Timeline: FC<TimelineProps> = ({ achievements, minAchievementDate, highlig
       <Head
         title='Timeline'
         description='The story of my career by Johannes Palvanen.' />
-      <Link href='/'>
+      <a href='/'>
         <FlatButton className={styles.closeButton}>
           X
         </FlatButton>
-      </Link>
+      </a>
       <TimelineComponent
         achievements={achievements}
         minAchievementDate={minAchievementDate}
