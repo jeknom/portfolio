@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { HorizontalLayout } from '../../Core'
+import { ResponsiveLayoutGrid } from '../../Core'
 import styles from './ContactInformation.module.css'
 
 interface ContactInformationProps {
@@ -16,7 +16,7 @@ const ContactInformation: FC<ContactInformationProps> = ({ information }) => {
   ))
 
   return (
-    <HorizontalLayout className={styles.layout}><p>Contact me </p>{renderInformation}</HorizontalLayout>
+    <ResponsiveLayoutGrid className={styles.layout}><p>Contact me </p>{renderInformation}</ResponsiveLayoutGrid>
   )
 }
 
