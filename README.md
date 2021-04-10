@@ -16,9 +16,9 @@ ENVIRONMENT="dev"
 SQLITE_DATABASE_PATH="/portfolio.db"
 ```
 
-8. Upload the folder you created to your host. I recommend zipping the file to avoid long upload times.
-9. Once you have the folder on your host, run `npm install` inside of it.
-10. Next up, run `npx next start`. The server should now be running and the app visible behind port 3000.
+7. Upload the folder you created to your host. I recommend zipping the file to avoid long upload times.
+8. Once you have the folder on your host, run `npm install` inside of it.
+9. Next up, run `npx next start`. The server should now be running and the app visible behind port 3000.
 
 Optionally, you can set up a service on Ubuntu to automatically run/restart the app:
 
