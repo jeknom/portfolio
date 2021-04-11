@@ -1,4 +1,5 @@
 import { FC } from 'react'
+import Image from 'next/image'
 import { getAchievements, getMinAchievementDate, getHighlights } from '../lib/data'
 import { Head, FlatButton } from '../components/Core'
 import TimelineComponent from '../components/Timeline'
@@ -18,7 +19,7 @@ const Timeline: FC<TimelineProps> = ({ achievements, minAchievementDate, highlig
         description='The story of my career by Johannes Palvanen.' />
       <a href='/'>
         <FlatButton className={styles.closeButton}>
-          <img src='./x.svg' alt='Close button X' />
+          <Image src='/x.svg' alt='Close button X' width='64' height='64' />
         </FlatButton>
       </a>
       <TimelineComponent
