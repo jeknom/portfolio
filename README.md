@@ -45,3 +45,4 @@ WantedBy=multi-user.target
 
 - As of yet, the environment variable is not important. This should be improved.
 - Make a custom build script for setting up the files automatically.
+- Simplify the Timeline page by dividing it into smaller components.
