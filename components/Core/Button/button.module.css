@@ -3,11 +3,11 @@
   border: solid 1px;
   color: black;
   padding: 6px 12px;
-  border-radius: 0.5rem;
+  border-radius: 8px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
+  font-size: 1rem;
   user-select: none;
   outline: none;
 }

@@ -14,7 +14,7 @@ import {
   Achievements,
   Highlights, 
   ContactInformation } from '../components/Home'
-import styles from '../styles/Home.module.css'
+import styles from '@styles/Home.module.css'
 
 const Home: FC<DataProps> = ({
   maintainer,
@@ -27,23 +27,23 @@ const Home: FC<DataProps> = ({
   const renderContent = () => {
       return (
         <>
-          <Header name={maintainer.name} headline={maintainer.headline} image={maintainer.image} />
-          <br />
-          <Intro bio={maintainer.bio} />
-          <br />
-          <Highlights highlights={highlights} />
-          <br />
-          <Skills skills={skills} />
-          <br />
-          <Achievements amountToShow={4} achievements={achievements} />
-          <br />
+          <Header
+            className={styles.section}
+            name={maintainer.name}
+            headline={maintainer.headline}
+            image={maintainer.image} />
+          <Intro className={styles.section} bio={maintainer.bio} />
+          <Highlights className={styles.section} highlights={highlights} />
+          <Skills className={styles.section} skills={skills} />
+          <Achievements className={styles.section} amountToShow={4} achievements={achievements} />
           <HorizontalLayout className={styles.timelineLink}>
             <a href='/Timeline'>
               <Button>See my full story</Button>
             </a>
           </HorizontalLayout>
-          <br />
-          <ContactInformation information={contactInformation} />
+          <footer>
+            <ContactInformation information={contactInformation} />
+          </footer>
         </>
       )
   }
@@ -59,12 +59,21 @@ const Home: FC<DataProps> = ({
 }
 
 export async function getServerSideProps() {
-  const maintainer: MaintainerData = await getMaintainer()
-  const skills: SkillData[] = await getSkills()
-  const achievements: AchievementData[] = await getAchievements()
-  const minAchievementDate: MinAchievementDateData = await getMinAchievementDate()
-  const highlights: HighlightData[] = await getHighlights()
-  const contactInformation: ContactInformationData[] = await getContactInformation()
+  const result = await Promise.all([
+    getMaintainer(),
+    getSkills(),
+    getAchievements(),
+    getMinAchievementDate(),
+    getHighlights(),
+    getContactInformation()
+  ])
+
+  const maintainer: MaintainerData = result[0]
+  const skills: SkillData[] = result[1]
+  const achievements: AchievementData[] = result[2]
+  const minAchievementDate: MinAchievementDateData = result[3]
+  const highlights: HighlightData[] = result[4]
+  const contactInformation: ContactInformationData[] = result[5]
 
   return {
     props: {

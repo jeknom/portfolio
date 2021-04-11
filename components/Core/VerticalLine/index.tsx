@@ -1,12 +1,16 @@
+import { FC } from 'react'
+
 interface VerticalLineProps {
   height: number,
-  className?: any
+  className?: string
 }
 
-export default function VerticalLine({ height, className } : VerticalLineProps) {
+const VerticalLine: FC<VerticalLineProps> = ({ height, className }) => {
   return (
     <span
       className={className}
       style={{ borderRight: '1px solid black', height: `${height}rem` }} />
   )
 }
+
+export default VerticalLine

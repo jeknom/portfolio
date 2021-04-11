@@ -1,11 +1,9 @@
 import React, { FC } from 'react'
-import styles from './HorizontalLayout.module.css'
 import classNames from 'classnames'
+import styles from './HorizontalLayout.module.css'
 
 interface HorizontalLayoutProps {
-  children: any,
-  className?: any,
-  style?: any
+  className?: string
 }
 
 const HorizontalLayout: FC<HorizontalLayoutProps & React.HTMLAttributes<HTMLElement>> =

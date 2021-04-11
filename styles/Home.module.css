@@ -24,3 +24,11 @@
 .timelineLink {
   justify-content: center;
 }
+
+.section {
+  margin-bottom: 2.5rem;
+}
+
+.footer {
+  background-color: rgba(0, 0, 0, 0.479);
+}

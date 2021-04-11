@@ -1,14 +1,19 @@
+import { FC } from 'react'
+import classNames from 'classnames'
 import { Paragraph } from '../../Core'
 import styles from '../../../styles/Home.module.css'
 
 interface IntroProps {
-  bio: string
+  bio: string,
+  className?: string
 }
 
-export default function Intro({ bio }: IntroProps) {
+const Intro: FC<IntroProps> = ({ bio, className, ...rest }) => {
   return (
-    <section className={styles.bio}>
+    <section {...rest} className={classNames(className, styles.bio)}>
       <Paragraph text={bio} />
     </section>
   )
 }
+
+export default Intro

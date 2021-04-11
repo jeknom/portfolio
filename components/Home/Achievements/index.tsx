@@ -1,15 +1,17 @@
+import { FC, Fragment } from 'react'
 import { Title, Divider, Base64Image } from '../../Core'
-import { getShortDateOr } from '../../../lib/utils'
+import { getShortDateOr } from '@lib/utils'
+import { DATE_NULL_REPLACEMENT } from '@lib/constants'
 import styles from './Achievements.module.css'
-import { DATE_NULL_REPLACEMENT } from '../../../lib/constants'
-import { Fragment } from 'react'
+import classNames from 'classnames'
 
 interface AchievementProps {
   amountToShow: number,
-  achievements: AchievementData[]
+  achievements: AchievementData[],
+  className?: string
 }
 
-export default function Achievements({ amountToShow, achievements }: AchievementProps) {
+const Achievements: FC<AchievementProps> = ({ amountToShow, achievements, className, ...rest }) => {
   const actualAmountToShow = Math.min(achievements.length, amountToShow)
   const renderAchievements = achievements.slice(0, actualAmountToShow).map(a => (
       <Fragment key={a.title+a.subtitle+a.endDate}>
@@ -33,10 +35,12 @@ export default function Achievements({ amountToShow, achievements }: Achievement
   )
 
   return (
-    <section className='fullWidth'>
+    <section {...rest} className={classNames(className, 'fullWidth')}>
       <Title text='Experience' />
       <Divider />
       {renderAchievements}
     </section>
   )
 }
+
+export default Achievements

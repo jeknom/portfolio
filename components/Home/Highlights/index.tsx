@@ -1,14 +1,16 @@
 import React, { FC } from 'react'
+import classNames from 'classnames'
 import { Title, Divider, Carousel } from '../../Core'
 import Highlight from './Highlight'
 
 interface HighlightsProps {
   highlights: HighlightData[]
+  className?: string
 }
 
 const HIGHLIGHTS_TO_RENDER: number = 4
 
-const Highlights: FC<HighlightsProps> = ({ highlights }) => {
+const Highlights: FC<HighlightsProps> = ({ highlights, className, ...rest }) => {
   const highlightsToRender = highlights.length > HIGHLIGHTS_TO_RENDER ?
     highlights.slice(0, HIGHLIGHTS_TO_RENDER) :
     highlights
@@ -29,7 +31,7 @@ const Highlights: FC<HighlightsProps> = ({ highlights }) => {
   )
   
   return (
-    <section className='fullWidth'>
+    <section {...rest} className={classNames(className, 'fullWidth')}>
       <Title text='Highlights' />
       <Divider />
       <Carousel>

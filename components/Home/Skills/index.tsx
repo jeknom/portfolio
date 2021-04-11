@@ -1,17 +1,20 @@
+import { FC } from 'react'
 import Skill from './Skill'
 import { Title, Divider, ResponsiveLayoutGrid } from '../../Core'
+import classNames from 'classnames'
 
 interface SkillsProps {
   skills: SkillData[]
+  className?: string
 }
 
-export default function Skills({ skills }: SkillsProps) {
+const Skills: FC<SkillsProps> = ({ skills, className, ...rest }) => {
   const renderSkills = skills.map((s, index) =>
     <Skill key={index} name={s.name} description={s.description} rank={s.rank} />
   )
 
   return (
-    <section className='fullWidth'>
+    <section {...rest} className={classNames(className, 'fullWidth')}>
       <Title text='Confidence' />
       <Divider />
       <ResponsiveLayoutGrid>
@@ -20,3 +23,5 @@ export default function Skills({ skills }: SkillsProps) {
     </section>
   )
 }
+
+export default Skills
