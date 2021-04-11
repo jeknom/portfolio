@@ -1,9 +1,10 @@
 import { FC, Fragment } from 'react'
-import { Title, Divider, Base64Image } from '../../Core'
+import Image from 'next/image'
+import classNames from 'classnames'
+import { Title, Divider } from '../../Core'
 import { getShortDateOr } from '@lib/utils'
 import { DATE_NULL_REPLACEMENT } from '@lib/constants'
 import styles from './Achievements.module.css'
-import classNames from 'classnames'
 
 interface AchievementProps {
   amountToShow: number,
@@ -23,11 +24,12 @@ const Achievements: FC<AchievementProps> = ({ amountToShow, achievements, classN
               {getShortDateOr(a.startDate, DATE_NULL_REPLACEMENT)} - {getShortDateOr(a.endDate, DATE_NULL_REPLACEMENT)}
             </span>
           </span>
-          <Base64Image
-            style={{ height: '75px', width: '75px', borderRadius: '12px' }}
-            image={a.image}
+          <Image
+            className={styles.achievementImage}
+            src={a.image}
             alt={`${a.title} image.`}
-            hideNull />
+            width='75'
+            height='75' />
         </div>
         <br />
       </Fragment>

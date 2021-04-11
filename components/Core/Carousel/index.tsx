@@ -36,11 +36,11 @@ const Carousel: FC = ({ children }) => {
       {children[currentIndex]}
       <HorizontalLayout className={styles.actions}>
         <FlatButton onClick={prevItem}>
-          <Image src='/arrow-left.svg' alt='Previous carousel item icon.' height='16' width='16' />
+          <Image src='/arrow-left.svg' alt='Previous carousel item icon.' height='16' width='16' priority />
         </FlatButton>
         <p className='secondaryText'>{currentIndex + 1} / {childrenCount}</p>
         <FlatButton onClick={nextItem}>
-          <Image src='/arrow-right.svg' alt='Next carousel item icon.' height='16' width='16' />
+          <Image src='/arrow-right.svg' alt='Next carousel item icon.' height='16' width='16' priority />
         </FlatButton>
       </HorizontalLayout>
     </VerticalLayout>

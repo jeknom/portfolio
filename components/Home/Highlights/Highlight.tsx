@@ -1,5 +1,6 @@
 import { FC } from 'react'
-import { Paragraph, HorizontalLayout, Base64Image } from '../../Core'
+import Image from 'next/image'
+import { Paragraph, HorizontalLayout } from '../../Core'
 import styles from './Highlights.module.css'
 
 interface HighlightProps {
@@ -9,6 +10,14 @@ interface HighlightProps {
 }
 
 const Highlight: FC<HighlightProps> = ({ title, description, image }) => {
+  const renderImage = image === null ? null : (
+    <Image
+      className={styles.image}
+      src={image}
+      alt={`${title} image.`}
+      height='75'
+      width='75' />
+  )
 
   return (
     <HorizontalLayout className={styles.highlightroot}>
@@ -16,11 +25,7 @@ const Highlight: FC<HighlightProps> = ({ title, description, image }) => {
           <p className='subtitle'>{title}</p>
           <Paragraph text={description} />
         </span>
-      <Base64Image
-        className={styles.image}
-        image={image}
-        alt={`${title} image.`}
-        hideNull />
+      {renderImage}
     </HorizontalLayout>
   )
 }

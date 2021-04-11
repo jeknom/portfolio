@@ -4,3 +4,4 @@ node_modules
 .env.local
 portfolio.db
 portfolio.db-journal
+public/images/*

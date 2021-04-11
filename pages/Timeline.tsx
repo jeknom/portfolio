@@ -19,7 +19,7 @@ const Timeline: FC<TimelineProps> = ({ achievements, minAchievementDate, highlig
         description='The story of my career by Johannes Palvanen.' />
       <a href='/'>
         <FlatButton className={styles.closeButton}>
-          <Image src='/x.svg' alt='Close button X' width='64' height='64' />
+          <Image src='/x.svg' alt='Close button X' width='64' height='64' priority />
         </FlatButton>
       </a>
       <TimelineComponent

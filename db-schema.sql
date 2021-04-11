@@ -1,6 +1,6 @@
 CREATE TABLE Images (
   id INTEGER,
-  data BYTEA UNIQUE,
+  path TEXT UNIQUE,
   PRIMARY KEY (id)
 );
 

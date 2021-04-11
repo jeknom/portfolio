@@ -5,7 +5,7 @@ import { NO_DATA } from './constants'
 const BEGIN_TRANSACTION = 'BEGIN'
 const COMMIT_TRANSACTION = 'COMMIT'
 const QUERY_MAINTAINER_SQL = `
-  SELECT name, headline, bio, data as image
+  SELECT name, headline, bio, path as image
   FROM Maintainers
   LEFT JOIN Images ON Maintainers.image_id = Images.id
   WHERE Maintainers.id = 1`
@@ -14,7 +14,7 @@ const QUERY_SKILLS_SQL = `
   FROM Skills
   ORDER BY rank DESC, name`
 const QUERY_ACHIEVEMENTS_SQL = `
-  SELECT title, subtitle, startDate, endDate, data as image
+  SELECT title, subtitle, startDate, endDate, path as image
   FROM Achievements
   LEFT JOIN Images ON Achievements.image_id = Images.id
   ORDER BY startDate DESC, title`
@@ -23,7 +23,7 @@ const QUERY_MIN_ACHIEVEMENT_DATE_SQL = `
   FROM Achievements
   LIMIT 1`
 const QUERY_HIGHLIGHTS_SQL = `
-  SELECT name, description, date, data as image
+  SELECT name, description, date, path as image
   FROM Highlights
   LEFT JOIN Images ON Highlights.image_id = Images.id
   ORDER BY date DESC, name`

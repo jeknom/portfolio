@@ -1,10 +1,9 @@
-.achievement {
+.entry {
   margin-bottom: 2rem;
 }
 
 .achievementImage {
-  width: 35px;
-  height: 35px;
+  border-radius: 8px;
 }
 
 .timelineContent {
@@ -13,10 +12,4 @@
   flex-direction: column;
   align-items: center;
   composes: fadeInPrimary from "../../styles/animations.css";
-}
-
-.highlight {
-  margin-bottom: 2rem;
-  font-weight: 200;
-  font-size: small;
 }
