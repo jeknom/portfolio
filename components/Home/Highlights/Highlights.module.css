@@ -1,9 +1,12 @@
 .highlightroot {
+  align-items: center;
   composes: fadeInPrimary from "../../../styles/animations.css";
+}
+
+.imageContainer {
+  margin-left: 1rem;
 }
 
 .image {
   border-radius: 12px;
-  object-fit: cover;
-  margin-left: 1rem;
 }

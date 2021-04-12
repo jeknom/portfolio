@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import Image from 'next/image'
-import { Paragraph, HorizontalLayout } from '../../Core'
+import { Paragraph, HorizontalLayout, VerticalLayout } from '../../Core'
 import styles from './Highlights.module.css'
 
 interface HighlightProps {
@@ -15,17 +15,20 @@ const Highlight: FC<HighlightProps> = ({ title, description, image }) => {
       className={styles.image}
       src={image}
       alt={`${title} image.`}
+      layout='fixed'
       height='75'
       width='75' />
   )
 
   return (
     <HorizontalLayout className={styles.highlightroot}>
-      <span>
-          <p className='subtitle'>{title}</p>
-          <Paragraph text={description} />
-        </span>
-      {renderImage}
+      <VerticalLayout>
+        <p className='subtitle'>{title}</p>
+        <Paragraph text={description} />
+      </VerticalLayout>
+      <VerticalLayout className={styles.imageContainer}>
+        {renderImage}
+      </VerticalLayout>
     </HorizontalLayout>
   )
 }
