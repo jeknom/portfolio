@@ -2,6 +2,10 @@
   border-radius: 26px;
 }
 
+.profilePictureContainer {
+  margin-bottom: 1rem;
+}
+
 .header {
   display: flex;
   flex-direction: column;

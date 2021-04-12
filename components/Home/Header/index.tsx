@@ -13,7 +13,7 @@ interface HeaderProps {
 const Header: FC<HeaderProps> = ({ name, headline, image, className, ...rest }) => {
   return (
     <section {...rest} className={classNames(styles.header, className)}>
-      <span className={styles.profilePictureShadow}>
+      <span className={styles.profilePictureContainer}>
         <Image className={styles.profilePicture} src={image} alt='Profile picture' height='256' width='256' priority />
       </span>
       <span className='primaryText'>{name}</span>
