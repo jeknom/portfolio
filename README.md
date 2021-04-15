@@ -7,7 +7,7 @@ Here is the code I use to run my portfolio on. It's a [next.js](https://nextjs.o
 1. Clone this repository.
 2. Run `npm install` inside the project directory.
 3. Run `npm run build` or `npx next build` inside the project directory.
-4. Copy the `.next`, `public`, `cert` folder, `next.config.js` and `package.json` into a new empty directory of your choosing.
+4. Copy the `.next`, `public`, `cert` folder, `next.config.js`, `server.js` and `package.json` into a new empty directory of your choosing.
 5. If you have not created one already, create a SQLite database inside the new empty directory. Use the `db-schema.sql` in the root of the project directory to initialize the database.
 6. Create a `.env.local` file next to your database file and copy + paste the following:
 
