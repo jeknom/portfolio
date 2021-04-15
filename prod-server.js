@@ -2,14 +2,13 @@ const { createServer } = require('https')
 const { parse } = require('url')
 const next = require('next')
 const fs = require('fs')
-
-const isProduction = process.env.NODE_ENV === 'production'
-const app = next({ dev: !isProduction })
-const port = isProduction ? 80 : 3000
+const app = next({ dev: false })
+const port = 443
 const handle = app.getRequestHandler()
 const options = {
   key: fs.readFileSync('./certs/server.key'),
-  cert: fs.readFileSync('./certs/server.crt')
+  cert: fs.readFileSync('./certs/server.crt'),
+  ca: fs.readFileSync ('./certs/server.ca-bundle')
 };
 
 app.prepare().then(() => {
@@ -24,8 +23,8 @@ app.prepare().then(() => {
     } else {
       handle(req, res, parsedUrl)
     }
-  }).listen(port, (err) => {
+  }).listen(port, "0.0.0.0", (err) => {
     if (err) throw err
-    console.log(`> Ready on https://localhost:${port}`)
+    console.log(`> Listening on port ${port}`)
   })
 })
