@@ -2,52 +2,9 @@ html,
 body {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  line-height: 1.6;
-  font-size: 18px;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-/* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 600px) {
-  body {
-    width: auto;
-    padding: 0.5rem;
-  }
-}
-
-/* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {
-  body {
-    width: auto;
-    padding: 0.5rem;
-  }
-}
-
-/* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {
-  body {
-    width: auto;
-    padding: 2rem;
-  }
-}
-
-/* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 992px) {
-  body {
-    width: 40vw;
-    padding: 2rem;
-  }
-}
-
-/* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1800px) {
-  body {
-    width: 30vw;
-    padding: 2rem;
-  }
 }
 
 * {
@@ -70,6 +27,23 @@ p {
 img {
   max-width: 100%;
   display: block;
+}
+
+#__next {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  line-height: 1.6;
+  font-size: 18px;
+  overflow-x: hidden;
+  width: clamp(10%, 45%, 60%);
+}
+
+@media only screen and (max-width: 768px) {
+  #__next {
+    width: 90vw;
+  }
 }
 
 .primaryText {

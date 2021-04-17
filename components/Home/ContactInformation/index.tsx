@@ -1,5 +1,4 @@
-import { FC } from 'react'
-import { VerticalLayout } from '../../Core'
+import { FC, Fragment } from 'react'
 import styles from './ContactInformation.module.css'
 
 interface ContactInformationProps {
@@ -7,16 +6,14 @@ interface ContactInformationProps {
 }
 
 const ContactInformation: FC<ContactInformationProps> = ({ information }) => {
-  const renderInformation = information.map(info => (
-    <p key={info.name}>
-      <a href={info.link} target='_blank'>
-        {info.name}
-      </a>
-    </p>
+  const renderInformation = information.map((info, index) => (
+    <Fragment key={index}>
+      | <a href={info.link} target='_blank'>{info.name}{' '}</a>
+    </Fragment>
   ))
 
   return (
-    <VerticalLayout className={styles.layout}><p>Catch me @</p>{renderInformation}</VerticalLayout>
+    <p className={styles.layout}>Catch me @ {renderInformation}</p>
   )
 }
 

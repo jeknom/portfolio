@@ -1,7 +1,5 @@
 import { FC } from 'react'
-import classNames from 'classnames'
 import { Paragraph } from '../../Core'
-import styles from '../../../styles/Home.module.css'
 
 interface IntroProps {
   bio: string,
@@ -10,7 +8,7 @@ interface IntroProps {
 
 const Intro: FC<IntroProps> = ({ bio, className, ...rest }) => {
   return (
-    <section {...rest} className={classNames(className, styles.bio)}>
+    <section {...rest} className={className}>
       <Paragraph text={bio} />
     </section>
   )
