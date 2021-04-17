@@ -42,6 +42,20 @@ Restart=on-failure
 WantedBy=multi-user.target
 ```
 
+## Notes
+
+Do not try to forcibly bind the website to ports 80 or 443 for http or https. Instead, redirect the ports. Following example in Ubuntu:
+
+Http to port 8080:
+
+`sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080`
+
+Https to port 3000:
+
+`sudo iptables -t nat -A PREROUTING -p tcp --dport 443 -j REDIRECT --to-port 3000`
+
+There is a small redirect app I made for redirecting traffic from http to https [here](https://github.com/jeknom/https-redirect).
+
 ## Todo
 
 - As of yet, the environment variable is not important. This should be improved.

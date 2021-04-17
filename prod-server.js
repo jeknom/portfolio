@@ -3,7 +3,7 @@ const { parse } = require('url')
 const next = require('next')
 const fs = require('fs')
 const app = next({ dev: false })
-const port = 443
+const port = 3000
 const handle = app.getRequestHandler()
 const options = {
   key: fs.readFileSync('./certs/server.key'),
