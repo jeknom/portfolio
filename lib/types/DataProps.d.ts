@@ -5,4 +5,5 @@ declare type DataProps = {
   minAchievementDate: MinAchievementDateData;
   highlights: HighlightData[];
   contactInformation: ContactInformationData[];
+  openGraphData: OpenGraphData;
 }

@@ -30,6 +30,11 @@ const QUERY_HIGHLIGHTS_SQL = `
 const QUERY_CONTACT_INFORMATION_SQL = `
   SELECT *
   FROM ContactInformation`
+const QUERY_OPEN_GRAPH_DATA_SQL = `
+  SELECT title, description, type, path as image
+  FROM OpenGraphData
+  LEFT JOIN Images ON OpenGraphData.image_id = Images.id
+  LIMIT 1`
 
 let dataCache: any = null;
 
@@ -48,6 +53,7 @@ async function getData(): Promise<DataProps> {
       const minAchievementDate = await db.get(QUERY_MIN_ACHIEVEMENT_DATE_SQL)
       const highlights = await db.all(QUERY_HIGHLIGHTS_SQL)
       const contactInformation = await db.all(QUERY_CONTACT_INFORMATION_SQL)
+      const openGraphData = await db.get(QUERY_OPEN_GRAPH_DATA_SQL)
       await db.exec(COMMIT_TRANSACTION)
       
       await db.close()
@@ -58,7 +64,8 @@ async function getData(): Promise<DataProps> {
         achievements,
         minAchievementDate,
         highlights,
-        contactInformation
+        contactInformation,
+        openGraphData
       }
     } else {
       return dataCache;
@@ -107,4 +114,15 @@ export async function getContactInformation(): Promise<ContactInformationData[]>
   const data = await getData()
 
   return data?.contactInformation ?? []
+}
+
+export async function getOpenGraphData(): Promise<OpenGraphData> {
+  const data = await getData()
+
+  return data?.openGraphData ?? ({
+    title: NO_DATA,
+    description: NO_DATA,
+    type: NO_DATA,
+    image: NO_DATA
+  })
 }

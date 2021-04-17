@@ -6,7 +6,8 @@ import {
   getAchievements,
   getMinAchievementDate,
   getHighlights,
-  getContactInformation } from '../lib/data'
+  getContactInformation,
+  getOpenGraphData } from '../lib/data'
 import {
   Header,
   Intro,
@@ -21,7 +22,8 @@ const Home: FC<DataProps> = ({
   skills,
   achievements,
   highlights,
-  contactInformation
+  contactInformation,
+  openGraphData
   }) => {
 
   const renderContent = () => {
@@ -51,8 +53,10 @@ const Home: FC<DataProps> = ({
   return (
     <>
       <Head
-        title={maintainer.name}
-        description={`${maintainer.name} the ${maintainer.headline}'s portfolio. Check out the latest from the up and coming developer from Helsinki, Finland!`} />
+        title={openGraphData.title}
+        type={openGraphData.type}
+        description={openGraphData.description}
+        imagePath={openGraphData.image} />
       {renderContent()}
     </>
   )
@@ -65,7 +69,8 @@ export async function getServerSideProps() {
     getAchievements(),
     getMinAchievementDate(),
     getHighlights(),
-    getContactInformation()
+    getContactInformation(),
+    getOpenGraphData()
   ])
 
   const maintainer: MaintainerData = result[0]
@@ -74,6 +79,7 @@ export async function getServerSideProps() {
   const minAchievementDate: MinAchievementDateData = result[3]
   const highlights: HighlightData[] = result[4]
   const contactInformation: ContactInformationData[] = result[5]
+  const openGraphData: OpenGraphData = result[6]
 
   return {
     props: {
@@ -82,7 +88,8 @@ export async function getServerSideProps() {
       achievements,
       minAchievementDate,
       highlights,
-      contactInformation
+      contactInformation,
+      openGraphData
     }
   }
 }

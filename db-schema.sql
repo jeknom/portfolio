@@ -49,3 +49,13 @@ CREATE TABLE ContactInformation (
   link TEXT NOT NULL,
   PRIMARY KEY (id)
 );
+
+CREATE TABLE OpenGraphData (
+  id INTEGER,
+  title TEXT NOT NULL,
+  description TEXT NOT NULL,
+  type TEXT NOT NULL,
+  image_id INTEGER NOT NULL,
+  FOREIGN KEY (image_id) REFERENCES Images (id),
+  CHECK (id = 1)
+);
