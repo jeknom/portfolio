@@ -11,7 +11,7 @@ export default function Skill({ name, description, rank }: SkillData) {
       case 3:
         return '#679af8'
       case 2:
-        return '#73f867'
+        return '#01e01f'
       case 1:
         return '#818181'
     }

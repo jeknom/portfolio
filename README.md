@@ -62,5 +62,3 @@ There is a small redirect app I made for redirecting traffic from http to https 
 - Make a custom build script for setting up the files automatically.
 - Simplify the Timeline page by dividing it into smaller components.
 - Figure out a clean looking way of making the carousel buttons stay put.
-- Adjust the green (uncommon) color to align better with the other confidence colors.
-- Improve responsive scaling on medium size screens.
