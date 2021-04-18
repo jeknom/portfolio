@@ -32,3 +32,9 @@ export function getMonthOr(dateString: string, defaultValue: string): string {
 
   return defaultValue
 }
+
+export async function waitForPredicate(predicate: () => boolean, checkInterval: number) {
+  while (!predicate()) {
+    await new Promise(resolve => setTimeout(() => resolve('resolved'), checkInterval));
+  }
+}

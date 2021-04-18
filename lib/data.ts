@@ -1,6 +1,7 @@
 import sqlite3 from 'sqlite3'
 import { open } from 'sqlite'
 import { NO_DATA } from './constants'
+import { waitForPredicate } from './utils'
 
 const BEGIN_TRANSACTION = 'BEGIN'
 const COMMIT_TRANSACTION = 'COMMIT'
@@ -36,29 +37,57 @@ const QUERY_OPEN_GRAPH_DATA_SQL = `
   LEFT JOIN Images ON OpenGraphData.image_id = Images.id
   LIMIT 1`
 
-let dataCache: any = null;
+interface DataCache {
+  lastUpdate: number,
+  cache: DataProps
+}
+
+const cacheUpdateInterval: number = 60000
+let dataCache: DataCache | null = null
+let isRefreshingCache = false
 
 async function getData(): Promise<DataProps> {
   try {
-    if (dataCache === null || process.env.ENVIRONMENT === 'DEV') {
+    if (isRefreshingCache) {
+      await waitForPredicate(() => !isRefreshingCache, 100)
+    }
+
+    const timeSinceLastRefresh = Date.now().valueOf() - dataCache?.lastUpdate.valueOf();
+    const shouldRefreshCache = dataCache === null || timeSinceLastRefresh > cacheUpdateInterval;
+
+    if (shouldRefreshCache) {
+      isRefreshingCache = true
+
       const db = await open({
         filename: process.env.SQLITE_DATABASE_PATH,
         driver: sqlite3.Database
       })
-    
+      
       await db.exec(BEGIN_TRANSACTION)
-      const maintainer = await db.get(QUERY_MAINTAINER_SQL)
-      const skills = await db.all(QUERY_SKILLS_SQL)
-      const achievements = await db.all(QUERY_ACHIEVEMENTS_SQL)
-      const minAchievementDate = await db.get(QUERY_MIN_ACHIEVEMENT_DATE_SQL)
-      const highlights = await db.all(QUERY_HIGHLIGHTS_SQL)
-      const contactInformation = await db.all(QUERY_CONTACT_INFORMATION_SQL)
-      const openGraphData = await db.get(QUERY_OPEN_GRAPH_DATA_SQL)
+      const queries = [
+        db.get(QUERY_MAINTAINER_SQL),
+        db.all(QUERY_SKILLS_SQL),
+        db.all(QUERY_ACHIEVEMENTS_SQL),
+        db.get(QUERY_MIN_ACHIEVEMENT_DATE_SQL),
+        db.all(QUERY_HIGHLIGHTS_SQL),
+        db.all(QUERY_CONTACT_INFORMATION_SQL),
+        db.get(QUERY_OPEN_GRAPH_DATA_SQL)
+      ]
+      
+      const [
+        maintainer,
+        skills,
+        achievements,
+        minAchievementDate,
+        highlights,
+        contactInformation,
+        openGraphData
+      ] = await Promise.all(queries)
+
       await db.exec(COMMIT_TRANSACTION)
-      
       await db.close()
-      
-      return {
+
+      const result = {
         maintainer,
         skills,
         achievements,
@@ -67,12 +96,19 @@ async function getData(): Promise<DataProps> {
         contactInformation,
         openGraphData
       }
+
+      dataCache = { cache: result, lastUpdate: Date.now().valueOf() }
+      isRefreshingCache = false
+
+      return result
     } else {
-      return dataCache;
+      return dataCache.cache;
     }
   } catch (error) {
     console.error('Fetch failed:', error)
   }
+
+  isRefreshingCache = false
 }
 
 export async function getMaintainer(): Promise<MaintainerData> {
