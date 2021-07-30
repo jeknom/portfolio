@@ -9,19 +9,19 @@
   },
   "dependencies": {
     "classnames": "^2.3.1",
-    "next": "^10.2.3",
-    "npm": "^7.15.1",
+    "next": "^11.0.1",
+    "npm": "^7.20.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-markdown": "^6.0.2",
+    "react-markdown": "^6.0.3",
     "sqlite": "^4.0.23",
     "sqlite3": "^5.0.2"
   },
   "devDependencies": {
     "@types/classnames": "^2.3.1",
-    "@types/node": "^15.6.2",
-    "@types/react": "^17.0.9",
+    "@types/node": "^16.4.7",
+    "@types/react": "^17.0.15",
     "@types/sqlite3": "^3.1.7",
-    "typescript": "^4.3.2"
+    "typescript": "^4.3.5"
   }
 }
