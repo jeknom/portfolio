@@ -10,6 +10,7 @@ services:
     ports:
       - "3000:3000"
     environment:
+      ENVRIONMENT: ${ENVIRONMENT}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
