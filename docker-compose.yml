@@ -1,0 +1,36 @@
+version: "3.5"
+
+services:
+  app:
+    build: "."
+    restart: unless-stopped
+    container_name: portfolio-app
+    depends_on:
+      - db
+    ports:
+      - "3000:3000"
+    environment:
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    volumes:
+      - ".:/opt/portfolio"
+  db:
+    image: mysql
+    restart: unless-stopped
+    container_name: portfolio-db
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    volumes:
+      - "./database:/var/lib/mysql"
+  adminer:
+    image: adminer
+    depends_on:
+      - db
+    restart: always
+    ports:
+      - 8080:8080

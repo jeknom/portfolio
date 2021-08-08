@@ -10,7 +10,7 @@ interface SkillsProps {
 
 const Skills: FC<SkillsProps> = ({ skills, className, ...rest }) => {
   const renderSkills = skills.map((s, index) =>
-    <Skill key={index} name={s.name} description={s.description} rank={s.rank} />
+    <Skill key={index} name={s.name} score={s.score} />
   )
 
   return (

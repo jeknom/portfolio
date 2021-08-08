@@ -1,8 +1,8 @@
 import { Paragraph } from '../../Core'
 import styles from './skill.module.css'
 
-export default function Skill({ name, description, rank }: SkillData) {
-  const getColorForRank = (rank: number) => {
+export default function Skill({ name, score }: SkillData) {
+  const getColorForScore = (rank: number) => {
     switch (rank) {
       case 5:
         return '#f3c98a'
@@ -21,10 +21,9 @@ export default function Skill({ name, description, rank }: SkillData) {
     <div className={styles.root}>
       <span>
         <p className={styles.title}><span className='subtitle'>{name}</span></p>
-        <Paragraph text={description} />
       </span>
-      <span className={styles.rank} style={{ backgroundColor: getColorForRank(rank) }}>
-        {rank * 20}
+      <span className={styles.rank} style={{ backgroundColor: getColorForScore(score) }}>
+        {score * 20}
         <span className={styles.rankTooltipText}>Confidence score</span>
       </span>
     </div>

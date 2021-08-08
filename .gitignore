@@ -1,8 +1,10 @@
 .DS_Store
 node_modules
 .next
+.env
 .env.local
 portfolio.db
 portfolio.db-journal
 public/images/*
 certs/*
+database

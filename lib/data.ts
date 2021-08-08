@@ -1,41 +1,38 @@
-import sqlite3 from 'sqlite3'
-import { open } from 'sqlite'
+import mysql from 'mysql';
 import { NO_DATA } from './constants'
-import { waitForPredicate } from './utils'
+import { waitForPredicate, queryAll, queryGet } from './utils'
 
-const BEGIN_TRANSACTION = 'BEGIN'
-const COMMIT_TRANSACTION = 'COMMIT'
 const QUERY_MAINTAINER_SQL = `
   SELECT name, headline, bio, path as image
   FROM Maintainers
   LEFT JOIN Images ON Maintainers.image_id = Images.id
   WHERE Maintainers.id = 1`
 const QUERY_SKILLS_SQL = `
-  SELECT name, rank
+  SELECT name, score
   FROM Skills
-  ORDER BY rank DESC, name`
+  ORDER BY score DESC, name;`
 const QUERY_ACHIEVEMENTS_SQL = `
   SELECT title, subtitle, startDate, endDate, path as image
   FROM Achievements
   LEFT JOIN Images ON Achievements.image_id = Images.id
-  ORDER BY startDate DESC, title`
+  ORDER BY startDate DESC, title;`
 const QUERY_MIN_ACHIEVEMENT_DATE_SQL = `
   SELECT MIN(startDate) as min
   FROM Achievements
-  LIMIT 1`
+  LIMIT 1;`
 const QUERY_HIGHLIGHTS_SQL = `
   SELECT name, description, date, path as image
   FROM Highlights
   LEFT JOIN Images ON Highlights.image_id = Images.id
-  ORDER BY date DESC, name`
+  ORDER BY date DESC, name;`
 const QUERY_CONTACT_INFORMATION_SQL = `
   SELECT *
-  FROM ContactInformation`
+  FROM ContactInformation;`
 const QUERY_OPEN_GRAPH_DATA_SQL = `
   SELECT title, description, type, path as image
   FROM OpenGraphData
   LEFT JOIN Images ON OpenGraphData.image_id = Images.id
-  LIMIT 1`
+  LIMIT 1;`
 
 interface DataCache {
   lastUpdate: number,
@@ -58,21 +55,21 @@ async function getData(): Promise<DataProps> {
     if (shouldRefreshCache) {
       isRefreshingCache = true
 
-      const db = await open({
-        filename: process.env.SQLITE_DATABASE_PATH,
-        driver: sqlite3.Database
-      })
-      
-      await db.exec(BEGIN_TRANSACTION)
-      const queries = [
-        db.get(QUERY_MAINTAINER_SQL),
-        db.all(QUERY_SKILLS_SQL),
-        db.all(QUERY_ACHIEVEMENTS_SQL),
-        db.get(QUERY_MIN_ACHIEVEMENT_DATE_SQL),
-        db.all(QUERY_HIGHLIGHTS_SQL),
-        db.all(QUERY_CONTACT_INFORMATION_SQL),
-        db.get(QUERY_OPEN_GRAPH_DATA_SQL)
-      ]
+      const db = await new Promise<mysql.Connection>(resolve => {
+        const { MYSQL_USER, MYSQL_PASSWORD, MYSQL_DATABASE} = process.env;
+        const connection = mysql.createConnection({
+          host: 'db',
+          user: MYSQL_USER,
+          password: MYSQL_PASSWORD,
+          database: MYSQL_DATABASE
+        });
+
+        connection.connect()
+
+        resolve(connection);
+      });
+
+      db.beginTransaction();
       
       const [
         maintainer,
@@ -82,10 +79,18 @@ async function getData(): Promise<DataProps> {
         highlights,
         contactInformation,
         openGraphData
-      ] = await Promise.all(queries)
+      ] = await Promise.all([
+        queryGet<MaintainerData>(db, QUERY_MAINTAINER_SQL),
+        queryAll<SkillData>(db, QUERY_SKILLS_SQL),
+        queryAll<AchievementData>(db, QUERY_ACHIEVEMENTS_SQL),
+        queryGet<MinAchievementDateData>(db, QUERY_MIN_ACHIEVEMENT_DATE_SQL),
+        queryAll<HighlightData>(db, QUERY_HIGHLIGHTS_SQL),
+        queryAll<ContactInformationData>(db, QUERY_CONTACT_INFORMATION_SQL),
+        queryGet<OpenGraphData>(db, QUERY_OPEN_GRAPH_DATA_SQL)
+      ]);
 
-      await db.exec(COMMIT_TRANSACTION)
-      await db.close()
+      db.commit();
+      db.destroy();
 
       const result = {
         maintainer,
@@ -113,7 +118,7 @@ async function getData(): Promise<DataProps> {
 
 export async function getMaintainer(): Promise<MaintainerData> {
   const data = await getData()
-
+  
   return data?.maintainer ?? ({
     name: NO_DATA,
     headline: NO_DATA,
