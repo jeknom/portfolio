@@ -6,9 +6,9 @@ const app = next({ dev: false })
 const port = 3000
 const handle = app.getRequestHandler()
 const options = {
-  key: fs.readFileSync('./certs/server.key'),
-  cert: fs.readFileSync('./certs/server.crt'),
-  ca: fs.readFileSync ('./certs/server.ca-bundle')
+  key: fs.readFileSync(process.env.SSL_CERT_KEY_PATH),
+  cert: fs.readFileSync(process.env.SSL_CERT_PATH),
+  ca: fs.readFileSync (process.env.SSL_CERT_BUNDLE_PATH)
 };
 
 app.prepare().then(() => {

@@ -6,6 +6,6 @@ node_modules
 portfolio.db
 portfolio.db-journal
 app/public/images/*
-app/certs/*
+certs/*
 database
 nginx.conf
