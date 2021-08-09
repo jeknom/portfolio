@@ -10,12 +10,10 @@ services:
     ports:
       - "3000:3000"
     environment:
-      ENVRIONMENT: development
+      ENVRIONMENT: production
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
-    volumes:
-      - .:./opt/portfolio
   db:
     image: mysql
     restart: unless-stopped
@@ -35,3 +33,15 @@ services:
     restart: unless-stopped
     ports:
       - 8080:8080
+  nginx:
+    image: nginx
+    depends_on:
+      - app
+    restart: unless-stopped
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ${SSL_CERT_KEY_PATH}/server_key.key:/etc/nginx/server_key.key
+      - ${SSL_CERT_PATH}/server_cert.crt:/etc/nginx/server_cert.crt

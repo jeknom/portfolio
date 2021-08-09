@@ -5,7 +5,7 @@ node_modules
 .env.local
 portfolio.db
 portfolio.db-journal
-app/public/images/*
-app/certs/*
+public/images/*
+certs/*
 database
 nginx.conf
