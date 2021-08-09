@@ -10,10 +10,10 @@ RUN npm install && npm run build
 
 EXPOSE 3000/tcp
 
-ENV ENVRIONMENT ${ENVIRONMENT}
+ENV ENVIRONMENT ${ENVIRONMENT}
 ENV MYSQL_DATABASE ${MYSQL_DATABASE}
 ENV MYSQL_ROOT_PASSWORD ${MYSQL_ROOT_PASSWORD}
 ENV MYSQL_USER ${MYSQL_USER}
 ENV MYSQL_PASSWORD ${MYSQL_PASSWORD}
 
-CMD if [ "$ENVRIONMENT" = "production" ] ; then npm run start ; else npm run dev ; fi
+CMD if [ "$ENVIRONMENT" = "production" ] ; then npm run start ; else npm run dev ; fi
