@@ -10,12 +10,16 @@ services:
     ports:
       - "3000:3000"
     environment:
-      ENVRIONMENT: development
+      ENVIRONMENT: development
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
+      SSL_CERT_KEY_FILENAME: ${SSL_CERT_KEY_FILENAME}
+      SSL_CERT_FILENAME: ${SSL_CERT_FILENAME}
+      SSL_CERT_BUNDLE_FILENAME: ${SSL_CERT_BUNDLE_FILENAME}
     volumes:
-      - .:./opt/portfolio
+      - ./certs/${SSL_CERT_KEY_FILENAME}:/opt/portfolio/${SSL_CERT_KEY_FILENAME}
+      - ./certs/${SSL_CERT_FILENAME}:/opt/portfolio/${SSL_CERT_FILENAME}
   db:
     image: mysql
     restart: unless-stopped
@@ -27,7 +31,8 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
     volumes:
-      - "./database:/var/lib/mysql"
+      - "./database/container:/var/lib/mysql"
+      - "./database/initialization:/docker-entrypoint-initdb.d"
   adminer:
     image: adminer
     depends_on:
