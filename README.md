@@ -1,64 +1,47 @@
 # Portfolio
 
-Here is the code I use to run my portfolio on. It's a [next.js](https://nextjs.org/) app with a [SQLite](https://www.sqlite.org/index.html) database for holding all the relevant information.
+[![Generic badge](https://img.shields.io/github/last-commit/jeknom/portfolio)](https://github.com/jeknom/portfolio/commits/main)
+[![Generic badge](https://img.shields.io/badge/Demo-https%3A%2F%2Fjohku.org-green)](https://johku.org/)
 
-## Building and deploying
+This is the repository for my portfolio app. The front is a Next.js app which relies on a mySQL database for storage. This app is also dockerized to make it convenient to set up.
 
-1. Clone this repository.
-2. Run `npm install` inside the project directory.
-3. Run `npm run build` or `npx next build` inside the project directory.
-4. Copy the `.next`, `public`, `certs` folder, `next.config.js`, `prod-server.js` and `package.json` into a new empty directory of your choosing.
-5. If you have not created one already, create a SQLite database inside the new empty directory. Use the `db-schema.sql` in the root of the project directory to initialize the database.
-6. Create a `.env.local` file next to your database file and copy + paste the following:
+## Setting up for production
+
+### Prerequisites
+
+- Running instance of Ubuntu server.
+- Static IP address assigned to that instance.
+- Domain name with records pointing to the static IP address.
+- Ports for HTTP (80), HTTPS (443) and adminer (8080) open on that instance.
+
+### Steps
+
+1. Connect to your instance and run [this initialization script](init-ubuntu.sh) with sudo privileges.
+2. Fill in any details required while running this script. The script will ask for following input:
+   - Permission for installing docker and compose (y/n).
+   - Credentials for a new portfolio user.
+   - Details for generating SSL certificates ([Certbot](https://certbot.eff.org/)).
+3. Switch over to the new portfolio user `sudo su portfolio` and navigate to `/home/portfolio`.
+4. Open the .env file with your favorite text editor and fill in the environment variables by following the example at the bottom of this section.
+5. Run the portfolio with `docker-compose -f docker-compose.prod.yml up`.
+6. If everything has been set up correctly, the portfolio should now be up and running on your domain.
 
 ```
-ENVIRONMENT="dev"
-SQLITE_DATABASE_PATH="/portfolio.db"
+# .env
+
+# Cert variables
+SSL_CERT_DIRECTORY_PATH=/etc/letsencrypt/live/<your-domain>
+SSL_CERT_KEY_FILENAME=privkey.pem
+SSL_CERT_FILENAME=cert.pem
+SSL_CERT_BUNDLE_FILENAME=chain.pem
+
+# Database variables
+MYSQL_DATABASE=portfolio-db
+MYSQL_ROOT_PASSWORD=<your-password>
+MYSQL_USER=admin
+MYSQL_PASSWORD=<your-password>
 ```
 
-7. Upload the folder you created to your host. I recommend zipping the file to avoid long upload times.
-8. Once you have the folder on your host, run `npm install` inside of it.
-9. Set up SSL certification by adding your `server.ca-bundle`, `.crt` and `.key` files to the `certs` folder and rename them to `server.ca-bundle`, `server.crt` and `server.key`. This is the path `prod-server.js` will read them from.
-10. Next up, run `npx next start`. The server should now be running and the app visible behind port 443.
+### Notes
 
-Optionally, you can set up a service on Ubuntu to automatically run/restart the app:
-
-- Create a user called portfolio.
-- Check Google how to create a service using `systemctl`.
-- For the service file, this is what I used:
-
-```
-[Unit]
-Description=Portfolio
-
-[Service]
-Type=simple
-User=portfolio
-WorkingDirectory=/home/portfolio/portfolio-build
-ExecStart=/usr/bin/npx next start
-Restart=on-failure
-
-[Install]
-WantedBy=multi-user.target
-```
-
-## Notes
-
-Do not try to forcibly bind the website to ports 80 or 443 for http or https. Instead, redirect the ports. Following example in Ubuntu:
-
-Http to port 8080:
-
-`sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080`
-
-Https to port 3000:
-
-`sudo iptables -t nat -A PREROUTING -p tcp --dport 443 -j REDIRECT --to-port 3000`
-
-There is a small redirect app I made for redirecting traffic from http to https [here](https://github.com/jeknom/https-redirect).
-
-## Todo
-
-- As of yet, the environment variable is not important. This should be improved.
-- Make a custom build script for setting up the files automatically.
-- Simplify the Timeline page by dividing it into smaller components.
-- Figure out a clean looking way of making the carousel buttons stay put.
+- You can edit the data in the portfolio by accessing its database via adminer. To open adminer, go to http://your-domain:8080. You can login using the credentials you wrote down in the .env file.
