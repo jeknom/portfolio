@@ -14,12 +14,6 @@ services:
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
-      SSL_CERT_KEY_FILENAME: ${SSL_CERT_KEY_FILENAME}
-      SSL_CERT_FILENAME: ${SSL_CERT_FILENAME}
-      SSL_CERT_BUNDLE_FILENAME: ${SSL_CERT_BUNDLE_FILENAME}
-    volumes:
-      - ./certs/${SSL_CERT_KEY_FILENAME}:/opt/portfolio/${SSL_CERT_KEY_FILENAME}
-      - ./certs/${SSL_CERT_FILENAME}:/opt/portfolio/${SSL_CERT_FILENAME}
   db:
     image: mysql
     restart: unless-stopped
