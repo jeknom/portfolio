@@ -2,9 +2,9 @@ version: "3.5"
 
 services:
   app:
-    image: jeknom/portfolio-alpine:latest
+    build: "./app"
     restart: unless-stopped
-    container_name: portfolio-app
+    container_name: dev-portfolio-app
     depends_on:
       - db
     ports:
@@ -14,6 +14,8 @@ services:
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
+    volumes:
+      - "./app:/opt/portfolio"
   db:
     image: mysql
     restart: unless-stopped
