@@ -25,7 +25,6 @@ CREATE TABLE `Achievements` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `title` TEXT NOT NULL,
   `subtitle` TEXT NOT NULL,
-  `date` TIMESTAMP NOT NULL,
   `image_id` INTEGER,
   `startDate` DATE,
   `endDate` DATE,
