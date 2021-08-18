@@ -2,7 +2,10 @@ import { FC } from "react";
 import Image from "next/image";
 import styles from "./skill.module.css";
 
-interface SkillProps extends SkillData {}
+interface SkillProps {
+  name: string;
+  imageUrl: string;
+}
 
 const Skill: FC<SkillProps> = ({ name, imageUrl }) => {
   return (
@@ -13,13 +16,15 @@ const Skill: FC<SkillProps> = ({ name, imageUrl }) => {
         </p>
       </span>
       <span className={styles.rank}>
-        <Image
-          src={imageUrl}
-          alt={`${name} icon`}
-          height="32"
-          width="32"
-          priority
-        />
+        {imageUrl && (
+          <Image
+            src={imageUrl}
+            alt={`${name} icon`}
+            height="32"
+            width="32"
+            priority
+          />
+        )}
       </span>
     </div>
   );

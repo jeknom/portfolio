@@ -1,56 +1,62 @@
-import { FC } from 'react'
-import Image from 'next/image'
-import { getAchievements, getMinAchievementDate, getHighlights, getOpenGraphData } from '../lib/data'
-import { Head, FlatButton } from '../components/Core'
-import TimelineComponent from '../components/Timeline'
-import styles from '../styles/Timeline.module.css'
+import { FC } from "react";
+import Image from "next/image";
+import { Head, FlatButton } from "../components/Core";
+import TimelineComponent from "../components/Timeline";
+import styles from "../styles/Timeline.module.css";
+import { fetchOpenGraphData } from "server/endpoints/openGraphData";
+import { fetchAllAchievements } from "@endpoints/achievements";
+import { fetchAllHighlights } from "@endpoints/highlights";
 
 interface TimelineProps {
-  achievements: AchievementData[],
-  minAchievementDate: MinAchievementDateData,
-  highlights: HighlightData[],
-  openGraphData: OpenGraphData
+  achievements?: Achievement[];
+  highlights?: Highlight[];
+  minYear?: number;
+  openGraphData?: OpenGraphData;
 }
 
 const Timeline: FC<TimelineProps> = ({
+  openGraphData,
   achievements,
-  minAchievementDate,
   highlights,
-  openGraphData }) => {
+}) => {
+  const { title, description, type, imageUrl } = openGraphData;
+
   return (
     <>
       <Head
-        title={openGraphData.title}
-        description={openGraphData.description}
-        type={openGraphData.type}
-        imagePath={openGraphData.image} />
-      <a href='/'>
+        title={title}
+        description={description}
+        type={type}
+        imagePath={imageUrl}
+      />
+      <a href="/">
         <FlatButton className={styles.closeButton}>
-          <Image src='/x.svg' alt='Close button X' width='64' height='64' priority />
+          <Image
+            src="/x.svg"
+            alt="Close button X"
+            width="64"
+            height="64"
+            priority
+          />
         </FlatButton>
       </a>
-      <TimelineComponent
-        achievements={achievements}
-        minAchievementDate={minAchievementDate}
-        highlights={highlights} />
+      <TimelineComponent highlights={highlights} achievements={achievements} />
     </>
-  )
-}
+  );
+};
 
 export async function getServerSideProps() {
-  const result = await Promise.all([
-    getAchievements(),
-    getMinAchievementDate(),
-    getHighlights(),
-    getOpenGraphData()])
-  const achievements = result[0]
-  const minAchievementDate = result[1]
-  const highlights = result[2]
-  const openGraphData = result[3]
+  const openGraphData = await fetchOpenGraphData();
+  const achievements = await fetchAllAchievements();
+  const highlights = await fetchAllHighlights();
 
   return {
-    props: { achievements, minAchievementDate, highlights, openGraphData }
-  }
+    props: {
+      openGraphData,
+      achievements,
+      highlights,
+    },
+  };
 }
 
-export default Timeline
+export default Timeline;

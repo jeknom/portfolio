@@ -1,0 +1,79 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Achievements {
+  id        Int       @id @default(autoincrement())
+  title     String    @db.Text
+  subtitle  String    @db.Text
+  image_id  Int?
+  startDate DateTime? @db.Date
+  endDate   DateTime? @db.Date
+  images    Images?   @relation(fields: [image_id], references: [id])
+
+  @@index([image_id], name: "image_id")
+}
+
+model ContactInformation {
+  id   Int    @id @default(autoincrement())
+  name String @db.Text
+  link String @db.Text
+}
+
+model Highlights {
+  id          Int      @id @default(autoincrement())
+  name        String   @db.Text
+  description String   @db.Text
+  date        DateTime @db.Timestamp(0)
+  image_id    Int?
+  images      Images?  @relation(fields: [image_id], references: [id])
+
+  @@index([image_id], name: "image_id")
+}
+
+model Images {
+  id            Int             @id @default(autoincrement())
+  path          String?         @db.Text
+  achievements  Achievements[]
+  highlights    Highlights[]
+  maintainers   Maintainers[]
+  openGraphData OpenGraphData[]
+  skills        Skills[]
+}
+
+model Maintainers {
+  id       Int     @id @default(autoincrement())
+  name     String  @db.Text
+  headline String  @db.Text
+  bio      String  @db.Text
+  image_id Int?
+  images   Images? @relation(fields: [image_id], references: [id])
+
+  @@index([image_id], name: "image_id")
+}
+
+model OpenGraphData {
+  id          Int    @id @default(autoincrement())
+  title       String @db.Text
+  description String @db.Text
+  type        String @db.Text
+  image_id    Int
+  images      Images @relation(fields: [image_id], references: [id])
+
+  @@index([image_id], name: "image_id")
+}
+
+model Skills {
+  id      Int     @id @default(autoincrement())
+  name    String  @db.Text
+  score   Int?
+  icon_id Int?
+  images  Images? @relation(fields: [icon_id], references: [id])
+
+  @@index([icon_id], name: "icon_id")
+}

@@ -11,9 +11,7 @@ services:
       - "3000:3000"
     environment:
       ENVIRONMENT: development
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      DATABASE_URL: ${DATABASE_URL}
     volumes:
       - "./app:/opt/portfolio"
   db:
@@ -29,6 +27,8 @@ services:
     volumes:
       - "./database/container:/var/lib/mysql"
       - "./database/initialization:/docker-entrypoint-initdb.d"
+    ports:
+      - 3306:3306
   adminer:
     image: adminer
     depends_on:

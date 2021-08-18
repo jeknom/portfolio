@@ -4,28 +4,25 @@ import { Title, Divider, Carousel } from "../../Core";
 import Highlight from "./Highlight";
 
 interface HighlightsProps {
-  highlights: HighlightData[];
+  recentHighlights?: Highlight[];
   className?: string;
 }
 
-const HIGHLIGHTS_TO_RENDER: number = 4;
-
 const Highlights: FC<HighlightsProps> = ({
-  highlights,
+  recentHighlights,
   className,
   ...rest
 }) => {
-  const highlightsToRender =
-    highlights.length > HIGHLIGHTS_TO_RENDER
-      ? highlights.slice(0, HIGHLIGHTS_TO_RENDER)
-      : highlights;
+  if (!recentHighlights) {
+    return <p className="subtitle">Loading...</p>;
+  }
 
-  const renderHighlights = highlightsToRender.map((h, index) => (
+  const renderHighlights = recentHighlights.map((h, index) => (
     <Highlight
       key={index}
       title={h.name}
       description={h.description}
-      image={h.image}
+      image={h.imageUrl}
     />
   ));
 
