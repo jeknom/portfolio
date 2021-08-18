@@ -1,16 +1,48 @@
-import React, { FC } from 'react'
-import classNames from 'classnames'
-import styles from './HorizontalLayout.module.css'
+import React, { FC, HTMLProps } from "react";
 
-interface HorizontalLayoutProps {
-  className?: string
+interface HorizontalLayoutProps extends HTMLProps<HTMLDivElement> {
+  alignItems?:
+    | "stretch"
+    | "center"
+    | "flex-start"
+    | "flex-end"
+    | "baseline"
+    | "initial"
+    | "inherit";
+  justifyContent?:
+    | "flex-start"
+    | "flex-end"
+    | "center"
+    | "space-between"
+    | "space-around"
+    | "space-evenly"
+    | "initial"
+    | "inherit";
+  gap?: number;
 }
 
-const HorizontalLayout: FC<HorizontalLayoutProps & React.HTMLAttributes<HTMLElement>> =
-  ({ children, className, ...rest }) => {
+const HorizontalLayout: FC<HorizontalLayoutProps> = ({
+  children,
+  alignItems = "stretch",
+  justifyContent = "space-between",
+  gap = 0,
+  ...rest
+}) => {
   return (
-    <span {...rest} className={classNames(styles.layout, className)}>{children}</span>
-  )
-}
+    <>
+      <div {...rest}>{children}</div>
 
-export default HorizontalLayout
+      <style jsx>{`
+        div {
+          display: flex;
+          flex-direction: row;
+          justify-content: ${justifyContent};
+          align-items: ${alignItems};
+          gap: ${gap}px;
+        }
+      `}</style>
+    </>
+  );
+};
+
+export default HorizontalLayout;

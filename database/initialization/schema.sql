@@ -18,7 +18,9 @@ CREATE TABLE `Skills` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` TEXT NOT NULL,
   `score` INTEGER,
-  PRIMARY KEY (id)
+  `icon_id` INTEGER,
+  PRIMARY KEY (id),
+  FOREIGN KEY (`icon_id`) REFERENCES `Images` (`id`)
 );
 
 CREATE TABLE `Achievements` (

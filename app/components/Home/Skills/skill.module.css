@@ -25,11 +25,4 @@
   color: rgb(255, 255, 255);
   min-height: 35px;
   min-width: 35px;
-  composes: tooltip from "/styles/tooltip.css";
-}
-
-.rankTooltipText {
-  width: 150px;
-  margin-left: -75px;
-  composes: tooltiptext from "/styles/tooltip.css";
 }

@@ -8,8 +8,9 @@ const QUERY_MAINTAINER_SQL = `
   LEFT JOIN Images ON Maintainers.image_id = Images.id
   WHERE Maintainers.id = 1`
 const QUERY_SKILLS_SQL = `
-  SELECT name, score
+  SELECT name, score, experience, path as imageUrl
   FROM Skills
+  LEFT JOIN Images ON Skills.icon_id = Images.id
   ORDER BY score DESC, name;`
 const QUERY_ACHIEVEMENTS_SQL = `
   SELECT title, subtitle, startDate, endDate, path as image
