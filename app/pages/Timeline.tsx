@@ -6,6 +6,7 @@ import styles from "../styles/Timeline.module.css";
 import { fetchOpenGraphData } from "server/endpoints/openGraphData";
 import { fetchAllAchievements } from "@endpoints/achievements";
 import { fetchAllHighlights } from "@endpoints/highlights";
+import { PrismaClient } from "@prisma/client";
 
 interface TimelineProps {
   achievements?: Achievement[];
@@ -46,9 +47,10 @@ const Timeline: FC<TimelineProps> = ({
 };
 
 export async function getServerSideProps() {
-  const openGraphData = await fetchOpenGraphData();
-  const achievements = await fetchAllAchievements();
-  const highlights = await fetchAllHighlights();
+  const prisma = new PrismaClient();
+  const openGraphData = await fetchOpenGraphData(prisma);
+  const achievements = await fetchAllAchievements(prisma);
+  const highlights = await fetchAllHighlights(prisma);
 
   return {
     props: {

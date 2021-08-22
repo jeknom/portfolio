@@ -9,13 +9,13 @@ import {
   ContactInformation as Contact,
 } from "../components/Home";
 import styles from "@styles/Home.module.css";
-import { fetchMaintainer } from "server/endpoints/maintainer";
+import { fetchMaintainer } from "@endpoints/maintainer";
 import { fetchOpenGraphData } from "server/endpoints/openGraphData";
 import { fetchRecentAchievements } from "@endpoints/achievements";
 import { fetchRecentHighlights } from "@endpoints/highlights";
 import { fetchAllSkills } from "@endpoints/skills";
 import { fetchAllContactInformation } from "@endpoints/contactInformation";
-import { ContactInformation } from "@prisma/client";
+import { ContactInformation, PrismaClient } from "@prisma/client";
 
 interface HomeProps {
   maintainer?: Maintainer;
@@ -74,13 +74,14 @@ const Home: FC<HomeProps> = ({
 };
 
 export async function getServerSideProps() {
+  const prisma = new PrismaClient();
   const result = await Promise.all([
-    fetchMaintainer(),
-    fetchRecentAchievements(),
-    fetchRecentHighlights(),
-    fetchOpenGraphData(),
-    fetchAllSkills(),
-    fetchAllContactInformation(),
+    fetchMaintainer(prisma),
+    fetchRecentAchievements(prisma),
+    fetchRecentHighlights(prisma),
+    fetchOpenGraphData(prisma),
+    fetchAllSkills(prisma),
+    fetchAllContactInformation(prisma),
   ]);
 
   return {

@@ -59,6 +59,9 @@ MYSQL_DATABASE=portfolio-db
 MYSQL_ROOT_PASSWORD=<your-password>
 MYSQL_USER=admin
 MYSQL_PASSWORD=<your-password>
+
+# This needs to match to the above
+DATABASE_URL="mysql://<MYSQL_USER>:<MYSQL_PASSWORD>@db/<MYSQL_DATABASE>"
 ```
 
 ## Tips

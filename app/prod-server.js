@@ -43,4 +43,4 @@ app.prepare().then(() => {
     if (err) throw err
     console.log(`> Listening on port ${port}`)
   })
-})
+}).catch(error => console.error(error))

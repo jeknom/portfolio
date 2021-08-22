@@ -36,3 +36,17 @@ export async function waitForPredicate(predicate: () => boolean, checkInterval: 
     await new Promise(resolve => setTimeout(() => resolve('resolved'), checkInterval));
   }
 }
+
+export async function catchAndLogErrors<T>(promise: Promise<T>) {
+  const result: [result: T, error: Error] = [null, null];
+
+  try {
+    const value = await promise;
+    result[0] = value;
+  } catch (error) {
+    console.error(error);
+    result[1] = error;
+  }
+
+  return result;
+}
