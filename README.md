@@ -11,6 +11,7 @@ The dockerized, minimal in style Portfolio.
 - MySQL
 - Prisma
 - Docker
+- Adminer
 - Nginx
 
 ## Docs
