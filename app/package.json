@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "node dev-server.js",
     "build": "next build",
-    "start": "node prod-server.js"
+    "start": "node prod-server.js",
+    "seed": "npx ts-node --compiler-options \"{\\\"module\\\":\\\"commonjs\\\"}\" prisma/seed.ts"
   },
   "dependencies": {
     "@prisma/client": "^2.30.3",
@@ -18,9 +19,10 @@
   },
   "devDependencies": {
     "@types/classnames": "^2.3.1",
-    "@types/node": "^16.7.10",
+    "@types/node": "^16.9.1",
     "@types/react": "^17.0.19",
     "prisma": "^2.30.3",
-    "typescript": "^4.4.2"
+    "ts-node": "^10.2.1",
+    "typescript": "^4.4.3"
   }
 }
