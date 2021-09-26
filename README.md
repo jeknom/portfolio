@@ -16,7 +16,7 @@ The dockerized, minimal in style Portfolio.
 
 ## Docs
 
-- [Setting up for development](/docs/setting-up-for-development)
-- [Setting up for production](/docs/setting-up-for-production)
-- [Database and migrations](/docs/database-and-migrations)
-- [Environment variables](/docs/environment-variables)
+- [Setting up for development](docs/setting-up-for-development)
+- [Setting up for production](docs/setting-up-for-production)
+- [Database and migrations](docs/database-and-migrations)
+- [Environment variables](docs/environment-variables)
