@@ -1,13 +1,18 @@
-import { FC } from 'react'
+import { FC, HTMLProps } from "react";
 
 interface TitleProps {
-  text: string
+  text: string;
 }
 
-const Title: FC<TitleProps> = ({ text }) => {
+const Title: FC<TitleProps & HTMLProps<HTMLHeadingElement>> = ({
+  text,
+  ...rest
+}) => {
   return (
-    <h3 className='primaryText'>{text}</h3>
-  )
-}
+    <h3 {...rest} className="primaryText">
+      {text}
+    </h3>
+  );
+};
 
-export default Title
+export default Title;

@@ -1,22 +1,56 @@
-import { FC, HTMLProps } from 'react'
-import styles from './VerticalLayout.module.css'
-import classNames from 'classnames'
+import { FC, HTMLProps } from "react";
+import styles from "./VerticalLayout.module.css";
+import classNames from "classnames";
 
-interface VerticalLayoutProps extends HTMLProps<HTMLSpanElement> {
-  children: any,
-  className?: any,
-  style?: object
+interface VerticalLayoutProps extends HTMLProps<HTMLDivElement> {
+  children: any;
+  className?: any;
+  style?: object;
+  alignItems?:
+    | "stretch"
+    | "center"
+    | "flex-start"
+    | "flex-end"
+    | "baseline"
+    | "initial"
+    | "inherit";
+  justifyContent?:
+    | "flex-start"
+    | "flex-end"
+    | "center"
+    | "space-between"
+    | "space-around"
+    | "space-evenly"
+    | "initial"
+    | "inherit";
+  gap?: number;
 }
 
-const VerticalLayout: FC<VerticalLayoutProps> = ({ children, className, style, ...rest }) => {
+const VerticalLayout: FC<VerticalLayoutProps> = ({
+  children,
+  className,
+  alignItems = "stretch",
+  justifyContent = "space-between",
+  gap,
+  ...rest
+}) => {
   return (
-    <span
-      {...rest}
-      className={classNames(styles.layout, className)}
-      style={style}>
-      {children}
-    </span>
-  )
-}
+    <>
+      <div {...rest} className={classNames(styles.layout, className)}>
+        {children}
+      </div>
+
+      <style jsx>{`
+        div {
+          display: flex;
+          flex-direction: column;
+          justify-content: ${justifyContent};
+          align-items: ${alignItems};
+          gap: ${gap}px;
+        }
+      `}</style>
+    </>
+  );
+};
 
 export default VerticalLayout;
