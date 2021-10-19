@@ -30,18 +30,23 @@ const Timeline: FC<TimelineProps> = ({
         type={type}
         imagePath={imageUrl}
       />
-      <a href="/">
-        <FlatButton className={styles.closeButton}>
-          <Image
-            src="/x.svg"
-            alt="Close button X"
-            width="64"
-            height="64"
-            priority
-          />
-        </FlatButton>
-      </a>
-      <TimelineComponent highlights={highlights} achievements={achievements} />
+      <div className="scaledBodyRoot">
+        <a href="/">
+          <FlatButton className={styles.closeButton}>
+            <Image
+              src="/x.svg"
+              alt="Close button X"
+              width="64"
+              height="64"
+              priority
+            />
+          </FlatButton>
+        </a>
+        <TimelineComponent
+          highlights={highlights}
+          achievements={achievements}
+        />
+      </div>
     </>
   );
 };

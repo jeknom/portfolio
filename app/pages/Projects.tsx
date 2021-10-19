@@ -1,9 +1,9 @@
-import { FC } from "react";
-import Image from "next/image";
+import { FC, useState } from "react";
 import prisma from "server/prismaClient";
 import { fetchOpenGraphData } from "@endpoints/openGraphData";
 import { Head } from "components/Core";
-import { List, ListItem } from "components/Core";
+import { GridMenu, GridMenuItem, Dialog } from "components/Core";
+import styles from "../styles/Projects.module.css";
 
 interface ProjectsProps {
   openGraphData: OpenGraphData;
@@ -11,32 +11,44 @@ interface ProjectsProps {
 
 const templateData: Project[] = [
   {
-    name: "Best Fiends Stars",
+    name: "Portfolio",
     description:
-      "Fun game where you loerm ipsum loerm ipsum loerm ipsum loerm ipsum loerm ipsum loerm ipsum loerm ipsum",
+      "This portfolio. I made it mainly with Next.js and Typescript.",
+    imageUrl: "https://i.imgur.com/8Pcp9mi.gif",
+  },
+  {
+    name: "Best Fiends: Stars",
+    description: "Match 3 mobile puzzle game.",
+    imageUrl: "https://i.imgur.com/8Pcp9mi.gif",
+  },
+  {
+    name: "Seriously dashboard",
+    description: "Match 3 mobile puzzle game.",
     imageUrl: "https://i.imgur.com/8Pcp9mi.gif",
   },
   {
     name: "Best Fiends",
+    description: "Match 3 mobile puzzle game.",
+    imageUrl: "https://i.imgur.com/8Pcp9mi.gif",
+  },
+  {
+    name: "TeamSpeak 3 server",
     description:
-      "Fun game where you loerm ipsum loerm ipsum loerm ipsum loerm ipsum loerm ipsum loerm ipsum loerm ipsum",
+      "I've hosted a TeamSpeak server for my friends for over 10 years. It's running on an Ubuntu VPS.",
     imageUrl: "https://i.imgur.com/8Pcp9mi.gif",
   },
 ];
 
 const Projects: FC<ProjectsProps> = ({ openGraphData }) => {
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const handleCloseSelectedProjectDialog = () => setSelectedProject(null);
+
   const { title, description, type, imageUrl } = openGraphData;
-  const projects = templateData.map((d) => (
-    <ListItem
-      icon={
-        <Image
-          layout="fixed"
-          src={d.imageUrl}
-          alt={`${d.name} project image`}
-          height={92}
-          width={92}
-        />
-      }
+  const projects = templateData.map((d, i) => (
+    <GridMenuItem
+      key={i}
+      onClick={() => setSelectedProject(d)}
+      imageUrl={d.imageUrl}
       primary={d.name}
       secondary={d.description}
     />
@@ -50,7 +62,16 @@ const Projects: FC<ProjectsProps> = ({ openGraphData }) => {
         type={type}
         imagePath={imageUrl}
       />
-      <List>{projects}</List>
+      <div className={styles.projectsRoot}>
+        <GridMenu>{projects}</GridMenu>
+      </div>
+      <Dialog
+        title={selectedProject?.name || ""}
+        open={selectedProject !== null}
+        onClose={handleCloseSelectedProjectDialog}
+      >
+        <p className="secondaryText">Test text</p>
+      </Dialog>
     </>
   );
 };

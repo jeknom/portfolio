@@ -9,8 +9,9 @@ import HorizontalLayout from "./HorizontalLayout";
 import VerticalLayout from "./VerticalLayout";
 import ResponsiveLayoutGrid from "./ResponsiveGridLayout";
 import Carousel from "./Carousel";
-import List from "./List/List";
-import ListItem from "./List/ListItem";
+import GridMenu from "./GridMenu/GridMenu";
+import GridMenuItem from "./GridMenu/GridMenuItem";
+import Dialog from "./Dialog";
 
 export {
   Button,
@@ -24,6 +25,7 @@ export {
   VerticalLayout,
   ResponsiveLayoutGrid,
   Carousel,
-  List,
-  ListItem,
+  GridMenu,
+  GridMenuItem,
+  Dialog,
 };

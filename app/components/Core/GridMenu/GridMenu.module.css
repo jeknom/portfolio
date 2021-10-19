@@ -1,0 +1,67 @@
+.gridMenuRoot {
+  display: grid;
+  gap: 12px 12px;
+}
+
+@media only screen and (max-width: 600px) {
+  .gridMenuRoot {
+    grid-template-columns: repeat(1, 250px);
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .gridMenuRoot {
+    grid-template-columns: repeat(1, 250px);
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .gridMenuRoot {
+    grid-template-columns: repeat(2, 250px);
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .gridMenuRoot {
+    grid-template-columns: repeat(3, 250px);
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .gridMenuRoot {
+    grid-template-columns: repeat(4, 250px);
+  }
+}
+
+.menuItemRoot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 240px;
+  margin-bottom: 12px;
+  border: 1px solid rgb(241, 241, 241);
+  border-radius: 8px;
+  box-shadow: rgba(17, 17, 26, 0.05) 0px 4px 16px,
+    rgba(17, 17, 26, 0.05) 0px 8px 32px;
+}
+
+.menuItemRoot:hover {
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.329) 0px 4px 16px,
+    rgba(17, 17, 26, 0.05) 0px 8px 32px;
+}
+
+.menuItemRoot:active {
+  cursor: pointer;
+  box-shadow: rgba(17, 17, 26, 0.178) 0px 4px 16px,
+    rgba(17, 17, 26, 0.144) 0px 8px 32px;
+}
+
+.menuItemImage {
+  border-radius: 8px 8px 0px 0px;
+}
+
+.menuItemText {
+  padding: 0px 12px 12px 12px;
+}

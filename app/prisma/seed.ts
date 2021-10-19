@@ -6,6 +6,9 @@ async function main() {
   await seedImages(prisma);
   await seedMaintainer(prisma);
   await seedOpenGraphData(prisma);
+  await seedAchievements(prisma);
+  await seedHighlights(prisma);
+  await seedSkills(prisma);
   console.info("Finished seeding.");
 }
 
@@ -64,6 +67,61 @@ async function seedOpenGraphData(prisma: PrismaClient) {
   });
 
   console.info("Seeded open graph data.");
+}
+
+async function seedAchievements(prisma: PrismaClient) {
+  const hasAchievements = (await prisma.achievements.count()) > 0;
+  if (hasAchievements) {
+    console.warn("Already has achievements, skipping seed.");
+
+    return;
+  }
+
+  await prisma.achievements.create({
+    data: {
+      title: "Executive CEO of the Universe",
+      subtitle: "Doing thing and thangs",
+      image_id: 1,
+      startDate: new Date(),
+      endDate: new Date(),
+    },
+  });
+}
+
+async function seedHighlights(prisma: PrismaClient) {
+  const hasHighlights = (await prisma.highlights.count()) > 0;
+  if (hasHighlights) {
+    console.warn("Already has highlights, skipping seed.");
+
+    return;
+  }
+
+  await prisma.highlights.create({
+    data: {
+      name: "Employee of the century",
+      description:
+        "My mom and dad told me that I'm such a champ and nominated me for this cool title.",
+      image_id: 1,
+      date: new Date(),
+    },
+  });
+}
+
+async function seedSkills(prisma: PrismaClient) {
+  const hasSkills = (await prisma.skills.count()) > 0;
+  if (hasSkills) {
+    console.warn("Already has skills, skipping seed.");
+
+    return;
+  }
+
+  await prisma.skills.create({
+    data: {
+      name: "Microsoft Word",
+      score: 5,
+      icon_id: 1,
+    },
+  });
 }
 
 main()

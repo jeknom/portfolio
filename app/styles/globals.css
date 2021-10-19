@@ -29,6 +29,14 @@ img {
   display: block;
 }
 
+.scaledBodyRoot {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: clamp(10%, 45%, 60%);
+}
+
 #__next {
   display: flex;
   flex-direction: column;
@@ -36,8 +44,6 @@ img {
   align-items: center;
   line-height: 1.6;
   font-size: 18px;
-  overflow-x: hidden;
-  width: clamp(10%, 45%, 60%);
 }
 
 @media only screen and (max-width: 768px) {

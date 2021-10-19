@@ -46,30 +46,32 @@ const Home: FC<HomeProps> = ({
         description={description}
         imagePath={openGraphData.imageUrl}
       />
-      <Header
-        className={styles.section}
-        name={name}
-        headline={headline}
-        image={imageUrl}
-      />
-      <Intro className={styles.section} bio={bio} />
-      <Highlights
-        className={styles.section}
-        recentHighlights={recentHighlights}
-      />
-      <Skills className={styles.section} skills={skills} />
-      <Achievements
-        className={styles.section}
-        recentAchievements={recentAchievements}
-      />
-      <HorizontalLayout className={styles.timelineLink}>
-        <a href="/Timeline">
-          <Button>See my full story</Button>
-        </a>
-      </HorizontalLayout>
-      <footer>
-        <Contact information={contactInformation} />
-      </footer>
+      <div className="scaledBodyRoot">
+        <Header
+          className={styles.section}
+          name={name}
+          headline={headline}
+          image={imageUrl}
+        />
+        <Intro className={styles.section} bio={bio} />
+        <Highlights
+          className={styles.section}
+          recentHighlights={recentHighlights}
+        />
+        <Skills className={styles.section} skills={skills} />
+        <Achievements
+          className={styles.section}
+          recentAchievements={recentAchievements}
+        />
+        <HorizontalLayout className={styles.timelineLink}>
+          <a href="/Timeline">
+            <Button>See my full story</Button>
+          </a>
+        </HorizontalLayout>
+        <footer>
+          <Contact information={contactInformation} />
+        </footer>
+      </div>
     </>
   );
 };

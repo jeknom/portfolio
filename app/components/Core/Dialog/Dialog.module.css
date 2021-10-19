@@ -1,0 +1,88 @@
+.dialogContent {
+  display: flex;
+  flex-direction: column;
+  margin: 14% auto;
+  min-height: 10vw;
+  max-height: 50vw;
+  background-color: white;
+  border-radius: 12px;
+  padding: 6px 22px 6px 22px;
+  composes: fadeInPrimary from "../../../styles/animations.css";
+}
+
+@media only screen and (max-width: 600px) {
+  .dialogContent {
+    max-width: 95vw;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .dialogContent {
+    max-width: 80vw;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .dialogContent {
+    max-width: 70vw;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .dialogContent {
+    max-width: 60vw;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .dialogContent {
+    max-width: 40vw;
+  }
+}
+
+@media only screen and (min-width: 1600px) {
+  .dialogContent {
+    max-width: 30vw;
+  }
+}
+
+.dialogRoot {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.493);
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  left: 0;
+  top: 0;
+  z-index: 1;
+}
+
+.dialogHeader {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.closeButton {
+  background-color: white;
+  border: none;
+  color: black;
+  padding: 6px 12px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  user-select: none;
+  outline: none;
+  border-radius: 50px;
+  height: 50px;
+  width: 50px;
+}
+
+.closeButton:hover {
+  background-color: rgb(241, 241, 241);
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
