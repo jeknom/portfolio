@@ -22,7 +22,7 @@ const Dialog: FC<DialogProps & HTMLProps<HTMLDivElement>> = ({
 
   return (
     <div {...rest} className={open ? styles.dialogRoot : styles.hidden}>
-      <div ref={outsideAlerterRef} className={styles.dialogContent}>
+      <div ref={outsideAlerterRef} className={styles.dialogLayout}>
         <div className={styles.dialogHeader}>
           <p className="primaryText">{title}</p>
           <button className={styles.closeButton} onClick={onClose}>
@@ -35,8 +35,14 @@ const Dialog: FC<DialogProps & HTMLProps<HTMLDivElement>> = ({
             />
           </button>
         </div>
-        {children}
+        <div className={styles.dialogContent}>{children}</div>
       </div>
+
+      <style jsx global>{`
+        body {
+          overflow: hidden;
+        }
+      `}</style>
     </div>
   );
 };

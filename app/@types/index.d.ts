@@ -42,4 +42,13 @@ declare type Project = {
   name: string;
   description: string;
   imageUrl: string;
+  content: string;
+  media: MediaItem[];
+};
+
+declare type MediaItemType = "youtubeVideo" | "image";
+
+declare type MediaItem = {
+  type: MediaItemType;
+  url: string;
 };

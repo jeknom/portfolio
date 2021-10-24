@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import classNames from "classnames";
 import { Title, Divider, Carousel } from "../../Core";
 import Highlight from "./Highlight";
@@ -13,6 +13,8 @@ const Highlights: FC<HighlightsProps> = ({
   className,
   ...rest
 }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
   if (!recentHighlights) {
     return <p className="subtitle">Loading...</p>;
   }
@@ -39,7 +41,9 @@ const Highlights: FC<HighlightsProps> = ({
     <section {...rest} className={classNames(className, "fullWidth")}>
       <Title text="Highlights" />
       <Divider />
-      <Carousel>{renderHighlights}</Carousel>
+      <Carousel currentIndex={currentIndex} onChangeIndex={setCurrentIndex}>
+        {renderHighlights}
+      </Carousel>
     </section>
   );
 };

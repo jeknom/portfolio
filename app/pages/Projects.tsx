@@ -2,7 +2,8 @@ import { FC, useState } from "react";
 import prisma from "server/prismaClient";
 import { fetchOpenGraphData } from "@endpoints/openGraphData";
 import { Head } from "components/Core";
-import { GridMenu, GridMenuItem, Dialog } from "components/Core";
+import { GridMenu, GridMenuItem, Dialog, Paragraph } from "components/Core";
+import { MediaCarousel } from "components/Projects";
 import styles from "../styles/Projects.module.css";
 
 interface ProjectsProps {
@@ -12,30 +13,54 @@ interface ProjectsProps {
 const templateData: Project[] = [
   {
     name: "Portfolio",
-    description:
-      "This portfolio. I made it mainly with Next.js and Typescript.",
+    description: "This portfolio. I made it mainly with Typescript Next.js.",
     imageUrl: "https://i.imgur.com/8Pcp9mi.gif",
+    content:
+      "Lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum \n\n ![Dog](https://i.imgur.com/qe4Xp0R.jpeg) terbe",
+    media: [
+      {
+        type: "youtubeVideo",
+        url: "https://www.youtube.com/embed/toZW65rksYY",
+      },
+      {
+        type: "image",
+        url: "https://i.imgur.com/ot2lCVl.png",
+      },
+    ],
   },
   {
     name: "Best Fiends: Stars",
     description: "Match 3 mobile puzzle game.",
     imageUrl: "https://i.imgur.com/8Pcp9mi.gif",
+    content:
+      "Lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum",
+    media: [],
   },
   {
     name: "Seriously dashboard",
-    description: "Match 3 mobile puzzle game.",
+    description:
+      "The company dashboard that provides a variety of tools for most disciplines of the company.",
     imageUrl: "https://i.imgur.com/8Pcp9mi.gif",
+    content:
+      "Lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum",
+    media: [],
   },
   {
     name: "Best Fiends",
     description: "Match 3 mobile puzzle game.",
     imageUrl: "https://i.imgur.com/8Pcp9mi.gif",
+    content:
+      "Lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum",
+    media: [],
   },
   {
-    name: "TeamSpeak 3 server",
+    name: "TeamSpeak 3 hosting",
     description:
       "I've hosted a TeamSpeak server for my friends for over 10 years. It's running on an Ubuntu VPS.",
     imageUrl: "https://i.imgur.com/8Pcp9mi.gif",
+    content:
+      "Lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum",
+    media: [],
   },
 ];
 
@@ -70,7 +95,8 @@ const Projects: FC<ProjectsProps> = ({ openGraphData }) => {
         open={selectedProject !== null}
         onClose={handleCloseSelectedProjectDialog}
       >
-        <p className="secondaryText">Test text</p>
+        <MediaCarousel project={selectedProject} />
+        <Paragraph text={selectedProject?.content} />
       </Dialog>
     </>
   );
