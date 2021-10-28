@@ -5,71 +5,19 @@ import { Head } from "components/Core";
 import { GridMenu, GridMenuItem, Dialog, Paragraph } from "components/Core";
 import { MediaCarousel } from "components/Projects";
 import styles from "../styles/Projects.module.css";
+import { fetchAllProjects } from "@endpoints/projects";
 
 interface ProjectsProps {
   openGraphData: OpenGraphData;
+  projects: Project[];
 }
 
-const templateData: Project[] = [
-  {
-    name: "Portfolio",
-    description: "This portfolio. I made it mainly with Typescript Next.js.",
-    imageUrl: "https://i.imgur.com/8Pcp9mi.gif",
-    content:
-      "Lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum \n\n ![Dog](https://i.imgur.com/qe4Xp0R.jpeg) terbe",
-    media: [
-      {
-        type: "youtubeVideo",
-        url: "https://www.youtube.com/embed/toZW65rksYY",
-      },
-      {
-        type: "image",
-        url: "https://i.imgur.com/ot2lCVl.png",
-      },
-    ],
-  },
-  {
-    name: "Best Fiends: Stars",
-    description: "Match 3 mobile puzzle game.",
-    imageUrl: "https://i.imgur.com/8Pcp9mi.gif",
-    content:
-      "Lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum",
-    media: [],
-  },
-  {
-    name: "Seriously dashboard",
-    description:
-      "The company dashboard that provides a variety of tools for most disciplines of the company.",
-    imageUrl: "https://i.imgur.com/8Pcp9mi.gif",
-    content:
-      "Lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum",
-    media: [],
-  },
-  {
-    name: "Best Fiends",
-    description: "Match 3 mobile puzzle game.",
-    imageUrl: "https://i.imgur.com/8Pcp9mi.gif",
-    content:
-      "Lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum",
-    media: [],
-  },
-  {
-    name: "TeamSpeak 3 hosting",
-    description:
-      "I've hosted a TeamSpeak server for my friends for over 10 years. It's running on an Ubuntu VPS.",
-    imageUrl: "https://i.imgur.com/8Pcp9mi.gif",
-    content:
-      "Lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum, lorem lorem ipssssuuuuum, lorem ipsum",
-    media: [],
-  },
-];
-
-const Projects: FC<ProjectsProps> = ({ openGraphData }) => {
+const Projects: FC<ProjectsProps> = ({ openGraphData, projects }) => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const handleCloseSelectedProjectDialog = () => setSelectedProject(null);
 
   const { title, description, type, imageUrl } = openGraphData;
-  const projects = templateData.map((d, i) => (
+  const projectItems = (projects || []).map((d, i) => (
     <GridMenuItem
       key={i}
       onClick={() => setSelectedProject(d)}
@@ -88,7 +36,7 @@ const Projects: FC<ProjectsProps> = ({ openGraphData }) => {
         imagePath={imageUrl}
       />
       <div className={styles.projectsRoot}>
-        <GridMenu>{projects}</GridMenu>
+        <GridMenu>{projectItems}</GridMenu>
       </div>
       <Dialog
         title={selectedProject?.name || ""}
@@ -99,7 +47,10 @@ const Projects: FC<ProjectsProps> = ({ openGraphData }) => {
         }}
       >
         <MediaCarousel project={selectedProject} />
-        <Paragraph text={selectedProject?.content} />
+        <Paragraph
+          className={styles.paragraph}
+          text={selectedProject?.content}
+        />
       </Dialog>
     </>
   );
@@ -107,10 +58,12 @@ const Projects: FC<ProjectsProps> = ({ openGraphData }) => {
 
 export async function getServerSideProps() {
   const openGraphData = await fetchOpenGraphData(prisma);
+  const projects = await fetchAllProjects(prisma);
 
   return {
     props: {
       openGraphData,
+      projects,
     },
   };
 }

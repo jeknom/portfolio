@@ -36,16 +36,6 @@ model Highlights {
   @@index([image_id], name: "image_id")
 }
 
-model Images {
-  id            Int             @id @default(autoincrement())
-  path          String?         @db.Text
-  achievements  Achievements[]
-  highlights    Highlights[]
-  maintainers   Maintainers[]
-  openGraphData OpenGraphData[]
-  skills        Skills[]
-}
-
 model Maintainers {
   id       Int     @id @default(autoincrement())
   name     String  @db.Text
@@ -76,4 +66,52 @@ model Skills {
   images  Images? @relation(fields: [icon_id], references: [id])
 
   @@index([icon_id], name: "icon_id")
+}
+
+model Project {
+  id            Int            @id @default(autoincrement())
+  name          String         @db.Text
+  description   String         @db.Text
+  content       String         @db.LongText
+  projectImages ProjectImage[]
+  projectVideos ProjectVideo[]
+}
+
+model ProjectImage {
+  id        Int     @id @default(autoincrement())
+  imageId   Int
+  projectId Int
+  priority  Int
+  image     Images  @relation(fields: [imageId], references: [id])
+  project   Project @relation(fields: [projectId], references: [id])
+}
+
+model ProjectVideo {
+  id        Int     @id @default(autoincrement())
+  videoId   Int
+  projectId Int
+  priority  Int
+  project   Project @relation(fields: [projectId], references: [id])
+  video     Video   @relation(fields: [videoId], references: [id])
+}
+
+// MEDIA MODELS
+
+model Images {
+  id            Int             @id @default(autoincrement())
+  path          String?         @db.Text
+  description   String?         @db.Text
+  achievements  Achievements[]
+  highlights    Highlights[]
+  maintainers   Maintainers[]
+  openGraphData OpenGraphData[]
+  skills        Skills[]
+  projectImage  ProjectImage[]
+}
+
+model Video {
+  id           Int            @id @default(autoincrement())
+  url          String         @db.Text
+  description  String         @db.Text
+  projectVideo ProjectVideo[]
 }

@@ -4,7 +4,7 @@ import styles from "./GridMenu.module.css";
 import classNames from "classnames";
 
 interface ListItemProps {
-  imageUrl: string;
+  imageUrl?: string;
   primary: string;
   secondary: string;
 }

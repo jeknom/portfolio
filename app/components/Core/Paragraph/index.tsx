@@ -1,14 +1,18 @@
-import { FC } from 'react';
-import ReactMarkdown from 'react-markdown';
+import { FC } from "react";
+import ReactMarkdown from "react-markdown";
+import classNames from "classnames";
 
 interface ParagraphProps {
-  text: string
+  className?: string;
+  text: string;
 }
 
-const Paragraph: FC<ParagraphProps> = ({ text }) => {
+const Paragraph: FC<ParagraphProps> = ({ className, text }) => {
   return (
-    <ReactMarkdown className='secondaryText'>{text}</ReactMarkdown>
+    <ReactMarkdown className={classNames(className, "secondaryText")}>
+      {text}
+    </ReactMarkdown>
   );
-}
+};
 
-export default Paragraph
+export default Paragraph;

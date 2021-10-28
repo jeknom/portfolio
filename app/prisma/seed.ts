@@ -23,6 +23,7 @@ async function seedImages(prisma: PrismaClient) {
   await prisma.images.create({
     data: {
       path: "https://i.imgur.com/5nBI2Ge.png",
+      description: "Unknown user image",
     },
   });
 

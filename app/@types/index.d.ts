@@ -41,7 +41,7 @@ declare type Skill = {
 declare type Project = {
   name: string;
   description: string;
-  imageUrl: string;
+  imageUrl?: string;
   content: string;
   media: MediaItem[];
 };
