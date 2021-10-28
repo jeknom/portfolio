@@ -1,11 +1,13 @@
 import useOutsideAlerter from "hooks/useOutsideAlerter";
 import { FC, HTMLProps, useRef } from "react";
 import Image from "next/image";
+import classNames from "classnames";
 import styles from "./Dialog.module.css";
 
 interface DialogProps {
   title: string;
   open: boolean;
+  contentProps?: HTMLProps<HTMLDivElement>;
   onClose: () => void;
 }
 
@@ -14,6 +16,7 @@ const Dialog: FC<DialogProps & HTMLProps<HTMLDivElement>> = ({
   open,
   onClose,
   children,
+  contentProps,
   ...rest
 }) => {
   const outsideAlerterRef = useRef(null);
@@ -35,7 +38,12 @@ const Dialog: FC<DialogProps & HTMLProps<HTMLDivElement>> = ({
             />
           </button>
         </div>
-        <div className={styles.dialogContent}>{children}</div>
+        <div
+          {...contentProps}
+          className={classNames(styles.dialogContent, contentProps?.className)}
+        >
+          {children}
+        </div>
       </div>
 
       <style jsx global>{`

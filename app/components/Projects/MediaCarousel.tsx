@@ -17,7 +17,7 @@ const MediaCarousel: FC<MediaCarouselProps> = ({ project }) => {
   const carouselItems = project.media.map((media, index) => {
     if (media.type === "youtubeVideo") {
       return (
-        <div className={styles.youtubeIframeContainer}>
+        <div key={index} className={styles.youtubeIframeContainer}>
           <iframe
             key={index}
             className={styles.youtubeIframe}
@@ -46,7 +46,7 @@ const MediaCarousel: FC<MediaCarouselProps> = ({ project }) => {
   });
 
   return (
-    <VerticalLayout>
+    <VerticalLayout className={styles.carouselRoot}>
       <Carousel currentIndex={currentIndex} onChangeIndex={setCurrentIndex}>
         {carouselItems}
       </Carousel>

@@ -1,3 +1,7 @@
+.carouselRoot {
+  width: 82.5%;
+}
+
 .youtubeIframeContainer {
   position: relative;
   overflow: hidden;

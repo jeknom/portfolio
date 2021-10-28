@@ -94,6 +94,9 @@ const Projects: FC<ProjectsProps> = ({ openGraphData }) => {
         title={selectedProject?.name || ""}
         open={selectedProject !== null}
         onClose={handleCloseSelectedProjectDialog}
+        contentProps={{
+          className: styles.dialogContent,
+        }}
       >
         <MediaCarousel project={selectedProject} />
         <Paragraph text={selectedProject?.content} />
