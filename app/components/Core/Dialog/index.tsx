@@ -48,7 +48,7 @@ const Dialog: FC<DialogProps & HTMLProps<HTMLDivElement>> = ({
 
       <style jsx global>{`
         body {
-          overflow: hidden;
+          ${open ? "overflow: hidden;" : ""}
         }
       `}</style>
     </div>

@@ -12,6 +12,7 @@ import Carousel from "./Carousel";
 import GridMenu from "./GridMenu/GridMenu";
 import GridMenuItem from "./GridMenu/GridMenuItem";
 import Dialog from "./Dialog";
+import NavBar from "./NavBar";
 
 export {
   Button,
@@ -28,4 +29,5 @@ export {
   GridMenu,
   GridMenuItem,
   Dialog,
+  NavBar,
 };

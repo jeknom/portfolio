@@ -1,12 +1,12 @@
-import { FC } from "react";
-import Image from "next/image";
-import { Head, FlatButton } from "../components/Core";
+import React, { FC } from "react";
+import { Head, NavBar, VerticalLayout } from "../components/Core";
 import TimelineComponent from "../components/Timeline";
-import styles from "../styles/Timeline.module.css";
 import { fetchOpenGraphData } from "server/endpoints/openGraphData";
 import { fetchAllAchievements } from "@endpoints/achievements";
 import { fetchAllHighlights } from "@endpoints/highlights";
 import prisma from "../server/prismaClient";
+import { TIMELINE_ROUTE } from "@constants/mainRoutes";
+import mainRoutes from "@constants/mainNavBarRoutes";
 
 interface TimelineProps {
   achievements?: Achievement[];
@@ -30,23 +30,13 @@ const Timeline: FC<TimelineProps> = ({
         type={type}
         imagePath={imageUrl}
       />
-      <div className="scaledBodyRoot">
-        <a href="/">
-          <FlatButton className={styles.closeButton}>
-            <Image
-              src="/x.svg"
-              alt="Close button X"
-              width="64"
-              height="64"
-              priority
-            />
-          </FlatButton>
-        </a>
+      <VerticalLayout alignItems="center">
+        <NavBar selectedRoute={TIMELINE_ROUTE} routes={mainRoutes} />
         <TimelineComponent
           highlights={highlights}
           achievements={achievements}
         />
-      </div>
+      </VerticalLayout>
     </>
   );
 };

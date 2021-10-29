@@ -52,3 +52,9 @@ declare type MediaItem = {
   type: MediaItemType;
   url: string;
 };
+
+declare type NavBarRoute = {
+  path: string;
+  label: string;
+  iconPath: string;
+};

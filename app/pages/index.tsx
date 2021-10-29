@@ -1,5 +1,5 @@
-import { FC } from "react";
-import { Head, Button, HorizontalLayout } from "../components/Core";
+import React, { FC } from "react";
+import { Head, VerticalLayout, NavBar } from "../components/Core";
 import {
   Header,
   Intro,
@@ -17,6 +17,9 @@ import { fetchAllSkills } from "@endpoints/skills";
 import { fetchAllContactInformation } from "@endpoints/contactInformation";
 import { ContactInformation } from "@prisma/client";
 import prisma from "../server/prismaClient";
+import mainRoutes from "@constants/mainNavBarRoutes";
+import { HOME_ROUTE } from "@constants/mainRoutes";
+import classNames from "classnames";
 
 interface HomeProps {
   maintainer?: Maintainer;
@@ -46,13 +49,19 @@ const Home: FC<HomeProps> = ({
         description={description}
         imagePath={openGraphData.imageUrl}
       />
-      <div className="scaledBodyRoot">
+      <VerticalLayout className={styles.homeRoot} alignItems="center">
         <Header
           className={styles.section}
           name={name}
           headline={headline}
           image={imageUrl}
         />
+        <VerticalLayout
+          className={classNames(styles.section, styles.navBar)}
+          alignItems="center"
+        >
+          <NavBar selectedRoute={HOME_ROUTE} routes={mainRoutes} />
+        </VerticalLayout>
         <Intro className={styles.section} bio={bio} />
         <Highlights
           className={styles.section}
@@ -63,15 +72,10 @@ const Home: FC<HomeProps> = ({
           className={styles.section}
           recentAchievements={recentAchievements}
         />
-        <HorizontalLayout className={styles.timelineLink}>
-          <a href="/Timeline">
-            <Button>See my full story</Button>
-          </a>
-        </HorizontalLayout>
         <footer>
           <Contact information={contactInformation} />
         </footer>
-      </div>
+      </VerticalLayout>
     </>
   );
 };

@@ -1,3 +1,13 @@
+.homeRoot {
+  width: clamp(10%, 50%, 60%);
+}
+
+@media only screen and (max-width: 768px) {
+  .homeRoot {
+    width: clamp(10%, 80%, 95%);
+  }
+}
+
 .profilePicture {
   border-radius: 26px;
 }
@@ -12,15 +22,18 @@
   margin-top: 1rem;
   justify-content: center;
   align-items: center;
-  margin-bottom: 1rem;
 }
 
 .timelineLink {
   justify-content: center;
 }
 
+.navBar {
+  width: 100%;
+}
+
 .section {
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
 }
 
 .footer {

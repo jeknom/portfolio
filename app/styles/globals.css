@@ -29,14 +29,6 @@ img {
   display: block;
 }
 
-.scaledBodyRoot {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: clamp(10%, 45%, 60%);
-}
-
 #__next {
   display: flex;
   flex-direction: column;

@@ -20,7 +20,8 @@
     "baseUrl": "./",
     "paths": {
       "@styles/*": ["styles/*"],
-      "@endpoints/*": ["server/endpoints/*"]
+      "@endpoints/*": ["server/endpoints/*"],
+      "@constants/*": ["constants/*"]
     }
   },
   "include": [
