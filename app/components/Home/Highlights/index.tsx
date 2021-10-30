@@ -32,7 +32,7 @@ const Highlights: FC<HighlightsProps> = ({
     <Highlight
       key={"seemore"}
       title="Wish to see more?"
-      description="Check out my full story at the bottom of the page!"
+      description="Check out my projects and the Timeline!"
       image={null}
     />
   );
