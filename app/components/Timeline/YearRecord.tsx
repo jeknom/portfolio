@@ -1,59 +1,58 @@
 import { FC } from "react";
-import Image from "next/image";
-import { HorizontalLayout, VerticalLayout, Paragraph } from "../Core";
-import { getShortDateOr } from "../../utils";
-import { DATE_NULL_REPLACEMENT } from "../../utils/constants";
-import styles from "./Timeline.module.css";
+import AchievementItem from "./AchievementItem";
+import SmallItem from "./SmallItem";
 
 export interface YearRecordProps {
   year?: number;
   achievements?: Achievement[];
   highlights?: Highlight[];
+  projects?: Project[];
+  onProjectSelected: (project: Project) => void;
 }
 
 const YearRecord: FC<YearRecordProps> = ({
   year,
   achievements,
   highlights,
+  projects,
+  onProjectSelected,
 }) => {
-  if (achievements?.length === 0 && highlights?.length === 0) {
+  if (
+    achievements?.length === 0 &&
+    highlights?.length === 0 &&
+    projects?.length === 0
+  ) {
     return null;
   }
 
-  const renderAchievements = achievements?.map((a) => (
-    <HorizontalLayout key={a.title + a.startDate} className="fullWidth">
-      <VerticalLayout className={styles.entry}>
-        <span className="primaryText">{a.title}</span>
-        <span className="secondaryText">{a.subtitle}</span>
-        <span className="captionText">{`${getShortDateOr(
-          a.startDate,
-          DATE_NULL_REPLACEMENT
-        )} - ${getShortDateOr(a.endDate, DATE_NULL_REPLACEMENT)}`}</span>
-      </VerticalLayout>
-      <Image
-        className={styles.achievementImage}
-        width="75"
-        height="75"
-        src={a.imageUrl}
-        alt={`${a.title} image.`}
-        layout="fixed"
-      />
-    </HorizontalLayout>
+  const renderAchievements = achievements?.map((a, i) => (
+    <AchievementItem key={i} achievement={a} />
   ));
 
-  const renderHighlights = highlights?.map((h, index) => (
-    <div key={index} className={styles.entry}>
-      <b className="subtitle">{h.name}</b>
-      <Paragraph text={h.description} />
-    </div>
+  const renderProjects = projects?.map((p, i) => (
+    <SmallItem
+      key={i}
+      title={p.name}
+      description={p.description}
+      action={{
+        label: "Learn more",
+        onItemClick: () => onProjectSelected(p),
+      }}
+    />
+  ));
+  console.log(renderProjects);
+
+  const renderHighlights = highlights?.map((h, i) => (
+    <SmallItem key={i} title={h.name} description={h.description} />
   ));
 
   return (
-    <span className="fullWidth">
+    <div className="fullWidth">
       <p>{year}</p>
       {renderAchievements}
+      {renderProjects}
       {renderHighlights}
-    </span>
+    </div>
   );
 };
 

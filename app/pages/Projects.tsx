@@ -2,12 +2,12 @@ import { FC, useState } from "react";
 import prisma from "server/prismaClient";
 import { fetchOpenGraphData } from "@endpoints/openGraphData";
 import { Head, NavBar, VerticalLayout } from "components/Core";
-import { GridMenu, GridMenuItem, Dialog, Paragraph } from "components/Core";
-import { MediaCarousel } from "components/Projects";
-import styles from "../styles/Projects.module.css";
+import { GridMenu, GridMenuItem } from "components/Core";
+import { ProjectDialog } from "components/Projects";
 import { fetchAllProjects } from "@endpoints/projects";
 import mainRoutes from "@constants/mainNavBarRoutes";
 import { PROJECTS_ROUTE } from "@constants/mainRoutes";
+import styles from "../styles/Projects.module.css";
 
 interface ProjectsProps {
   openGraphData: OpenGraphData;
@@ -41,20 +41,12 @@ const Projects: FC<ProjectsProps> = ({ openGraphData, projects }) => {
         <NavBar selectedRoute={PROJECTS_ROUTE} routes={mainRoutes} />
         <GridMenu>{projectItems}</GridMenu>
       </VerticalLayout>
-      <Dialog
+      <ProjectDialog
         title={selectedProject?.name || ""}
         open={selectedProject !== null}
+        selectedProject={selectedProject}
         onClose={handleCloseSelectedProjectDialog}
-        contentProps={{
-          className: styles.dialogContent,
-        }}
-      >
-        <MediaCarousel project={selectedProject} />
-        <Paragraph
-          className={styles.paragraph}
-          text={selectedProject?.content}
-        />
-      </Dialog>
+      />
     </>
   );
 };

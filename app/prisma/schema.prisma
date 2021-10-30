@@ -73,6 +73,7 @@ model Project {
   name          String         @db.Text
   description   String         @db.Text
   content       String         @db.LongText
+  date          DateTime       @db.Date
   projectImages ProjectImage[]
   projectVideos ProjectVideo[]
 }

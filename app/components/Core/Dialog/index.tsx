@@ -4,7 +4,7 @@ import Image from "next/image";
 import classNames from "classnames";
 import styles from "./Dialog.module.css";
 
-interface DialogProps {
+export interface DialogProps {
   title: string;
   open: boolean;
   contentProps?: HTMLProps<HTMLDivElement>;

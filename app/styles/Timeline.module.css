@@ -1,0 +1,9 @@
+.timelineRoot {
+  width: clamp(10%, 60%, 60%);
+}
+
+@media only screen and (max-width: 768px) {
+  .timelineRoot {
+    width: clamp(10%, 90%, 95%);
+  }
+}

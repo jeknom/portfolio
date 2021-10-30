@@ -3,7 +3,7 @@ import Image from "next/image";
 import classNames from "classnames";
 import { Title, Divider } from "../../Core";
 import { getShortDateOr } from "utils";
-import { DATE_NULL_REPLACEMENT } from "utils/constants";
+import { DATE_NULL_REPLACEMENT } from "@constants/index";
 import styles from "./Achievements.module.css";
 
 interface AchievementProps {

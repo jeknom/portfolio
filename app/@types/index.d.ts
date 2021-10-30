@@ -43,6 +43,7 @@ declare type Project = {
   description: string;
   imageUrl?: string;
   content: string;
+  date: string;
   media: MediaItem[];
 };
 

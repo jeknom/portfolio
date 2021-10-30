@@ -16,10 +16,14 @@ export async function fetchAllProjects(
         },
       },
     },
+    orderBy: {
+      date: "desc",
+    },
   });
 
   return projects.map((p) => {
-    const { name, description, content, projectImages, projectVideos } = p;
+    const { name, description, content, projectImages, projectVideos, date } =
+      p;
     const sortedImages = [...projectImages];
     const sortedVideos = [...projectVideos];
 
@@ -43,6 +47,7 @@ export async function fetchAllProjects(
       content,
       imageUrl,
       media,
+      date: date.toISOString(),
     };
   });
 }

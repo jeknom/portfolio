@@ -1,3 +1,3 @@
-import MediaCarousel from "./MediaCarousel";
+import ProjectDialog from "./ProjectDialog";
 
-export { MediaCarousel };
+export { ProjectDialog };

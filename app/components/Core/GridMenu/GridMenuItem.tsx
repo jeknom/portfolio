@@ -19,13 +19,15 @@ const ListItem: FC<ListItemProps & HTMLProps<HTMLDivElement>> = ({
   return (
     <>
       <div {...rest} className={classNames(className, styles.menuItemRoot)}>
-        <Image
-          className={styles.menuItemImage}
-          src={imageUrl}
-          alt={`${primary} image`}
-          width={300}
-          height={300}
-        />
+        {imageUrl && (
+          <Image
+            className={styles.menuItemImage}
+            src={imageUrl}
+            alt={`${primary} image`}
+            width={300}
+            height={300}
+          />
+        )}
         <div className={styles.menuItemText}>
           <h3 className="primaryText">{primary}</h3>
           <p className="captionText">{secondary}</p>

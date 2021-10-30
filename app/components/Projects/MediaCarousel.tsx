@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 import Image from "next/image";
 import { Carousel, VerticalLayout } from "components/Core";
-import styles from "./mediaCarousel.module.css";
+import styles from "./projects.module.css";
 
 interface MediaCarouselProps {
   project?: Project;

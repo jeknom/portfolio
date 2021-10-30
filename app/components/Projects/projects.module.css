@@ -18,3 +18,14 @@
   width: 100%;
   height: 100%;
 }
+
+.paragraph {
+  width: 90%;
+  word-wrap: break-word;
+}
+
+.dialogContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
