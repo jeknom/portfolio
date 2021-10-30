@@ -39,7 +39,7 @@ const Highlights: FC<HighlightsProps> = ({
 
   return (
     <section {...rest} className={classNames(className, "fullWidth")}>
-      <Title text="Highlights" />
+      <Title text="Recent highlights" />
       <Divider />
       <Carousel currentIndex={currentIndex} onChangeIndex={setCurrentIndex}>
         {renderHighlights}
