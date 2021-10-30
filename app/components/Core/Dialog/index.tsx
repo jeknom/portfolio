@@ -1,5 +1,5 @@
 import useOutsideAlerter from "hooks/useOutsideAlerter";
-import { FC, HTMLProps, useRef } from "react";
+import { FC, HTMLProps, useRef, useEffect, useCallback } from "react";
 import Image from "next/image";
 import classNames from "classnames";
 import styles from "./Dialog.module.css";
@@ -19,9 +19,12 @@ const Dialog: FC<DialogProps & HTMLProps<HTMLDivElement>> = ({
   contentProps,
   ...rest
 }) => {
+  const topRef = useRef(null);
   const outsideAlerterRef = useRef(null);
+  const scrollToTop = useCallback(() => topRef.current.scrollTo(0, 0), []);
 
   useOutsideAlerter(outsideAlerterRef, onClose);
+  useEffect(scrollToTop, [open]);
 
   return (
     <div {...rest} className={open ? styles.dialogRoot : styles.hidden}>
@@ -40,6 +43,7 @@ const Dialog: FC<DialogProps & HTMLProps<HTMLDivElement>> = ({
         </div>
         <div
           {...contentProps}
+          ref={topRef}
           className={classNames(styles.dialogContent, contentProps?.className)}
         >
           {children}
