@@ -13,7 +13,7 @@ export async function fetchRecentHighlights(prisma: PrismaClient) {
   const mapped: Highlight[] = recentHighlights.map((h) => ({
     ...h,
     date: h.date?.toISOString(),
-    imageUrl: h.images.path,
+    imageUrl: h.images?.path || null,
   }));
 
   return mapped;
