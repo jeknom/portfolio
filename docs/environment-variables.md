@@ -1,4 +1,6 @@
-# Example environment variables
+[Back to main](../README.md)
+
+# ⚙️ Example environment variables
 
 ```
 # .env

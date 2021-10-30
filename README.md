@@ -5,7 +5,7 @@
 
 The dockerized, minimal in style Portfolio.
 
-## Technologies
+## ⚙️ Technologies
 
 - Next.js
 - MySQL
@@ -14,8 +14,9 @@ The dockerized, minimal in style Portfolio.
 - Adminer
 - Nginx
 
-## Docs
+## 📘 Docs
 
+- [Concepts](docs/concepts.md)
 - [Setting up for development](docs/setting-up-for-development.md)
 - [Setting up for production](docs/setting-up-for-production.md)
 - [Database and migrations](docs/database-and-migrations.md)

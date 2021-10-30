@@ -1,4 +1,6 @@
-## Setting up for development
+[Back to main](../README.md)
+
+## 🧑‍💻 Setting up for development
 
 ### Prerequisites
 

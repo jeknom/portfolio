@@ -1,4 +1,6 @@
-# Database and migrations
+[Back to main](../README.md)
+
+# 🗂️ Database and migrations
 
 The portfolio uses a MySQL as its database and Prisma for ORM.
 

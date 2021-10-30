@@ -1,4 +1,6 @@
-## Setting up for production
+[Back to main](../README.md)
+
+## 🏭 Setting up for production
 
 ### Prerequisites
 
