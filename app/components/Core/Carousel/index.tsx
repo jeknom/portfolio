@@ -1,6 +1,8 @@
-import React, { FC, useState, Children } from "react";
+import React, { FC, Children } from "react";
 import Image from "next/image";
-import { FlatButton, VerticalLayout, HorizontalLayout } from "../";
+import FlatButton from "../FlatButton";
+import VerticalLayout from "../VerticalLayout";
+import HorizontalLayout from "../HorizontalLayout";
 import styles from "./Carousel.module.css";
 
 interface CarouselProps {
@@ -25,6 +27,7 @@ const Carousel: FC<CarouselProps> = ({
       onChangeIndex(currentIndex - 1);
     }
   };
+
   const nextItem = () => {
     if (childrenCount < 2) {
       return;
@@ -39,9 +42,8 @@ const Carousel: FC<CarouselProps> = ({
     }
   };
 
-  return (
-    <VerticalLayout>
-      {children[currentIndex]}
+  const carouselButtons =
+    childrenCount === 1 ? null : (
       <HorizontalLayout className={styles.actions}>
         <FlatButton onClick={prevItem}>
           <Image
@@ -65,6 +67,12 @@ const Carousel: FC<CarouselProps> = ({
           />
         </FlatButton>
       </HorizontalLayout>
+    );
+
+  return (
+    <VerticalLayout>
+      {children[currentIndex]}
+      {carouselButtons}
     </VerticalLayout>
   );
 };
