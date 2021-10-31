@@ -34,6 +34,8 @@ const MediaCarousel: FC<MediaCarouselProps> = ({ project }) => {
           key={index}
           width={1920}
           height={1080}
+          layout="responsive"
+          objectFit="contain"
           src={media.url}
           alt={`${project.name} image`}
         />
