@@ -40,7 +40,6 @@ const YearRecord: FC<YearRecordProps> = ({
       }}
     />
   ));
-  console.log(renderProjects);
 
   const renderHighlights = highlights?.map((h, i) => (
     <SmallItem key={i} title={h.name} description={h.description} />

@@ -17,9 +17,6 @@ interface SmallItemProps {
 }
 
 const SmallItem: FC<SmallItemProps> = ({ title, description, action }) => {
-  if (action) {
-    console.log("Project");
-  }
   return (
     <VerticalLayout className={styles.entry}>
       <b className="subtitle">{title}</b>
