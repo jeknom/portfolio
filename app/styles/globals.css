@@ -2,9 +2,6 @@ html,
 body {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 * {
@@ -36,12 +33,6 @@ img {
   align-items: center;
   line-height: 1.6;
   font-size: 18px;
-}
-
-@media only screen and (max-width: 768px) {
-  #__next {
-    width: 90vw;
-  }
 }
 
 .primaryText {
