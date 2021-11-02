@@ -98,7 +98,7 @@ export async function getServerSideProps() {
     fetchAllContactInformation(prisma),
     fetchAllProjects(prisma),
   ]);
-  console.log(recentHighlights);
+
   return {
     props: {
       maintainer,
