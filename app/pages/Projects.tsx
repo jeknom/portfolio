@@ -52,8 +52,10 @@ const Projects: FC<ProjectsProps> = ({ openGraphData, projects }) => {
 };
 
 export async function getServerSideProps() {
-  const openGraphData = await fetchOpenGraphData(prisma);
-  const projects = await fetchAllProjects(prisma);
+  const [openGraphData, projects] = await Promise.all([
+    fetchOpenGraphData(prisma),
+    fetchAllProjects(prisma),
+  ]);
 
   return {
     props: {

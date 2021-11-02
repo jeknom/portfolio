@@ -18,6 +18,13 @@ declare type Highlight = {
   imageUrl: string | null;
 };
 
+declare type RecentHighlight = {
+  title: string;
+  description: string;
+  imageUrl: string | null;
+  date: string;
+};
+
 declare type Maintainer = {
   name: string;
   headline: string;

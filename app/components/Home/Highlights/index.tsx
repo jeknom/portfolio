@@ -4,7 +4,7 @@ import { Title, Divider, Carousel } from "../../Core";
 import Highlight from "./Highlight";
 
 interface HighlightsProps {
-  recentHighlights?: Highlight[];
+  recentHighlights?: RecentHighlight[];
   className?: string;
 }
 
@@ -22,7 +22,7 @@ const Highlights: FC<HighlightsProps> = ({
   const renderHighlights = recentHighlights.map((h, index) => (
     <Highlight
       key={index}
-      title={h.name}
+      title={h.title}
       description={h.description}
       image={h.imageUrl}
     />

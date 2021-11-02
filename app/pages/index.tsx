@@ -12,7 +12,7 @@ import styles from "@styles/Home.module.css";
 import { fetchMaintainer } from "@endpoints/maintainer";
 import { fetchOpenGraphData } from "server/endpoints/openGraphData";
 import { fetchRecentAchievements } from "@endpoints/achievements";
-import { fetchRecentHighlights } from "@endpoints/highlights";
+import { fetchRecentHighlights } from "@endpoints/recentHighlightsAndProjects";
 import { fetchAllSkills } from "@endpoints/skills";
 import { fetchAllContactInformation } from "@endpoints/contactInformation";
 import { ContactInformation } from "@prisma/client";
@@ -20,12 +20,13 @@ import prisma from "../server/prismaClient";
 import mainRoutes from "@constants/mainNavBarRoutes";
 import { HOME_ROUTE } from "@constants/mainRoutes";
 import classNames from "classnames";
+import { fetchAllProjects } from "@endpoints/projects";
 
 interface HomeProps {
   maintainer?: Maintainer;
   openGraphData?: OpenGraphData;
   recentAchievements?: Achievement[];
-  recentHighlights?: Highlight[];
+  recentHighlights?: RecentHighlight[];
   skills?: Skill[];
   contactInformation?: ContactInformation[];
 }
@@ -81,23 +82,31 @@ const Home: FC<HomeProps> = ({
 };
 
 export async function getServerSideProps() {
-  const result = await Promise.all([
+  const [
+    maintainer,
+    recentAchievements,
+    recentHighlights,
+    openGraphData,
+    skills,
+    contactInformation,
+  ] = await Promise.all([
     fetchMaintainer(prisma),
     fetchRecentAchievements(prisma),
     fetchRecentHighlights(prisma),
     fetchOpenGraphData(prisma),
     fetchAllSkills(prisma),
     fetchAllContactInformation(prisma),
+    fetchAllProjects(prisma),
   ]);
-
+  console.log(recentHighlights);
   return {
     props: {
-      maintainer: result[0],
-      recentAchievements: result[1],
-      recentHighlights: result[2],
-      openGraphData: result[3],
-      skills: result[4],
-      contactInformation: result[5],
+      maintainer,
+      recentAchievements,
+      recentHighlights,
+      openGraphData,
+      skills,
+      contactInformation,
     },
   };
 }

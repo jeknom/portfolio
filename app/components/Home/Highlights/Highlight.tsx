@@ -17,8 +17,9 @@ const Highlight: FC<HighlightProps> = ({ title, description, image }) => {
         src={image}
         alt={`${title} image.`}
         layout="fixed"
-        height="75"
-        width="75"
+        objectFit="contain"
+        height={75}
+        width={75}
       />
     );
 
