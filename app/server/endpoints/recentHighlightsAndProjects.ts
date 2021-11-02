@@ -17,6 +17,7 @@ export async function fetchRecentHighlights(prisma: PrismaClient) {
             take: 1,
           },
         },
+        orderBy: { date: "desc" },
         take: 5,
       }),
     ])
@@ -43,9 +44,18 @@ export async function fetchRecentHighlights(prisma: PrismaClient) {
   });
 
   const combined = recentHighlights.concat(recentProjects);
-  combined.sort(
-    (a, b) => new Date(a.date).getTime() + new Date(b.date).getTime()
-  );
+  combined.sort((a, b) => {
+    const dateA = new Date(a.date).getTime();
+    const dateB = new Date(b.date).getTime();
+
+    if (dateA < dateB) {
+      return 1;
+    } else if (dateA > dateB) {
+      return -1;
+    }
+
+    return 0;
+  });
 
   return combined;
 }
