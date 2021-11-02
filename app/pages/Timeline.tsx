@@ -34,7 +34,11 @@ const Timeline: FC<TimelineProps> = ({
         type={type}
         imagePath={imageUrl}
       />
-      <VerticalLayout className={styles.timelineRoot} alignItems="center">
+      <VerticalLayout
+        className={styles.timelineRoot}
+        alignItems="center"
+        justifyContent="center"
+      >
         <NavBar selectedRoute={TIMELINE_ROUTE} routes={mainRoutes} />
         <TimelineComponent
           highlights={highlights}

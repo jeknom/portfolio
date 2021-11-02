@@ -1,5 +1,5 @@
 import { Fragment, FC, useState, useCallback } from "react";
-import { VerticalLine } from "../Core";
+import { VerticalLayout, VerticalLine } from "../Core";
 import { ProjectDialog } from "components/Projects";
 import YearRecord from "./YearRecord";
 import styles from "./Timeline.module.css";
@@ -57,7 +57,11 @@ const Timeline: FC<TimelineProps> = ({
     }
 
     return (
-      <div className={styles.timelineContent}>
+      <VerticalLayout
+        className={styles.timelineContent}
+        alignItems="center"
+        justifyContent="center"
+      >
         {yearRecords}
         <ProjectDialog
           title={selectedProject?.name || ""}
@@ -65,11 +69,11 @@ const Timeline: FC<TimelineProps> = ({
           onClose={handleCloseProjectDialog}
           selectedProject={selectedProject}
         />
-      </div>
+      </VerticalLayout>
     );
   };
 
-  return <section className="fullWidth">{renderTimeline()}</section>;
+  return renderTimeline();
 };
 
 export default Timeline;
