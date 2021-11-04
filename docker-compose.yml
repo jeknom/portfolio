@@ -13,11 +13,11 @@ services:
       ENVIRONMENT: development
       DATABASE_URL: ${DATABASE_URL}
       NEXTAUTH_URL: ${NEXTAUTH_URL}
-      AUTH_SECRET_PATH: ${AUTH_SECRET_PATH}
+      AUTH_CLIENT_ID: ${AUTH_CLIENT_ID}
+      AUTH_CLIENT_SECRET: ${AUTH_CLIENT_SECRET}
       DEBUG: ${DEBUG}
     volumes:
       - "./app:/opt/portfolio"
-      - ${AUTH_SECRET_PATH}:/opt/portfolio/secrets/auth-secret.json
   db:
     image: mysql
     restart: unless-stopped

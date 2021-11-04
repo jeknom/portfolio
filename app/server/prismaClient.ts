@@ -7,6 +7,6 @@ if (isDev) {
   globalThis.prisma = new PrismaClient();
 }
 
-const prisma = global.prisma || new PrismaClient();
+const prisma = (global.prisma as PrismaClient) || new PrismaClient();
 
 export default prisma;

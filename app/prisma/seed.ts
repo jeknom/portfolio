@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import * as permissions from "../constants/permissions";
 const prisma = new PrismaClient();
 
 async function main() {
@@ -12,6 +13,7 @@ async function main() {
   await seedSkills(prisma);
   await seedContactInformation(prisma);
   await seedProjects(prisma);
+  await seedPermissions(prisma);
   console.info("Finished seeding.");
 }
 
@@ -310,6 +312,20 @@ async function seedProjects(prisma: PrismaClient) {
   ]);
 
   console.info("Seeded projects.");
+}
+
+async function seedPermissions(prisma: PrismaClient) {
+  const hasPermissions = (await prisma.permission.findMany()).length > 0;
+  if (hasPermissions) {
+    console.warn("Already has permissions, skipping seed.");
+
+    return;
+  }
+
+  const data = Object.values(permissions).map((v) => ({ key: v }));
+  await prisma.permission.createMany({ data });
+
+  console.info("Seeded permissions");
 }
 
 main()

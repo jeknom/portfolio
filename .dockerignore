@@ -7,5 +7,4 @@ portfolio.db
 portfolio.db-journal
 app/public/images/*
 certs/*
-secrets/*
 database/container/*

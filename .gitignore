@@ -9,5 +9,3 @@ portfolio.db-journal
 app/public/images/*
 certs/*
 database/container/*
-secrets/*
-app/secrets/*

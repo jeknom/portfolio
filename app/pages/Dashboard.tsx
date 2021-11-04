@@ -1,11 +1,12 @@
-import Protected from "components/Core/Protected";
 import { FC } from "react";
+import Protected from "components/Core/Protected";
+import { permissions } from "constants/index";
 
 interface DashboardProps {}
 
 const Dashboard: FC<DashboardProps> = () => {
   return (
-    <Protected>
+    <Protected permissions={[permissions.ADMIN]}>
       <div>Stuff</div>
     </Protected>
   );
