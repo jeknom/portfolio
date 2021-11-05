@@ -3,13 +3,13 @@ import Image from "next/image";
 import styles from "./GridMenu.module.css";
 import classNames from "classnames";
 
-interface ListItemProps {
+interface GridMenuItemProps {
   imageUrl?: string;
   primary: string;
   secondary: string;
 }
 
-const ListItem: FC<ListItemProps & HTMLProps<HTMLDivElement>> = ({
+const GridMenuItem: FC<GridMenuItemProps & HTMLProps<HTMLDivElement>> = ({
   className,
   imageUrl,
   primary,
@@ -41,4 +41,4 @@ const ListItem: FC<ListItemProps & HTMLProps<HTMLDivElement>> = ({
   );
 };
 
-export default ListItem;
+export default GridMenuItem;

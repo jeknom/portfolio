@@ -96,8 +96,6 @@ model ProjectVideo {
   video     Video   @relation(fields: [videoId], references: [id])
 }
 
-// MEDIA MODELS
-
 model Images {
   id            Int             @id @default(autoincrement())
   path          String?         @db.Text
@@ -116,8 +114,6 @@ model Video {
   description  String         @db.Text
   projectVideo ProjectVideo[]
 }
-
-// NEXT AUTH
 
 model Account {
   id                 String    @id @default(cuid())
@@ -184,4 +180,12 @@ model UserPermission {
 
   user       User       @relation(fields: [userId], references: [id])
   permission Permission @relation(fields: [permissionId], references: [id])
+}
+
+model Post {
+  id        String   @id @default(cuid())
+  title     String
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

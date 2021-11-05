@@ -1,4 +1,4 @@
-import { HOME_ROUTE, PROJECTS_ROUTE, TIMELINE_ROUTE } from "./mainRoutes";
+import { HOME_ROUTE, PROJECTS_ROUTE, TIMELINE_ROUTE } from "./routes";
 
 const mainRoutes: NavBarRoute[] = [
   { path: HOME_ROUTE, label: "Home", iconPath: "/home.svg" },

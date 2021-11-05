@@ -5,7 +5,7 @@ import { fetchOpenGraphData } from "server/endpoints/openGraphData";
 import { fetchAllAchievements } from "@endpoints/achievements";
 import { fetchAllHighlights } from "@endpoints/highlights";
 import prisma from "../server/prismaClient";
-import { TIMELINE_ROUTE } from "@constants/mainRoutes";
+import { TIMELINE_ROUTE } from "@constants/routes";
 import mainRoutes from "@constants/mainNavBarRoutes";
 import { fetchAllProjects } from "@endpoints/projects";
 import styles from "../styles/Timeline.module.css";

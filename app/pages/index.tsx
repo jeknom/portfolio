@@ -18,7 +18,7 @@ import { fetchAllContactInformation } from "@endpoints/contactInformation";
 import { ContactInformation } from "@prisma/client";
 import prisma from "../server/prismaClient";
 import mainRoutes from "@constants/mainNavBarRoutes";
-import { HOME_ROUTE } from "@constants/mainRoutes";
+import { HOME_ROUTE } from "@constants/routes";
 import classNames from "classnames";
 import { fetchAllProjects } from "@endpoints/projects";
 

@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /$
-Allow: /Timeline
+Allow: /timeline
+Allow: /projects
 Disallow: /

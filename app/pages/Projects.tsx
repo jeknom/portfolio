@@ -6,7 +6,7 @@ import { GridMenu, GridMenuItem } from "components/Core";
 import { ProjectDialog } from "components/Projects";
 import { fetchAllProjects } from "@endpoints/projects";
 import mainRoutes from "@constants/mainNavBarRoutes";
-import { PROJECTS_ROUTE } from "@constants/mainRoutes";
+import { PROJECTS_ROUTE } from "@constants/routes";
 import styles from "../styles/Projects.module.css";
 
 interface ProjectsProps {

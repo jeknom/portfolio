@@ -2,7 +2,7 @@ const CircularDependencyPlugin = require("circular-dependency-plugin");
 
 module.exports = {
   images: {
-    domains: ['i.imgur.com', 'youtube.com'],
+    domains: ['i.imgur.com', 'youtube.com', 'lh3.googleusercontent.com'],
   },
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     // DOCS: https://github.com/aackerman/circular-dependency-plugin
