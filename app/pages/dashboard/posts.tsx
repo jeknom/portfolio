@@ -39,12 +39,12 @@ const PostListItem: FC<PostListItemProps> = ({ post }) => {
 
 const Posts: FC<PostsProps> = () => {
   const postsRequest = useSwr<Post[]>("/api/posts", fetcher);
-  const posts = (postsRequest?.data || []).map((p) => (
-    <PostListItem key={p.id} post={p} />
-  ));
+  console.log(postsRequest);
+  const postsData = Array.isArray(postsRequest?.data) ? postsRequest?.data : [];
+  const posts = postsData.map((p) => <PostListItem key={p.id} post={p} />);
 
   return (
-    <Protected permissions={[permissions.ADMIN]}>
+    <Protected permissions={[permissions.ALLOWED_TO_SEE_POSTS]}>
       <VerticalLayout gap={12} alignItems="center">
         <NavBar
           selectedRoute={DASHBOARD_POSTS_ROUTE}

@@ -1,68 +1,101 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import { getSession } from "next-auth/client";
+import { permissions } from "constants/index";
 
 export type RequestHandler = (
   req: NextApiRequest,
   res: NextApiResponse
 ) => Promise<void>;
 
+type ValidationOptions = {
+  requiredPermissions?: string[];
+  requiredQueryParams?: string[];
+  requiredBodyParams?: string[];
+};
+
 export class ApiRoute {
   private getHandler?: RequestHandler;
   private requiredGetParams: string[] = [];
+  private requiredGetPermissions: string[] = [];
 
   private postHandler?: RequestHandler;
   private requiredPostParams: string[] = [];
+  private requiredPostPermissions: string[] = [];
 
   private putHandler?: RequestHandler;
   private requiredPutParams: string[] = [];
+  private requiredPutPermissions: string[] = [];
 
   private deleteHandler?: RequestHandler;
   private requiredDeleteParams: string[] = [];
+  private requiredDeletePermissions: string[] = [];
 
-  private handlerAssignedError: string = "A handler can only be assigned once!";
+  private static handlerAssignedError: string =
+    "A handler can only be assigned once!";
 
-  get(handler: RequestHandler, ...requiredParams: string[]) {
+  get(
+    handler: RequestHandler,
+    requiredPermissions: string[] = [],
+    requiredParams: string[] = []
+  ) {
     if (this.getHandler) {
-      console.trace(this.handlerAssignedError);
+      console.trace(ApiRoute.handlerAssignedError);
       return this;
     }
 
     this.getHandler = handler;
+    this.requiredGetPermissions = requiredPermissions;
     this.requiredGetParams = requiredParams;
 
     return this;
   }
 
-  post(handler: RequestHandler, ...requiredParams: string[]) {
+  post(
+    handler: RequestHandler,
+    requiredPermissions: string[] = [],
+    requiredParams: string[] = []
+  ) {
     if (this.postHandler) {
-      console.trace(this.handlerAssignedError);
+      console.trace(ApiRoute.handlerAssignedError);
       return this;
     }
 
     this.postHandler = handler;
+    this.requiredPostPermissions = requiredPermissions;
     this.requiredPostParams = requiredParams;
 
     return this;
   }
 
-  put(handler: RequestHandler, ...requiredParams: string[]) {
+  put(
+    handler: RequestHandler,
+    requiredPermissions: string[] = [],
+    requiredParams: string[] = []
+  ) {
     if (this.putHandler) {
-      console.trace(this.handlerAssignedError);
+      console.trace(ApiRoute.handlerAssignedError);
       return this;
     }
 
     this.postHandler = handler;
-    this.requiredPostParams = requiredParams;
+    this.requiredPutPermissions = requiredPermissions;
+    this.requiredPutParams = requiredParams;
 
     return this;
   }
 
-  delete(handler: RequestHandler, ...requiredParams: string[]) {
+  delete(
+    handler: RequestHandler,
+    requiredPermissions: string[] = [],
+    requiredParams: string[] = []
+  ) {
     if (this.deleteHandler) {
-      console.trace(this.handlerAssignedError);
+      console.trace(ApiRoute.handlerAssignedError);
       return this;
     }
 
     this.deleteHandler = handler;
+    this.requiredDeletePermissions = requiredPermissions;
     this.requiredDeleteParams = requiredParams;
 
     return this;
@@ -70,41 +103,34 @@ export class ApiRoute {
 
   build() {
     return async (req: NextApiRequest, res: NextApiResponse) => {
-      const { method, body, query } = req;
+      const { method } = req;
 
       try {
         if (method === "GET" && this.getHandler) {
-          await ApiRoute.getParamsValidatedHandler(
-            req,
-            res,
-            this.getHandler,
-            query,
-            this.requiredGetParams
-          );
+          await ApiRoute.getValidatedHandler(req, res, this.getHandler, {
+            requiredPermissions: this.requiredGetPermissions,
+            requiredQueryParams: this.requiredGetParams,
+          });
         } else if (method === "POST" && this.postHandler) {
-          await ApiRoute.getParamsValidatedHandler(
-            req,
-            res,
-            this.postHandler,
-            body,
-            this.requiredPostParams
-          );
+          await ApiRoute.getValidatedHandler(req, res, this.postHandler, {
+            requiredPermissions: this.requiredPostPermissions,
+            requiredBodyParams: this.requiredPostParams,
+          });
         } else if (method === "PUT" && this.putHandler) {
-          await ApiRoute.getParamsValidatedHandler(
-            req,
-            res,
-            this.putHandler,
-            body,
-            this.requiredPutParams
-          );
+          await ApiRoute.getValidatedHandler(req, res, this.putHandler, {
+            requiredPermissions: this.requiredPutPermissions,
+            requiredBodyParams: this.requiredPutParams,
+          });
         } else if (method === "DELETE" && this.deleteHandler) {
-          await ApiRoute.getParamsValidatedHandler(
-            req,
-            res,
-            this.deleteHandler,
-            body,
-            this.requiredDeleteParams
-          );
+          await ApiRoute.getValidatedHandler(req, res, this.deleteHandler, {
+            requiredPermissions: this.requiredDeletePermissions,
+            requiredBodyParams: this.requiredDeleteParams,
+          });
+        } else {
+          res.status(404).json({
+            code: 404,
+            error: "Api endpoint does not exist",
+          });
         }
       } catch (error) {
         console.trace(error);
@@ -123,21 +149,46 @@ export class ApiRoute {
     return true;
   }
 
-  private static async getParamsValidatedHandler(
+  private static async getValidatedHandler(
     req: NextApiRequest,
     res: NextApiResponse,
     handler: (req: NextApiRequest, res: NextApiResponse) => Promise<void>,
-    obj: object,
-    params: string[]
+    options?: ValidationOptions
   ) {
-    const isValid = this.isValidParams(obj, params);
-    if (isValid) {
-      await handler(req, res);
-    } else {
-      const error = "Missing request params.";
-      console.warn(error);
-      res.status(400).json({ code: 400, error });
+    if (options) {
+      const session = await getSession({ req });
+      const userPermissions = session.user.permissions || [];
+      const hasRequiredPermissions =
+        (options.requiredPermissions || []).every((p) =>
+          userPermissions.includes(p)
+        ) || userPermissions.includes(permissions.ADMIN);
+      const isValidBody = this.isValidParams(
+        req.body,
+        options.requiredBodyParams || []
+      );
+      const isValidQuery = this.isValidParams(
+        req.query,
+        options.requiredQueryParams || []
+      );
+
+      if (!isValidBody || !isValidQuery) {
+        const error = "Missing request params.";
+        console.warn(error);
+        res.status(400).json({ code: 400, error });
+
+        return;
+      }
+
+      if (!hasRequiredPermissions) {
+        const error = "You are not authorized to access this resource.";
+        console.warn(error);
+        res.status(401).json({ code: 401, error });
+
+        return;
+      }
     }
+
+    await handler(req, res);
   }
 }
 

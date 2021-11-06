@@ -24,8 +24,10 @@ const PermissionsList: FC<PermissionsListProps> = ({ permissions = [] }) => {
 
   return (
     <>
-      {permissions.map((p) => (
-        <p className="secondaryText">{mapPermissionToPrettyName(p)}</p>
+      {permissions.map((p, i) => (
+        <p key={i} className="secondaryText">
+          {mapPermissionToPrettyName(p)}
+        </p>
       ))}
     </>
   );

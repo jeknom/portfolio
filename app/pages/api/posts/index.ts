@@ -1,3 +1,4 @@
+import { permissions } from "@constants/index";
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "server/prismaClient";
 import { sendResourceNotFound, ApiRoute } from "utils/requestUtils";
@@ -42,8 +43,16 @@ async function handleDeletePost(req: NextApiRequest, res: NextApiResponse) {
 }
 
 export default new ApiRoute()
-  .get((req, res) => handleFetchPosts(res))
-  .put(handleCreatePost, "title", "content")
-  .post(handleUpdatePost, "id", "title", "content")
-  .delete(handleDeletePost, "id")
+  .get((req, res) => handleFetchPosts(res), [permissions.ALLOWED_TO_SEE_POSTS])
+  .put(
+    handleCreatePost,
+    [permissions.ALLOWED_TO_EDIT_POSTS],
+    ["title", "content"]
+  )
+  .post(
+    handleUpdatePost,
+    [permissions.ALLOWED_TO_EDIT_POSTS],
+    ["id", "title", "content"]
+  )
+  .delete(handleDeletePost, [permissions.ALLOWED_TO_EDIT_POSTS], ["id"])
   .build();
