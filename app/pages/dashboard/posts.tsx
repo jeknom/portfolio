@@ -39,7 +39,6 @@ const PostListItem: FC<PostListItemProps> = ({ post }) => {
 
 const Posts: FC<PostsProps> = () => {
   const postsRequest = useSwr<Post[]>("/api/posts", fetcher);
-  console.log(postsRequest);
   const postsData = Array.isArray(postsRequest?.data) ? postsRequest?.data : [];
   const posts = postsData.map((p) => <PostListItem key={p.id} post={p} />);
 
