@@ -1,12 +1,24 @@
+import { Post } from ".prisma/client";
 import { permissions } from "@constants/index";
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "server/prismaClient";
 import { sendResourceNotFound, ApiRoute } from "utils/requestUtils";
 
-async function handleFetchPosts(res: NextApiResponse) {
-  const posts = await prisma.post.findMany();
+async function handleFetchPosts(req: NextApiRequest, res: NextApiResponse) {
+  const id = req.query.id;
+  let queryOptions: object = { orderBy: { createdAt: "desc" } };
 
-  res.status(200).json(posts);
+  if (id && id !== "undefined" && id !== "") {
+    queryOptions = { where: { id }, ...queryOptions };
+  }
+
+  const response = await prisma.post.findMany(queryOptions);
+
+  if (response) {
+    res.status(200).json(response);
+  } else {
+    sendResourceNotFound(res, "Could not find the requested post(s)");
+  }
 }
 
 async function handleCreatePost(req: NextApiRequest, res: NextApiResponse) {
@@ -43,7 +55,7 @@ async function handleDeletePost(req: NextApiRequest, res: NextApiResponse) {
 }
 
 export default new ApiRoute()
-  .get((req, res) => handleFetchPosts(res), [permissions.ALLOWED_TO_SEE_POSTS])
+  .get(handleFetchPosts)
   .put(
     handleCreatePost,
     [permissions.ALLOWED_TO_EDIT_POSTS],

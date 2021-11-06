@@ -66,3 +66,8 @@ declare type NavBarRoute = {
   label: string;
   iconPath: string;
 };
+
+declare type ApiErrorResponse = {
+  code: number;
+  error: string;
+};

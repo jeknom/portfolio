@@ -9,16 +9,14 @@ import {
   LoadingContainer,
 } from "components/Core";
 import { FC } from "react";
-import useSwr from "swr";
 import Protected from "components/Core/Protected";
+import usePosts from "hooks/usePosts";
 
 interface PostsProps {}
 
 interface PostListItemProps {
   post: Post;
 }
-
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 const PostListItem: FC<PostListItemProps> = ({ post }) => {
   const { title, updatedAt } = post;
@@ -38,9 +36,10 @@ const PostListItem: FC<PostListItemProps> = ({ post }) => {
 };
 
 const Posts: FC<PostsProps> = () => {
-  const postsRequest = useSwr<Post[]>("/api/posts", fetcher);
-  const postsData = Array.isArray(postsRequest?.data) ? postsRequest?.data : [];
-  const posts = postsData.map((p) => <PostListItem key={p.id} post={p} />);
+  const [postsData, isLoading] = usePosts();
+  const posts = (postsData || []).map((p: Post) => (
+    <PostListItem key={p.id} post={p} />
+  ));
 
   return (
     <Protected permissions={[permissions.ALLOWED_TO_SEE_POSTS]}>
@@ -49,7 +48,7 @@ const Posts: FC<PostsProps> = () => {
           selectedRoute={DASHBOARD_POSTS_ROUTE}
           routes={dashboardRoutes}
         />
-        <LoadingContainer loading={!postsRequest?.data && !postsRequest?.error}>
+        <LoadingContainer loading={isLoading}>
           <ul>{posts}</ul>
         </LoadingContainer>
         <HorizontalLayout alignItems="center">
