@@ -6,6 +6,7 @@ import {
   VerticalLayout,
   Button,
   NavBar,
+  LoadingContainer,
 } from "components/Core";
 import { FC } from "react";
 import useSwr from "swr";
@@ -49,10 +50,9 @@ const Posts: FC<PostsProps> = () => {
           selectedRoute={DASHBOARD_POSTS_ROUTE}
           routes={dashboardRoutes}
         />
-        {!postsRequest?.data && !postsRequest?.error && (
-          <p className="secondaryText">Loading...</p>
-        )}
-        <ul>{posts}</ul>
+        <LoadingContainer loading={!postsRequest?.data && !postsRequest?.error}>
+          <ul>{posts}</ul>
+        </LoadingContainer>
         <HorizontalLayout alignItems="center">
           <Button>Create new</Button>
         </HorizontalLayout>

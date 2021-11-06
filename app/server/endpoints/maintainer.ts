@@ -10,7 +10,7 @@ export async function fetchMaintainer(prisma: PrismaClient) {
 
   const mapped: Maintainer = {
     ...maintainer,
-    imageUrl: maintainer.images.path,
+    imageUrl: maintainer?.images?.path || "",
   };
 
   return mapped;

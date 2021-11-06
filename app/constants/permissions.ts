@@ -1,1 +1,3 @@
 export const ADMIN = "ADMIN";
+export const ALLOWED_TO_SEE_POSTS = "ALLOWED_TO_SEE_POSTS";
+export const ALLOWED_TO_EDIT_POSTS = "ALLOWED_TO_EDIT_POSTS";

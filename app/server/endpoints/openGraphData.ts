@@ -10,7 +10,7 @@ export async function fetchOpenGraphData(prisma: PrismaClient) {
 
   const mapped: OpenGraphData = {
     ...openGraphData,
-    imageUrl: openGraphData.images.path,
+    imageUrl: openGraphData?.images?.path || "",
   };
 
   return mapped;

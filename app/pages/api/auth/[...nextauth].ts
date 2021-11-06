@@ -10,19 +10,15 @@ async function fillUserPermissions(
   session: Session,
   user: User
 ): Promise<Session> {
-  const userPermissions = await prisma.permission.findMany({
+  const userPermissions = await prisma.userPermission.findMany({
     where: {
-      userPermission: {
-        some: {
-          user: {
-            id: user.id,
-          },
-        },
+      user: {
+        id: user.id,
       },
     },
   });
 
-  session.user.permissions = userPermissions.map((p) => p.key);
+  session.user.permissions = userPermissions.map((p) => p.permission);
 
   return session;
 }

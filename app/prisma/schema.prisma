@@ -166,20 +166,12 @@ model VerificationRequest {
   @@unique([identifier, token])
 }
 
-model Permission {
-  id  Int    @id @default(autoincrement())
-  key String @unique
-
-  userPermission UserPermission[]
-}
-
 model UserPermission {
-  id           String @id @default(cuid())
-  userId       String
-  permissionId Int
+  id         String @id @default(cuid())
+  userId     String
+  permission String
 
-  user       User       @relation(fields: [userId], references: [id])
-  permission Permission @relation(fields: [permissionId], references: [id])
+  user User @relation(fields: [userId], references: [id])
 }
 
 model Post {
