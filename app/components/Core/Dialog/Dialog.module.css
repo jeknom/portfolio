@@ -92,3 +92,10 @@
 .hidden {
   display: none;
 }
+
+.dialogActions {
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  gap: 8px;
+}

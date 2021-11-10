@@ -1,4 +1,3 @@
-import { Post } from ".prisma/client";
 import { permissions } from "@constants/index";
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "server/prismaClient";
