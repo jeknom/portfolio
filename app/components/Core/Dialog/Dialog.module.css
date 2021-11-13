@@ -34,7 +34,7 @@
     margin: 7.5% auto;
     border-radius: 12px;
     width: clamp(10%, 65%, 100%);
-    height: clamp(10%, 70%, 100%);
+    height: auto;
   }
 }
 
@@ -43,7 +43,7 @@
     margin: 7.5% auto;
     border-radius: 12px;
     width: clamp(10%, 55%, 100%);
-    height: clamp(10%, 70%, 100%);
+    height: auto;
   }
 }
 
@@ -98,4 +98,5 @@
   align-items: flex-end;
   width: 100%;
   gap: 8px;
+  margin: 8px 0px 8px 0px;
 }
