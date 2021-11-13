@@ -130,7 +130,9 @@ const CreatePost: FC<CreatePostProps> = () => {
             Create
           </Button>
           <Link href="/dashboard/posts">
-            <Button>Cancel</Button>
+            <span>
+              <Button>Cancel</Button>
+            </span>
           </Link>
         </HorizontalLayout>
       </Root>
