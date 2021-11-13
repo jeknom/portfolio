@@ -1,7 +1,8 @@
 import { permissions } from "@constants/index";
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "server/prismaClient";
-import { sendResourceNotFound, ApiRoute } from "utils/requestUtils";
+import { sendResourceNotFound } from "utils/requestUtils";
+import ApiRoute from "../../../lib/ApiRoute";
 
 async function handleFetchPosts(req: NextApiRequest, res: NextApiResponse) {
   const id = req.query.id;

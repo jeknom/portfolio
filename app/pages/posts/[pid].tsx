@@ -9,10 +9,11 @@ import {
   Head,
   Button,
 } from "components/Core";
-import usePosts from "hooks/usePosts";
+import { useGetRequest } from "hooks/requests";
 import prisma from "server/prismaClient";
 import { fetchOpenGraphData } from "@endpoints/openGraphData";
 import styles from "../../styles/posts.module.css";
+import { createFetchPostByIdRequest } from "requests/posts";
 
 interface PostPageProps {
   openGraphData: OpenGraphData;
@@ -21,8 +22,10 @@ interface PostPageProps {
 const PostPage: FC<PostPageProps> = ({ openGraphData }) => {
   const router = useRouter();
   const { pid } = router.query;
-  const [posts, isLoading] = usePosts(pid as string);
-  const post = posts?.length > 0 && posts[0];
+  const [postsData, postsError, isLoading, refresh] = useGetRequest(
+    createFetchPostByIdRequest(pid as string)
+  );
+  const post = postsData?.length > 0 && postsData[0];
   const { title, description, type, imageUrl } = openGraphData;
 
   return (
@@ -40,6 +43,9 @@ const PostPage: FC<PostPageProps> = ({ openGraphData }) => {
         gap={16}
       >
         <LoadingContainer loading={isLoading}>
+          {postsError && (
+            <p className="secondaryText">{postsError.toString()}</p>
+          )}
           <Title text={post?.title || ""} />
           <Paragraph text={post?.content || ""} />
         </LoadingContainer>

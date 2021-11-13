@@ -20,8 +20,10 @@ import ListItem from "./List/ListItem";
 import ListItemText from "./List/ListItemText";
 import ListItemActions from "./List/ListItemActions";
 import TextArea from "./TextArea";
+import TextField from "./TextField";
 import Toggle from "./Toggle";
 import Root from "./Root";
+import Alert from "./Alert";
 
 export {
   Button,
@@ -46,6 +48,8 @@ export {
   ListItemText,
   ListItemActions,
   TextArea,
+  TextField,
   Toggle,
   Root,
+  Alert,
 };

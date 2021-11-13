@@ -1,0 +1,12 @@
+.textArea {
+  font-size: 1rem;
+  font-weight: 300;
+  border: 1px solid black;
+  border-radius: 8px;
+  padding: 6px;
+}
+
+.textArea:focus {
+  outline: none;
+  border: 2px solid black;
+}

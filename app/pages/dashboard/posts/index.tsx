@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useState, useEffect } from "react";
 import { Post } from ".prisma/client";
 import Link from "next/link";
 import { dashboardRoutes, permissions } from "constants/index";
@@ -14,10 +14,15 @@ import {
   ListItemText,
   ListItemActions,
   Dialog,
+  Alert,
 } from "components/Core";
 import Protected from "components/Core/Protected";
-import usePosts from "hooks/usePosts";
+import { useGetRequest, useRequest } from "hooks/requests";
 import DialogActions from "components/Core/Dialog/DialogActions";
+import {
+  createDeletePostRequest,
+  createFetchPostsRequest,
+} from "requests/posts";
 
 interface PostsProps {}
 
@@ -27,7 +32,7 @@ interface PostListItemProps {
 }
 
 const PostListItem: FC<PostListItemProps> = ({ post, onDelete }) => {
-  const { title, updatedAt } = post;
+  const { title, updatedAt, id } = post;
 
   return (
     <ListItem>
@@ -36,7 +41,7 @@ const PostListItem: FC<PostListItemProps> = ({ post, onDelete }) => {
         <Button onClick={() => onDelete(post)}>Delete</Button>
       </ListItemActions>
       <ListItemText
-        primary={title}
+        primary={`${title} - ${id}`}
         secondary={new Date(updatedAt).toLocaleDateString()}
       />
     </ListItem>
@@ -45,13 +50,26 @@ const PostListItem: FC<PostListItemProps> = ({ post, onDelete }) => {
 
 const Posts: FC<PostsProps> = () => {
   const [postToDelete, setPostToDelete] = useState<Post>(null);
-  const [postsData, isLoading] = usePosts();
+  const [postsData, postsError, isLoading, refresh] = useGetRequest(
+    createFetchPostsRequest()
+  );
+  const [doDeleteRequest, deleteRequestError, isDeletePending] = useRequest(
+    createDeletePostRequest(postToDelete?.id)
+  );
   const posts = (postsData || []).map((p: Post) => (
     <PostListItem key={p.id} post={p} onDelete={setPostToDelete} />
   ));
 
   const handleCloseDeleteConfirmation = () => {
     setPostToDelete(null);
+  };
+
+  const handleDeletePost = async () => {
+    const result = await doDeleteRequest();
+    if (!result.error) {
+      setPostToDelete(null);
+      refresh();
+    }
   };
 
   return (
@@ -61,6 +79,7 @@ const Posts: FC<PostsProps> = () => {
           selectedRoute={DASHBOARD_POSTS_ROUTE}
           routes={dashboardRoutes}
         />
+        {postsError && <Alert type="error">{postsError.toString()}</Alert>}
         <LoadingContainer loading={isLoading}>
           <List>{posts}</List>
         </LoadingContainer>
@@ -79,8 +98,8 @@ const Posts: FC<PostsProps> = () => {
           Are you sure you wish to delete post {postToDelete?.title}?
         </p>
         <DialogActions>
-          <Button>Yes</Button>
-          <Button>No</Button>
+          <Button onClick={handleDeletePost}>Yes</Button>
+          <Button onClick={handleCloseDeleteConfirmation}>No</Button>
         </DialogActions>
       </Dialog>
     </Protected>

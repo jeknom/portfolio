@@ -43,7 +43,7 @@ const Root: FC<RootProps & HTMLProps<HTMLDivElement>> = ({
           align-items: ${alignItems};
           flex-direction: ${flexDirection};
           justify-content: ${justifyContent};
-          gap: ${gap};
+          gap: ${gap}px;
         }
       `}</style>
     </>
