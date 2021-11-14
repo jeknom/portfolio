@@ -68,6 +68,7 @@ const Posts: FC<PostsProps> = () => {
   const deletePostHandler = useRequest<PortfolioAPIResponse<Post>>(
     createDeletePostRequest(postToDelete?.id)
   );
+  console.log(getPostsHandler.data);
   const posts = (getPostsHandler.data || []).map((p: Post) => (
     <PostListItem key={p.id} post={p} onDelete={setPostToDelete} />
   ));

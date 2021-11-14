@@ -27,10 +27,11 @@ function useRequest<TResponse>(
       } else {
         setError(null);
         setErrorCode(null);
+        setData(result);
       }
 
       setIsLoading(false);
-      setData(result);
+
       return result as TResponse;
     } catch (error) {
       setError(error.toString());

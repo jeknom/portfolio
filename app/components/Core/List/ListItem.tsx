@@ -36,6 +36,7 @@ const ListItem: FC<ListItemProps & HTMLProps<HTMLDivElement>> = ({
       className={classNames(className, styles.listItem)}
       alignItems="center"
       justifyContent="space-between"
+      gap={8}
     >
       {text}
       {restChildren}
