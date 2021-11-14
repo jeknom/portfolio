@@ -37,6 +37,11 @@ const PostListItem: FC<PostListItemProps> = ({ post, onDelete }) => {
   return (
     <ListItem>
       <ListItemActions>
+        <Link href={`/posts/${post.id}`}>
+          <span>
+            <Button>Open</Button>
+          </span>
+        </Link>
         <Link href={`/dashboard/posts/edit/${post.id}`}>
           <span>
             <Button>Edit</Button>
