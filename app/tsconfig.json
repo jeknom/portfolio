@@ -19,10 +19,17 @@
     "jsx": "preserve",
     "baseUrl": "./",
     "paths": {
-      "@styles/*": ["styles/*"],
-      "@endpoints/*": ["server/endpoints/*"],
-      "@constants/*": ["constants/*"]
-    }
+      "@styles/*": [
+        "styles/*"
+      ],
+      "@endpoints/*": [
+        "server/endpoints/*"
+      ],
+      "@constants/*": [
+        "constants/*"
+      ]
+    },
+    "incremental": true
   },
   "include": [
     "next-env.d.ts",

@@ -9,27 +9,25 @@
     "seed": "npx ts-node --compiler-options \"{\\\"module\\\":\\\"commonjs\\\"}\" prisma/seed.ts"
   },
   "dependencies": {
-    "@next-auth/prisma-adapter": "^0.4.4-canary.81",
-    "@prisma/client": "3.2.1",
-    "circular-dependency-plugin": "^5.2.2",
+    "@next-auth/prisma-adapter": "0.4.4-canary.81",
+    "@prisma/client": "^3.4.2",
+    "circular-dependency-plugin": "5.2.2",
     "classnames": "2.3.1",
-    "next": "11.1.2",
-    "next-auth": "^3.29.0",
-    "npm": "8.1.0",
+    "next": "12.0.3",
+    "next-auth": "3.29.0",
     "nprogress": "0.2.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-markdown": "7.0.1",
-    "react-syntax-highlighter": "15.4.4"
+    "react-markdown": "7.1.0",
+    "react-syntax-highlighter": "15.4.5"
   },
   "devDependencies": {
-    "@types/classnames": "2.3.1",
-    "@types/node": "16.11.0",
+    "@types/node": "16.11.7",
     "@types/nprogress": "0.2.0",
-    "@types/react": "17.0.30",
+    "@types/react": "17.0.34",
     "@types/react-syntax-highlighter": "13.5.2",
-    "prisma": "3.2.1",
-    "ts-node": "10.3.0",
+    "prisma": "^3.4.2",
+    "ts-node": "10.4.0",
     "typescript": "4.4.4"
   }
 }

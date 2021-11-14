@@ -64,13 +64,17 @@ const PostPage: FC<PostPageProps> = ({ openGraphData }) => {
 };
 
 export async function getServerSideProps() {
-  const [openGraphData] = await Promise.all([fetchOpenGraphData(prisma)]);
+  try {
+    const [openGraphData] = await Promise.all([fetchOpenGraphData(prisma)]);
 
-  return {
-    props: {
-      openGraphData,
-    },
-  };
+    return {
+      props: {
+        openGraphData,
+      },
+    };
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 export default PostPage;

@@ -2,7 +2,10 @@ version: "3.5"
 
 services:
   app:
-    build: "./app"
+    build:
+      context: "./app"
+      args:
+        DATABASE_URL: ${DATABASE_URL}
     restart: unless-stopped
     container_name: dev-portfolio-app
     depends_on:

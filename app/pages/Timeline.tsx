@@ -51,23 +51,26 @@ const Timeline: FC<TimelineProps> = ({
 };
 
 export async function getServerSideProps() {
-  const [openGraphData, achievements, highlights, projects] = await Promise.all(
-    [
-      fetchOpenGraphData(prisma),
-      fetchAllAchievements(prisma),
-      fetchAllHighlights(prisma),
-      fetchAllProjects(prisma),
-    ]
-  );
+  try {
+    const [openGraphData, achievements, highlights, projects] =
+      await Promise.all([
+        fetchOpenGraphData(prisma),
+        fetchAllAchievements(prisma),
+        fetchAllHighlights(prisma),
+        fetchAllProjects(prisma),
+      ]);
 
-  return {
-    props: {
-      openGraphData,
-      achievements,
-      highlights,
-      projects,
-    },
-  };
+    return {
+      props: {
+        openGraphData,
+        achievements,
+        highlights,
+        projects,
+      },
+    };
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 export default Timeline;

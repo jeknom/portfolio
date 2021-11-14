@@ -1,6 +1,7 @@
 const CircularDependencyPlugin = require("circular-dependency-plugin");
 
 module.exports = {
+  swcMinify: true,
   images: {
     domains: ['i.imgur.com', 'youtube.com', 'lh3.googleusercontent.com'],
   },

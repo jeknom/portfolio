@@ -82,33 +82,37 @@ const Home: FC<HomeProps> = ({
 };
 
 export async function getServerSideProps() {
-  const [
-    maintainer,
-    recentAchievements,
-    recentHighlights,
-    openGraphData,
-    skills,
-    contactInformation,
-  ] = await Promise.all([
-    fetchMaintainer(prisma),
-    fetchRecentAchievements(prisma),
-    fetchRecentHighlights(prisma),
-    fetchOpenGraphData(prisma),
-    fetchAllSkills(prisma),
-    fetchAllContactInformation(prisma),
-    fetchAllProjects(prisma),
-  ]);
-
-  return {
-    props: {
+  try {
+    const [
       maintainer,
       recentAchievements,
       recentHighlights,
       openGraphData,
       skills,
       contactInformation,
-    },
-  };
+    ] = await Promise.all([
+      fetchMaintainer(prisma),
+      fetchRecentAchievements(prisma),
+      fetchRecentHighlights(prisma),
+      fetchOpenGraphData(prisma),
+      fetchAllSkills(prisma),
+      fetchAllContactInformation(prisma),
+      fetchAllProjects(prisma),
+    ]);
+
+    return {
+      props: {
+        maintainer,
+        recentAchievements,
+        recentHighlights,
+        openGraphData,
+        skills,
+        contactInformation,
+      },
+    };
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 export default Home;
