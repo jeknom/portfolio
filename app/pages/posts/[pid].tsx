@@ -9,11 +9,12 @@ import {
   Head,
   Button,
 } from "components/Core";
-import { useGetRequest } from "hooks/requests";
+import { useRequest } from "hooks/requests";
 import prisma from "server/prismaClient";
 import { fetchOpenGraphData } from "@endpoints/openGraphData";
 import styles from "../../styles/posts.module.css";
 import { createFetchPostByIdRequest } from "requests/posts";
+import { Post } from "@prisma/client";
 
 interface PostPageProps {
   openGraphData: OpenGraphData;
@@ -22,10 +23,13 @@ interface PostPageProps {
 const PostPage: FC<PostPageProps> = ({ openGraphData }) => {
   const router = useRouter();
   const { pid } = router.query;
-  const [postsData, postsError, isLoading, refresh] = useGetRequest(
-    createFetchPostByIdRequest(pid as string)
+  const getPostHandler = useRequest<Post>(
+    createFetchPostByIdRequest(pid as string),
+    {
+      doRequestOnMount: true,
+    }
   );
-  const post = postsData?.length > 0 && postsData[0];
+
   const { title, description, type, imageUrl } = openGraphData;
 
   return (
@@ -42,15 +46,17 @@ const PostPage: FC<PostPageProps> = ({ openGraphData }) => {
         justifyContent="center"
         gap={16}
       >
-        <LoadingContainer loading={isLoading}>
-          {postsError && (
-            <p className="secondaryText">{postsError.toString()}</p>
+        <LoadingContainer loading={getPostHandler.isLoading}>
+          {getPostHandler.error && (
+            <p className="secondaryText">{getPostHandler.error.toString()}</p>
           )}
-          <Title text={post?.title || ""} />
-          <Paragraph text={post?.content || ""} />
+          <Title text={getPostHandler.data?.title || ""} />
+          <Paragraph text={getPostHandler.data?.content || ""} />
         </LoadingContainer>
         <Link href="/">
-          <Button>See my portfolio and CV</Button>
+          <span>
+            <Button>See my portfolio and CV</Button>
+          </span>
         </Link>
       </VerticalLayout>
     </>

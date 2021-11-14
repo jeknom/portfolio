@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from "react";
+import { FC, useState } from "react";
 import { Post } from ".prisma/client";
 import Link from "next/link";
 import { dashboardRoutes, permissions } from "constants/index";
@@ -17,7 +17,7 @@ import {
   Alert,
 } from "components/Core";
 import Protected from "components/Core/Protected";
-import { useGetRequest, useRequest } from "hooks/requests";
+import { useRequest } from "hooks/requests";
 import DialogActions from "components/Core/Dialog/DialogActions";
 import {
   createDeletePostRequest,
@@ -32,16 +32,20 @@ interface PostListItemProps {
 }
 
 const PostListItem: FC<PostListItemProps> = ({ post, onDelete }) => {
-  const { title, updatedAt, id } = post;
+  const { title, updatedAt } = post;
 
   return (
     <ListItem>
       <ListItemActions>
-        <Button>Edit</Button>
+        <Link href={`/dashboard/posts/edit/${post.id}`}>
+          <span>
+            <Button>Edit</Button>
+          </span>
+        </Link>
         <Button onClick={() => onDelete(post)}>Delete</Button>
       </ListItemActions>
       <ListItemText
-        primary={`${title} - ${id}`}
+        primary={title}
         secondary={new Date(updatedAt).toLocaleDateString()}
       />
     </ListItem>
@@ -50,13 +54,16 @@ const PostListItem: FC<PostListItemProps> = ({ post, onDelete }) => {
 
 const Posts: FC<PostsProps> = () => {
   const [postToDelete, setPostToDelete] = useState<Post>(null);
-  const [postsData, postsError, isLoading, refresh] = useGetRequest(
-    createFetchPostsRequest()
+  const getPostsHandler = useRequest<PortfolioAPIResponse<Post[]>>(
+    createFetchPostsRequest(),
+    {
+      doRequestOnMount: true,
+    }
   );
-  const [doDeleteRequest, deleteRequestError, isDeletePending] = useRequest(
+  const deletePostHandler = useRequest<PortfolioAPIResponse<Post>>(
     createDeletePostRequest(postToDelete?.id)
   );
-  const posts = (postsData || []).map((p: Post) => (
+  const posts = (getPostsHandler.data || []).map((p: Post) => (
     <PostListItem key={p.id} post={p} onDelete={setPostToDelete} />
   ));
 
@@ -65,43 +72,52 @@ const Posts: FC<PostsProps> = () => {
   };
 
   const handleDeletePost = async () => {
-    const result = await doDeleteRequest();
+    const result = await deletePostHandler.doRequest();
     if (!result.error) {
       setPostToDelete(null);
-      refresh();
+      getPostsHandler.doRequest();
     }
   };
 
   return (
-    <Protected permissions={[permissions.ALLOWED_TO_SEE_POSTS]}>
+    <Protected permissions={[permissions.ALLOWED_TO_SEE_DASHBOARD]}>
       <VerticalLayout gap={12} alignItems="center">
         <NavBar
           selectedRoute={DASHBOARD_POSTS_ROUTE}
           routes={dashboardRoutes}
         />
-        {postsError && <Alert type="error">{postsError.toString()}</Alert>}
-        <LoadingContainer loading={isLoading}>
+        {getPostsHandler.error && (
+          <Alert type="error">{getPostsHandler.error.toString()}</Alert>
+        )}
+        <LoadingContainer loading={getPostsHandler.isLoading}>
+          {posts.length === 0 && (
+            <p className="captionText">
+              There are no posts, create new ones and they will appear here.
+            </p>
+          )}
           <List>{posts}</List>
         </LoadingContainer>
         <HorizontalLayout alignItems="center">
           <Link href="/dashboard/posts/create">
-            <Button>Create new</Button>
+            <span>
+              <Button>Create new</Button>
+            </span>
           </Link>
         </HorizontalLayout>
+        <Dialog
+          title="Delete post"
+          open={postToDelete !== null}
+          onClose={handleCloseDeleteConfirmation}
+        >
+          <p className="secondaryText">
+            Are you sure you wish to delete post {postToDelete?.title}?
+          </p>
+          <DialogActions>
+            <Button onClick={handleDeletePost}>Yes</Button>
+            <Button onClick={handleCloseDeleteConfirmation}>No</Button>
+          </DialogActions>
+        </Dialog>
       </VerticalLayout>
-      <Dialog
-        title="Delete post"
-        open={postToDelete !== null}
-        onClose={handleCloseDeleteConfirmation}
-      >
-        <p className="secondaryText">
-          Are you sure you wish to delete post {postToDelete?.title}?
-        </p>
-        <DialogActions>
-          <Button onClick={handleDeletePost}>Yes</Button>
-          <Button onClick={handleCloseDeleteConfirmation}>No</Button>
-        </DialogActions>
-      </Dialog>
     </Protected>
   );
 };

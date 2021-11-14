@@ -3,21 +3,23 @@ import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "server/prismaClient";
 import { sendResourceNotFound } from "utils/requestUtils";
 import ApiRoute from "../../../lib/ApiRoute";
+import { Post } from "@prisma/client";
 
 async function handleFetchPosts(req: NextApiRequest, res: NextApiResponse) {
   const id = req.query.id;
   let queryOptions: object = { orderBy: { createdAt: "desc" } };
 
+  let response: Post | Post[];
   if (id && id !== "undefined" && id !== "") {
-    queryOptions = { where: { id }, ...queryOptions };
+    response = await prisma.post.findUnique({ where: { id: id as string } });
+  } else {
+    response = await prisma.post.findMany(queryOptions);
   }
-
-  const response = await prisma.post.findMany(queryOptions);
 
   if (response) {
     res.status(200).json(response);
   } else {
-    sendResourceNotFound(res, "Could not find the requested post(s)");
+    sendResourceNotFound(res, "Could not find the requested post.");
   }
 }
 

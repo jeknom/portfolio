@@ -1,9 +1,59 @@
-import { useState } from "react";
-import { Request } from ".";
+import { useState, useEffect } from "react";
 
-export interface RequestWithMethod<T = {}> extends Request {
-  method: "GET" | "PUT" | "POST" | "DELETE";
-  body?: T;
+interface RequestOptions {
+  doRequestOnMount?: boolean;
+}
+
+function useRequest<TResponse>(
+  request: PortfolioAPIRequest,
+  options?: RequestOptions
+) {
+  const [isLoading, setIsLoading] = useState(false);
+  const [data, setData] = useState<TResponse | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [errorCode, setErrorCode] = useState<number | null>(null);
+
+  async function doRequest(): Promise<TResponse | null> {
+    setIsLoading(true);
+    const { method, url, body, query } = request;
+    try {
+      const fullUrl = query ? buildUrl(url, query) : url;
+      const result = await handleRequest(method, fullUrl, body);
+      if (result.error) {
+        setError(result.error);
+        if (result.code) {
+          setErrorCode(result.code);
+        }
+      } else {
+        setError(null);
+        setErrorCode(null);
+      }
+
+      setIsLoading(false);
+      setData(result);
+      return result as TResponse;
+    } catch (error) {
+      setError(error.toString());
+    }
+
+    setIsLoading(false);
+
+    return null;
+  }
+
+  useEffect(() => {
+    if (options?.doRequestOnMount) {
+      doRequest();
+    }
+  }, []);
+
+  return {
+    doRequest,
+    data,
+    error,
+    errorCode,
+    isLoading,
+  };
 }
 
 async function handleRequest<TBody>(method: string, url: string, body: TBody) {
@@ -19,34 +69,19 @@ async function handleRequest<TBody>(method: string, url: string, body: TBody) {
   return response.json();
 }
 
-function usePostRequest(request: RequestWithMethod) {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+function buildUrl(url: string, query: object) {
+  const searchParams = new URLSearchParams();
+  const queryParams = Object.entries(query);
 
-  async function doRequest<TResult>(): Promise<TResult | null> {
-    setIsLoading(true);
-    const { method, url, body } = request;
-    try {
-      const result = await handleRequest(method, url, body);
-      if (result?.error) {
-        setError(result.error);
-      } else {
-        setError(null);
-      }
-
-      setIsLoading(false);
-
-      return result as TResult;
-    } catch (error) {
-      setError(error.toString());
-    }
-
-    setIsLoading(false);
-
-    return null;
+  if (queryParams.length === 0) {
+    return url;
   }
 
-  return [doRequest, error, isLoading];
+  for (let [key, value] of queryParams) {
+    searchParams.append(key, value);
+  }
+
+  return `${url}?${searchParams.toString()}`;
 }
 
-export default usePostRequest;
+export default useRequest;
