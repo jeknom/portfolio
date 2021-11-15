@@ -1,4 +1,5 @@
 import { FC } from "react";
+import styles from "./loadingContainer.module.css";
 
 interface LoadingContainerProps {
   loading: boolean;
@@ -6,7 +7,7 @@ interface LoadingContainerProps {
 
 const LoadingContainer: FC<LoadingContainerProps> = ({ loading, children }) => {
   if (loading) {
-    return <p className="primaryText">Loading...</p>;
+    return <div className={styles.ldsDualRing}></div>;
   }
 
   return <>{children}</>;
