@@ -11,7 +11,7 @@
 
 ### Steps
 
-1. Connect to your instance and run [this initialization script](../init-ubuntu.sh) with sudo privileges.
+1. Connect to your instance and run [this initialization script](../scripts/init-ubuntu.sh) with sudo privileges.
 2. Fill in any details required while running this script. The script will ask for following input:
    - Permission for installing docker and compose (y/n).
    - Credentials for a new portfolio user.
