@@ -1,8 +1,10 @@
 .list {
   width: 100%;
   list-style-type: none;
+  padding: 0px;
 }
 
 .listItem {
   width: 100%;
+  border-bottom: 1px solid black;
 }

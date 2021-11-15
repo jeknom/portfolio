@@ -19,6 +19,7 @@ import List from "./List";
 import ListItem from "./List/ListItem";
 import ListItemText from "./List/ListItemText";
 import ListItemActions from "./List/ListItemActions";
+import ListItemIcon from "./List/ListItemIcon";
 import TextArea from "./TextArea";
 import TextField from "./TextField";
 import Toggle from "./Toggle";
@@ -47,6 +48,7 @@ export {
   ListItem,
   ListItemText,
   ListItemActions,
+  ListItemIcon,
   TextArea,
   TextField,
   Toggle,

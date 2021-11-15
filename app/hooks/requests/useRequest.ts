@@ -1,15 +1,18 @@
 import { useState, useEffect } from "react";
 
-interface RequestOptions {
+interface RequestOptions<T = {}> {
   doRequestOnMount?: boolean;
+  defaultValue?: T;
 }
 
 function useRequest<TResponse>(
   request: PortfolioAPIRequest,
-  options?: RequestOptions
+  options?: RequestOptions<TResponse>
 ) {
   const [isLoading, setIsLoading] = useState(false);
-  const [data, setData] = useState<TResponse | null>(null);
+  const [data, setData] = useState<TResponse | null>(
+    options?.defaultValue || null
+  );
   const [error, setError] = useState<string | null>(null);
   const [errorCode, setErrorCode] = useState<number | null>(null);
 

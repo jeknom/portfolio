@@ -10,6 +10,7 @@ const ListItem: FC<ListItemProps & HTMLProps<HTMLDivElement>> = ({
   children,
   ...rest
 }) => {
+  let icon: ReactNode | null = null;
   let text: ReactNode | null = null;
   let actions: ReactNode | null = null;
   const restChildren: ReactNode[] = [];
@@ -18,6 +19,9 @@ const ListItem: FC<ListItemProps & HTMLProps<HTMLDivElement>> = ({
     const type = child?.type?.displayName || "";
 
     switch (type) {
+      case "ListItemIcon":
+        icon = child;
+        break;
       case "ListItemText":
         text = child;
         break;
@@ -38,7 +42,10 @@ const ListItem: FC<ListItemProps & HTMLProps<HTMLDivElement>> = ({
       justifyContent="space-between"
       gap={8}
     >
-      {text}
+      <HorizontalLayout alignItems="center" justifyContent="center" gap={8}>
+        {icon}
+        {text}
+      </HorizontalLayout>
       {restChildren}
       {actions}
     </HorizontalLayout>

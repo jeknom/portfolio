@@ -5,7 +5,6 @@ import { dashboardRoutes, permissions } from "constants/index";
 import { DASHBOARD_POSTS_CREATE, DASHBOARD_POSTS } from "@constants/routes";
 import {
   HorizontalLayout,
-  VerticalLayout,
   Button,
   NavBar,
   LoadingContainer,
@@ -15,6 +14,7 @@ import {
   ListItemActions,
   Dialog,
   Alert,
+  Root,
 } from "components/Core";
 import Protected from "components/Core/Protected";
 import { useRequest } from "hooks/requests";
@@ -87,7 +87,7 @@ const Posts: FC<PostsProps> = () => {
 
   return (
     <Protected permissions={[permissions.ALLOWED_TO_SEE_DASHBOARD]}>
-      <VerticalLayout gap={12} alignItems="center">
+      <Root gap={12} alignItems="center">
         <NavBar selectedRoute={DASHBOARD_POSTS} routes={dashboardRoutes} />
         {getPostsHandler.error && (
           <Alert type="error">{getPostsHandler.error.toString()}</Alert>
@@ -120,7 +120,7 @@ const Posts: FC<PostsProps> = () => {
             <Button onClick={handleCloseDeleteConfirmation}>No</Button>
           </DialogActions>
         </Dialog>
-      </VerticalLayout>
+      </Root>
     </Protected>
   );
 };
