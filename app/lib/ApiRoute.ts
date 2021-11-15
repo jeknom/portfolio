@@ -1,5 +1,6 @@
 import { getSession } from "next-auth/client";
 import { NextApiRequest, NextApiResponse } from "next";
+import { Prisma } from "@prisma/client";
 import { permissions } from "constants/index";
 
 export type RequestHandler = (
@@ -133,8 +134,20 @@ class ApiRoute {
           });
         }
       } catch (error) {
-        console.trace(error);
-        res.status(500).json({ code: 500, error });
+        if (
+          error instanceof Prisma.PrismaClientKnownRequestError &&
+          error.code === "P2001"
+        ) {
+          res
+            .status(400)
+            .json({
+              code: 404,
+              error: "The requested resource does not exist.",
+            });
+        } else {
+          console.trace(error);
+          res.status(500).json({ code: 500, error });
+        }
       }
     };
   }

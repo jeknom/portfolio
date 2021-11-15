@@ -2,18 +2,17 @@ import { permissions } from "@constants/index";
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "server/prismaClient";
 import { sendResourceNotFound } from "utils/requestUtils";
-import ApiRoute from "../../../lib/ApiRoute";
+import ApiRoute from "../../lib/ApiRoute";
 import { Post } from "@prisma/client";
 
 async function handleFetchPosts(req: NextApiRequest, res: NextApiResponse) {
   const id = req.query.id;
-  let queryOptions: object = { orderBy: { createdAt: "desc" } };
 
   let response: Post | Post[];
   if (id && id !== "undefined" && id !== "") {
     response = await prisma.post.findUnique({ where: { id: id as string } });
   } else {
-    response = await prisma.post.findMany(queryOptions);
+    response = await prisma.post.findMany({ orderBy: { createdAt: "desc" } });
   }
 
   if (response) {
