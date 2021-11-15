@@ -1,5 +1,7 @@
-export const HOME_ROUTE = "/";
-export const TIMELINE_ROUTE = "/timeline";
-export const PROJECTS_ROUTE = "/projects";
-export const PROFILE_ROUTE = "/dashboard";
-export const DASHBOARD_POSTS_ROUTE = `${PROFILE_ROUTE}/posts`;
+export const HOME = "/";
+export const TIMELINE = "/timeline";
+export const PROJECTS = "/projects";
+export const PROFILE = "/dashboard";
+export const DASHBOARD_POSTS = `${PROFILE}/posts`;
+export const DASHBOARD_POSTS_CREATE = `${PROFILE}/posts/create`;
+export const RESOURCE_NOT_FOUND = "/404";

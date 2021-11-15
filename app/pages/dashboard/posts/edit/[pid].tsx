@@ -19,6 +19,7 @@ import {
 import { Post } from ".prisma/client";
 import { Preview, Edit } from "components/Dashboard/Posts";
 import { getShortDateOr } from "utils";
+import { DASHBOARD_POSTS, RESOURCE_NOT_FOUND } from "@constants/routes";
 
 interface EditPostProps {}
 
@@ -38,7 +39,7 @@ const EditPost: FC<EditPostProps> = () => {
   const handleUpdatePost = async () => {
     const result = await updatePostHandler.doRequest();
     if (!result.error) {
-      router.push("/dashboard/posts");
+      router.push(DASHBOARD_POSTS);
     }
   };
 
@@ -59,7 +60,7 @@ const EditPost: FC<EditPostProps> = () => {
   }, [pid]);
 
   if (getPostHandler.errorCode && getPostHandler.errorCode === 404) {
-    router.push("/404");
+    router.push(RESOURCE_NOT_FOUND);
   }
   return (
     <Protected permissions={[permissions.ALLOWED_TO_EDIT_POSTS]}>
@@ -117,7 +118,7 @@ const EditPost: FC<EditPostProps> = () => {
             >
               Update
             </Button>
-            <Link href="/dashboard/posts">
+            <Link href={DASHBOARD_POSTS}>
               <span>
                 <Button>Cancel</Button>
               </span>

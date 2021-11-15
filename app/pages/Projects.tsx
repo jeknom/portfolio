@@ -6,7 +6,7 @@ import { GridMenu, GridMenuItem } from "components/Core";
 import { ProjectDialog } from "components/Projects";
 import { fetchAllProjects } from "@endpoints/projects";
 import mainRoutes from "@constants/mainNavBarRoutes";
-import { PROJECTS_ROUTE } from "@constants/routes";
+import { PROJECTS } from "@constants/routes";
 import styles from "../styles/Projects.module.css";
 
 interface ProjectsProps {
@@ -38,7 +38,7 @@ const Projects: FC<ProjectsProps> = ({ openGraphData, projects }) => {
         imagePath={imageUrl}
       />
       <VerticalLayout gap={32} alignItems="center">
-        <NavBar selectedRoute={PROJECTS_ROUTE} routes={mainRoutes} />
+        <NavBar selectedRoute={PROJECTS} routes={mainRoutes} />
         <GridMenu>{projectItems}</GridMenu>
       </VerticalLayout>
       <ProjectDialog

@@ -15,6 +15,7 @@ import { fetchOpenGraphData } from "@endpoints/openGraphData";
 import styles from "../../styles/posts.module.css";
 import { createFetchPostByIdRequest } from "requests/posts";
 import { Post } from "@prisma/client";
+import { HOME } from "@constants/routes";
 
 interface PostPageProps {
   openGraphData: OpenGraphData;
@@ -53,7 +54,7 @@ const PostPage: FC<PostPageProps> = ({ openGraphData }) => {
           <Title text={getPostHandler.data?.title || ""} />
           <Paragraph text={getPostHandler.data?.content || ""} />
         </LoadingContainer>
-        <Link href="/">
+        <Link href={HOME}>
           <span>
             <Button>See my portfolio and CV</Button>
           </span>

@@ -2,7 +2,7 @@ import { FC, useState } from "react";
 import { Post } from ".prisma/client";
 import Link from "next/link";
 import { dashboardRoutes, permissions } from "constants/index";
-import { DASHBOARD_POSTS_ROUTE } from "@constants/routes";
+import { DASHBOARD_POSTS_CREATE, DASHBOARD_POSTS } from "@constants/routes";
 import {
   HorizontalLayout,
   VerticalLayout,
@@ -88,10 +88,7 @@ const Posts: FC<PostsProps> = () => {
   return (
     <Protected permissions={[permissions.ALLOWED_TO_SEE_DASHBOARD]}>
       <VerticalLayout gap={12} alignItems="center">
-        <NavBar
-          selectedRoute={DASHBOARD_POSTS_ROUTE}
-          routes={dashboardRoutes}
-        />
+        <NavBar selectedRoute={DASHBOARD_POSTS} routes={dashboardRoutes} />
         {getPostsHandler.error && (
           <Alert type="error">{getPostsHandler.error.toString()}</Alert>
         )}
@@ -104,7 +101,7 @@ const Posts: FC<PostsProps> = () => {
           <List>{posts}</List>
         </LoadingContainer>
         <HorizontalLayout alignItems="center">
-          <Link href="/dashboard/posts/create">
+          <Link href={DASHBOARD_POSTS_CREATE}>
             <span>
               <Button>Create new</Button>
             </span>

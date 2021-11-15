@@ -18,7 +18,7 @@ import { fetchAllContactInformation } from "@endpoints/contactInformation";
 import { ContactInformation } from "@prisma/client";
 import prisma from "../server/prismaClient";
 import mainRoutes from "@constants/mainNavBarRoutes";
-import { HOME_ROUTE } from "@constants/routes";
+import { HOME } from "@constants/routes";
 import classNames from "classnames";
 import { fetchAllProjects } from "@endpoints/projects";
 
@@ -61,7 +61,7 @@ const Home: FC<HomeProps> = ({
           className={classNames(styles.section, styles.navBar)}
           alignItems="center"
         >
-          <NavBar selectedRoute={HOME_ROUTE} routes={mainRoutes} />
+          <NavBar selectedRoute={HOME} routes={mainRoutes} />
         </VerticalLayout>
         <Intro className={styles.section} bio={bio} />
         <Highlights

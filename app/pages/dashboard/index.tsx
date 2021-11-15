@@ -7,7 +7,7 @@ import {
   VerticalLayout,
   Avatar,
 } from "components/Core";
-import { PROFILE_ROUTE } from "@constants/routes";
+import { PROFILE } from "@constants/routes";
 import Protected from "components/Core/Protected";
 import { mapPermissionToPrettyName } from "constants/index";
 
@@ -40,7 +40,7 @@ const Profile: FC<DashboardProps> = () => {
     <Protected>
       <LoadingContainer loading={loading}>
         <VerticalLayout gap={32} alignItems="center">
-          <NavBar selectedRoute={PROFILE_ROUTE} routes={dashboardRoutes} />
+          <NavBar selectedRoute={PROFILE} routes={dashboardRoutes} />
           <Avatar image={session?.user?.image} />
           <VerticalLayout alignItems="center">
             <p className="primaryText">Hello, {session?.user?.name || ""}!</p>

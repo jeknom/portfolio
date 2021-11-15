@@ -5,7 +5,7 @@ import { fetchOpenGraphData } from "server/endpoints/openGraphData";
 import { fetchAllAchievements } from "@endpoints/achievements";
 import { fetchAllHighlights } from "@endpoints/highlights";
 import prisma from "../server/prismaClient";
-import { TIMELINE_ROUTE } from "@constants/routes";
+import { TIMELINE } from "@constants/routes";
 import mainRoutes from "@constants/mainNavBarRoutes";
 import { fetchAllProjects } from "@endpoints/projects";
 import styles from "../styles/Timeline.module.css";
@@ -39,7 +39,7 @@ const Timeline: FC<TimelineProps> = ({
         alignItems="center"
         justifyContent="center"
       >
-        <NavBar selectedRoute={TIMELINE_ROUTE} routes={mainRoutes} />
+        <NavBar selectedRoute={TIMELINE} routes={mainRoutes} />
         <TimelineComponent
           highlights={highlights}
           achievements={achievements}

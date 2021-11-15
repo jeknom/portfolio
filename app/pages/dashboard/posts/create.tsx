@@ -8,6 +8,7 @@ import { permissions } from "@constants/index";
 import { createPostRequest } from "requests/posts";
 import { Post } from ".prisma/client";
 import { Preview, Edit } from "components/Dashboard/Posts";
+import { DASHBOARD_POSTS } from "@constants/routes";
 
 interface CreatePostProps {}
 
@@ -22,7 +23,7 @@ const CreatePost: FC<CreatePostProps> = () => {
   const handleCreatePost = async () => {
     const post = await createPostHandler.doRequest();
     if (!post?.error) {
-      router.push("/dashboard/posts");
+      router.push(DASHBOARD_POSTS);
     }
   };
 
@@ -58,7 +59,7 @@ const CreatePost: FC<CreatePostProps> = () => {
           >
             Create
           </Button>
-          <Link href="/dashboard/posts">
+          <Link href={DASHBOARD_POSTS}>
             <span>
               <Button>Cancel</Button>
             </span>

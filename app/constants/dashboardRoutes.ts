@@ -1,14 +1,14 @@
-import { DASHBOARD_POSTS_ROUTE, PROFILE_ROUTE } from "@constants/routes";
+import { DASHBOARD_POSTS, PROFILE } from "@constants/routes";
 
 const dashboardRoutes = [
   {
     label: "Profile",
-    path: PROFILE_ROUTE,
+    path: PROFILE,
     iconPath: "/profile.svg",
   },
   {
     label: "Posts",
-    path: DASHBOARD_POSTS_ROUTE,
+    path: DASHBOARD_POSTS,
     iconPath: "/post.svg",
   },
 ];
