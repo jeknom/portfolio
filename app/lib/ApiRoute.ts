@@ -157,7 +157,7 @@ class ApiRoute {
   ) {
     if (options) {
       const session = await getSession({ req });
-      const userPermissions = session.user.permissions || [];
+      const userPermissions = session?.user?.permissions || [];
       const hasRequiredPermissions =
         (options.requiredPermissions || []).every((p) =>
           userPermissions.includes(p)
