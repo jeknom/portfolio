@@ -44,7 +44,7 @@ const ImageItem: FC<ImageItemProps> = ({ image, onDelete }) => {
           objectFit="contain"
         />
       </ListItemIcon>
-      <ListItemText primary={image.description} />
+      <ListItemText primary={image.description} secondary={image.path} />
       <ListItemActions>
         <Link href={`${DASHBOARD_IMAGES}/${image.id}`}>
           <span>
