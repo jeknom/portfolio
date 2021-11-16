@@ -1,6 +1,6 @@
 const baseUrl = "/api/images";
 
-export function createFetchImagesRequest(id?: string): PortfolioAPIRequest {
+export function createFetchImagesRequest(id?: number): PortfolioAPIRequest {
   return {
     method: "GET",
     url: `${baseUrl}${id ? `?id=${id}` : ""}`,

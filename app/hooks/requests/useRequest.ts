@@ -22,8 +22,13 @@ function useRequest<TResponse>(
     try {
       const fullUrl = query ? buildUrl(url, query) : url;
       const result = await handleRequest(method, fullUrl, body);
-      if (result.error) {
+      if (result.error && typeof result.error === "string") {
         setError(result.error);
+        if (result.code) {
+          setErrorCode(result.code);
+        }
+      } else if (result.error && typeof result.error === "object") {
+        setError(`Prisma error ${result.error.code}`);
         if (result.code) {
           setErrorCode(result.code);
         }

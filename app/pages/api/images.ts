@@ -28,14 +28,16 @@ async function handleFetchImages(req: NextApiRequest, res: NextApiResponse) {
 
 async function handleCreateImage(req: NextApiRequest, res: NextApiResponse) {
   const { path, description } = req.body;
-  const createdImage = prisma.images.create({ data: { path, description } });
+  const createdImage = await prisma.images.create({
+    data: { path, description },
+  });
 
   res.status(200).json(createdImage);
 }
 
 async function handleUpdateImage(req: NextApiRequest, res: NextApiResponse) {
   const { id, path, description } = req.body;
-  const updatedImage = prisma.images.update({
+  const updatedImage = await prisma.images.update({
     where: { id },
     data: { path, description },
   });
@@ -45,7 +47,7 @@ async function handleUpdateImage(req: NextApiRequest, res: NextApiResponse) {
 
 async function handleDeleteImage(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.body;
-  const deletedImage = prisma.images.delete({ where: { id } });
+  const deletedImage = await prisma.images.delete({ where: { id } });
 
   res.status(200).json(deletedImage);
 }
