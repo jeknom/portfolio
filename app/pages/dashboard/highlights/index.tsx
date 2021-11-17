@@ -80,9 +80,7 @@ const Highlights: FC<HighlightsProps> = () => {
 
   const highlightElements = fetchHighlightsHandler.data
     .filter((highlight) =>
-      highlight.description
-        .toLocaleLowerCase()
-        .includes(searchText.toLowerCase())
+      highlight.name.toLocaleLowerCase().includes(searchText.toLowerCase())
     )
     .map((highlight) => (
       <HighlightItem
