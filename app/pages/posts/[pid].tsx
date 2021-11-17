@@ -1,36 +1,25 @@
 import React, { FC } from "react";
-import { useRouter } from "next/router";
 import Link from "next/link";
 import {
-  LoadingContainer,
   Paragraph,
   Title,
   VerticalLayout,
   Head,
   Button,
 } from "components/Core";
-import { useRequest } from "hooks/requests";
 import prisma from "server/prismaClient";
 import { fetchOpenGraphData } from "@endpoints/openGraphData";
 import styles from "../../styles/posts.module.css";
-import { createFetchPostByIdRequest } from "requests/posts";
-import { Post } from "@prisma/client";
 import { HOME } from "@constants/routes";
+import { fetchPostById } from "@endpoints/posts";
+import { NextPageContext } from "next";
 
 interface PostPageProps {
   openGraphData: OpenGraphData;
+  post?: { title: string; content: string };
 }
 
-const PostPage: FC<PostPageProps> = ({ openGraphData }) => {
-  const router = useRouter();
-  const { pid } = router.query;
-  const getPostHandler = useRequest<Post>(
-    createFetchPostByIdRequest(pid as string),
-    {
-      doRequestOnMount: true,
-    }
-  );
-
+const PostPage: FC<PostPageProps> = ({ openGraphData, post }) => {
   const { title, description, type, imageUrl } = openGraphData;
 
   return (
@@ -47,13 +36,11 @@ const PostPage: FC<PostPageProps> = ({ openGraphData }) => {
         justifyContent="center"
         gap={16}
       >
-        <LoadingContainer loading={getPostHandler.isLoading}>
-          {getPostHandler.error && (
-            <p className="secondaryText">{getPostHandler.error.toString()}</p>
-          )}
-          <Title text={getPostHandler.data?.title || ""} />
-          <Paragraph text={getPostHandler.data?.content || ""} />
-        </LoadingContainer>
+        {!post && (
+          <p className="secondaryText">Could not find the requested post</p>
+        )}
+        <Title text={post?.title || ""} />
+        <Paragraph text={post?.content || ""} />
         <Link href={HOME}>
           <span>
             <Button>See my portfolio and CV</Button>
@@ -64,13 +51,18 @@ const PostPage: FC<PostPageProps> = ({ openGraphData }) => {
   );
 };
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context: NextPageContext) {
   try {
-    const [openGraphData] = await Promise.all([fetchOpenGraphData(prisma)]);
+    const { pid } = context.query;
+    const [openGraphData, post] = await Promise.all([
+      fetchOpenGraphData(prisma),
+      fetchPostById(prisma, pid as string),
+    ]);
 
     return {
       props: {
         openGraphData,
+        post: post ? { title: post.title, content: post.content } : null,
       },
     };
   } catch (error) {
