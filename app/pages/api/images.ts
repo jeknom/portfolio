@@ -54,7 +54,7 @@ async function handleDeleteImage(req: NextApiRequest, res: NextApiResponse) {
 
 export default new ApiRoute()
   .get(handleFetchImages)
-  .put(handleCreateImage, [permissions.ALLOWED_TO_EDIT_IMAGES], ["path"])
-  .post(handleUpdateImage, [permissions.ALLOWED_TO_EDIT_IMAGES], ["id", "path"])
-  .delete(handleDeleteImage, [permissions.ALLOWED_TO_EDIT_IMAGES], ["id"])
+  .put(handleCreateImage, [permissions.ALLOWED_TO_EDIT_MEDIA], ["path"])
+  .post(handleUpdateImage, [permissions.ALLOWED_TO_EDIT_MEDIA], ["id", "path"])
+  .delete(handleDeleteImage, [permissions.ALLOWED_TO_EDIT_MEDIA], ["id"])
   .build();

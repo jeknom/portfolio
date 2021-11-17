@@ -75,7 +75,9 @@ const Images: FC<ImagesProps> = () => {
     .filter((image) =>
       image.description.toLocaleLowerCase().includes(searchText.toLowerCase())
     )
-    .map((image) => <ImageItem image={image} onDelete={setImageToDelete} />);
+    .map((image) => (
+      <ImageItem key={image.id} image={image} onDelete={setImageToDelete} />
+    ));
 
   const handleSearchTextChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchText(event.target.value);

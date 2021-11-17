@@ -1,4 +1,9 @@
-import { DASHBOARD_IMAGES, DASHBOARD_POSTS, PROFILE } from "@constants/routes";
+import {
+  DASHBOARD_IMAGES,
+  DASHBOARD_POSTS,
+  DASHBOARD_VIDEOS,
+  PROFILE,
+} from "@constants/routes";
 
 const dashboardRoutes = [
   {
@@ -10,6 +15,11 @@ const dashboardRoutes = [
     label: "Images",
     path: DASHBOARD_IMAGES,
     iconPath: "/image.svg",
+  },
+  {
+    label: "Videos",
+    path: DASHBOARD_VIDEOS,
+    iconPath: "/video.svg",
   },
   {
     label: "Posts",
