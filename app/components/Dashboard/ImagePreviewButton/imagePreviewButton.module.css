@@ -1,0 +1,17 @@
+.root {
+  height: 128px;
+  width: 128px;
+  border: 1px solid black;
+}
+
+.root:hover {
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.329) 0px 4px 16px,
+    rgba(17, 17, 26, 0.05) 0px 8px 32px;
+}
+
+.root:active {
+  cursor: pointer;
+  box-shadow: rgba(17, 17, 26, 0.178) 0px 4px 16px,
+    rgba(17, 17, 26, 0.144) 0px 8px 32px;
+}

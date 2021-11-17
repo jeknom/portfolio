@@ -20,7 +20,6 @@ const NavBar: FC<NavBarProps & HTMLProps<HTMLDivElement>> = ({
       <div
         {...rest}
         className={classNames(
-          className,
           styles.routeItem,
           r.path === selectedRoute ? styles.selectedRoute : ""
         )}
@@ -36,7 +35,11 @@ const NavBar: FC<NavBarProps & HTMLProps<HTMLDivElement>> = ({
     </Link>
   ));
 
-  return <div className={styles.navbarRoot}>{routeElements}</div>;
+  return (
+    <div className={classNames(className, styles.navbarRoot)}>
+      {routeElements}
+    </div>
+  );
 };
 
 export default NavBar;

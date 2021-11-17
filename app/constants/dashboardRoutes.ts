@@ -1,4 +1,5 @@
 import {
+  DASHBOARD_HIGHLIGHTS,
   DASHBOARD_IMAGES,
   DASHBOARD_POSTS,
   DASHBOARD_VIDEOS,
@@ -25,6 +26,11 @@ const dashboardRoutes = [
     label: "Posts",
     path: DASHBOARD_POSTS,
     iconPath: "/post.svg",
+  },
+  {
+    label: "Highlights",
+    path: DASHBOARD_HIGHLIGHTS,
+    iconPath: "/highlight.svg",
   },
 ];
 
