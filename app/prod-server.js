@@ -19,12 +19,12 @@ if (!process.env.SSL_CERT_FILENAME) {
 }
 
 const options = {
-  key: fs.readFileSync(`/opt/portfolio/${process.env.SSL_CERT_KEY_FILENAME}`),
-  cert: fs.readFileSync(`/opt/portfolio/${process.env.SSL_CERT_FILENAME}`),
+  key: fs.readFileSync(`/portfolio/${process.env.SSL_CERT_KEY_FILENAME}`),
+  cert: fs.readFileSync(`/portfolio/${process.env.SSL_CERT_FILENAME}`),
 };
 
 if (process.env.SSL_CERT_BUNDLE_PATH) {
-  options['ca'] = fs.readFileSync(`/opt/portfolio/${process.env.SSL_CERT_BUNDLE_FILENAME}`);
+  options['ca'] = fs.readFileSync(`/portfolio/${process.env.SSL_CERT_BUNDLE_FILENAME}`);
 }
 
 app.prepare().then(() => {

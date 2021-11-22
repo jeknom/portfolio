@@ -20,7 +20,7 @@ services:
       AUTH_CLIENT_SECRET: ${AUTH_CLIENT_SECRET}
       DEBUG: ${DEBUG}
     volumes:
-      - "./app:/opt/portfolio"
+      - "./app:/portfolio"
   db:
     image: mysql
     restart: unless-stopped
