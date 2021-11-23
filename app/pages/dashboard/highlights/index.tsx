@@ -15,6 +15,7 @@ import {
   Button,
   Dialog,
   Alert,
+  Protected,
 } from "components/Core";
 import {
   createDeleteHighlightRequest,
@@ -26,6 +27,7 @@ import {
   DASHBOARD_HIGHLIGHTS_CREATE,
 } from "@constants/routes";
 import DialogActions from "components/Core/Dialog/DialogActions";
+import { permissions } from "@constants/index";
 
 interface HighlightsProps {}
 
@@ -120,42 +122,47 @@ const Highlights: FC<HighlightsProps> = () => {
   };
 
   return (
-    <Root alignItems="center" justifyContent="center" gap={12}>
-      <Sidebar routes={dashboardRoutes} selectedRoute={DASHBOARD_HIGHLIGHTS} />
-      <TextField
-        className="fullWidth"
-        placeholder="Search for highlights"
-        value={searchText}
-        onChange={handleSearchTextChange}
-      />
-      {getAlert()}
-      <LoadingContainer loading={fetchHighlightsHandler.isLoading}>
-        {highlightElements.length === 0 && (
-          <p className="captionText">
-            There seems to be no highlights here, create a new one!
+    <Protected permissions={[permissions.ALLOWED_TO_EDIT_HIGHLIGHTS]}>
+      <Root alignItems="center" justifyContent="center" gap={12}>
+        <Sidebar
+          routes={dashboardRoutes}
+          selectedRoute={DASHBOARD_HIGHLIGHTS}
+        />
+        <TextField
+          className="fullWidth"
+          placeholder="Search for highlights"
+          value={searchText}
+          onChange={handleSearchTextChange}
+        />
+        {getAlert()}
+        <LoadingContainer loading={fetchHighlightsHandler.isLoading}>
+          {highlightElements.length === 0 && (
+            <p className="captionText">
+              There seems to be no highlights here, create a new one!
+            </p>
+          )}
+          <List>{highlightElements}</List>
+        </LoadingContainer>
+        <Link href={DASHBOARD_HIGHLIGHTS_CREATE}>
+          <span>
+            <Button>Add new</Button>
+          </span>
+        </Link>
+        <Dialog
+          title="Delete highlight"
+          open={highlightToDelete !== null}
+          onClose={handleCloseDeleteConfirmation}
+        >
+          <p className="secondaryText">
+            Are you sure you would like to delete this highlight?
           </p>
-        )}
-        <List>{highlightElements}</List>
-      </LoadingContainer>
-      <Link href={DASHBOARD_HIGHLIGHTS_CREATE}>
-        <span>
-          <Button>Add new</Button>
-        </span>
-      </Link>
-      <Dialog
-        title="Delete highlight"
-        open={highlightToDelete !== null}
-        onClose={handleCloseDeleteConfirmation}
-      >
-        <p className="secondaryText">
-          Are you sure you would like to delete this highlight?
-        </p>
-        <DialogActions>
-          <Button onClick={handleDeleteHighlight}>Delete</Button>
-          <Button onClick={handleCloseDeleteConfirmation}>Close</Button>
-        </DialogActions>
-      </Dialog>
-    </Root>
+          <DialogActions>
+            <Button onClick={handleDeleteHighlight}>Delete</Button>
+            <Button onClick={handleCloseDeleteConfirmation}>Close</Button>
+          </DialogActions>
+        </Dialog>
+      </Root>
+    </Protected>
   );
 };
 

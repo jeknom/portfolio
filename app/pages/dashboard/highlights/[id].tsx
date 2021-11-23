@@ -6,6 +6,7 @@ import {
   DatePicker,
   HorizontalLayout,
   LoadingContainer,
+  Protected,
   Root,
   TextField,
   Title,
@@ -22,6 +23,7 @@ import { Highlights, Images } from ".prisma/client";
 import { createFetchImagesRequest } from "requests/images";
 import ImagePreviewButton from "components/Dashboard/ImagePreviewButton";
 import ImagePicker from "components/Dashboard/ImagePicker";
+import { permissions } from "@constants/index";
 
 interface EditProps {}
 
@@ -102,71 +104,75 @@ const Edit: FC<EditProps> = () => {
   }, [currentId]);
 
   return (
-    <Root alignItems="center" gap={12}>
-      <Title text="Update highlight" />
-      <LoadingContainer
-        loading={
-          fetchHighlightHandler.isLoading ||
-          fetchImagesHandler.isLoading ||
-          updateHighlightHandler.isLoading
-        }
-      >
-        {updateHighlightHandler.error && (
-          <Alert type="error">{updateHighlightHandler.error.toString()}</Alert>
-        )}
-        <HorizontalLayout
-          className="fullWidth"
-          gap={12}
-          justifyContent="flex-start"
+    <Protected permissions={[permissions.ALLOWED_TO_EDIT_HIGHLIGHTS]}>
+      <Root alignItems="center" gap={12}>
+        <Title text="Update highlight" />
+        <LoadingContainer
+          loading={
+            fetchHighlightHandler.isLoading ||
+            fetchImagesHandler.isLoading ||
+            updateHighlightHandler.isLoading
+          }
         >
-          <ImagePreviewButton
-            selectedImage={image}
-            onClick={handleOpenImagePicker}
-          />
-          <VerticalLayout className="fullWidth">
-            <TextField
-              className="fullWidth"
-              value={name}
-              onChange={handleNameChange}
-              placeholder="Highlight name"
+          {updateHighlightHandler.error && (
+            <Alert type="error">
+              {updateHighlightHandler.error.toString()}
+            </Alert>
+          )}
+          <HorizontalLayout
+            className="fullWidth"
+            gap={12}
+            justifyContent="flex-start"
+          >
+            <ImagePreviewButton
+              selectedImage={image}
+              onClick={handleOpenImagePicker}
             />
-            <TextField
-              className="fullWidth"
-              value={description}
-              onChange={handleDescriptionChange}
-              placeholder="Highlight description"
-            />
-            <DatePicker value={date} onChange={setDate} />
-          </VerticalLayout>
+            <VerticalLayout className="fullWidth">
+              <TextField
+                className="fullWidth"
+                value={name}
+                onChange={handleNameChange}
+                placeholder="Highlight name"
+              />
+              <TextField
+                className="fullWidth"
+                value={description}
+                onChange={handleDescriptionChange}
+                placeholder="Highlight description"
+              />
+              <DatePicker value={date} onChange={setDate} />
+            </VerticalLayout>
+          </HorizontalLayout>
+        </LoadingContainer>
+        <HorizontalLayout gap={8}>
+          <Button
+            onClick={handleUpdateHighlight}
+            disabled={name === "" || description === ""}
+          >
+            Update
+          </Button>
+          <Link href={DASHBOARD_HIGHLIGHTS}>
+            <span>
+              <Button>Cancel</Button>
+            </span>
+          </Link>
         </HorizontalLayout>
-      </LoadingContainer>
-      <HorizontalLayout gap={8}>
-        <Button
-          onClick={handleUpdateHighlight}
-          disabled={name === "" || description === ""}
-        >
-          Update
-        </Button>
-        <Link href={DASHBOARD_HIGHLIGHTS}>
-          <span>
-            <Button>Cancel</Button>
-          </span>
-        </Link>
-      </HorizontalLayout>
-      <ImagePicker
-        title="Pick highlight image"
-        open={isImagePickerOpen}
-        onClose={handleCloseImagePicker}
-        images={fetchImagesHandler.data}
-        onImageSelected={handleImageChange}
-      />
-      <style jsx>{`
-        .image {
-          border: 1px solid black;
-          border-radius: 8px;
-        }
-      `}</style>
-    </Root>
+        <ImagePicker
+          title="Pick highlight image"
+          open={isImagePickerOpen}
+          onClose={handleCloseImagePicker}
+          images={fetchImagesHandler.data}
+          onImageSelected={handleImageChange}
+        />
+        <style jsx>{`
+          .image {
+            border: 1px solid black;
+            border-radius: 8px;
+          }
+        `}</style>
+      </Root>
+    </Protected>
   );
 };
 

@@ -5,6 +5,7 @@ import {
   Button,
   DatePicker,
   HorizontalLayout,
+  Protected,
   Root,
   TextField,
   Title,
@@ -18,6 +19,7 @@ import { Highlights, Images } from ".prisma/client";
 import { createFetchImagesRequest } from "requests/images";
 import ImagePreviewButton from "components/Dashboard/ImagePreviewButton";
 import ImagePicker from "components/Dashboard/ImagePicker";
+import { permissions } from "@constants/index";
 
 interface CreateProps {}
 
@@ -69,63 +71,65 @@ const Create: FC<CreateProps> = () => {
   };
 
   return (
-    <Root alignItems="center" gap={12}>
-      <Title text="Create new highlight" />
-      {createHighlightHandler.error && (
-        <Alert type="error">{createHighlightHandler.error.toString()}</Alert>
-      )}
-      <HorizontalLayout
-        className="fullWidth"
-        gap={12}
-        justifyContent="flex-start"
-      >
-        <ImagePreviewButton
-          selectedImage={image}
-          onClick={handleOpenImagePicker}
-        />
-        <VerticalLayout className="fullWidth">
-          <TextField
-            className="fullWidth"
-            value={name}
-            onChange={handleNameChange}
-            placeholder="Highlight name"
-          />
-          <TextField
-            className="fullWidth"
-            value={description}
-            onChange={handleDescriptionChange}
-            placeholder="Highlight description"
-          />
-          <DatePicker value={date} onChange={setDate} />
-        </VerticalLayout>
-      </HorizontalLayout>
-      <HorizontalLayout gap={8}>
-        <Button
-          onClick={handleCreateHighlight}
-          disabled={name === "" || description === "" || !image}
+    <Protected permissions={[permissions.ALLOWED_TO_EDIT_HIGHLIGHTS]}>
+      <Root alignItems="center" gap={12}>
+        <Title text="Create new highlight" />
+        {createHighlightHandler.error && (
+          <Alert type="error">{createHighlightHandler.error.toString()}</Alert>
+        )}
+        <HorizontalLayout
+          className="fullWidth"
+          gap={12}
+          justifyContent="flex-start"
         >
-          Create
-        </Button>
-        <Link href={DASHBOARD_HIGHLIGHTS}>
-          <span>
-            <Button>Cancel</Button>
-          </span>
-        </Link>
-      </HorizontalLayout>
-      <ImagePicker
-        title="Pick highlight image"
-        open={isImagePickerOpen}
-        onClose={handleCloseImagePicker}
-        images={fetchImagesHandler.data}
-        onImageSelected={handleImageChange}
-      />
-      <style jsx>{`
-        .image {
-          border: 1px solid black;
-          border-radius: 8px;
-        }
-      `}</style>
-    </Root>
+          <ImagePreviewButton
+            selectedImage={image}
+            onClick={handleOpenImagePicker}
+          />
+          <VerticalLayout className="fullWidth">
+            <TextField
+              className="fullWidth"
+              value={name}
+              onChange={handleNameChange}
+              placeholder="Highlight name"
+            />
+            <TextField
+              className="fullWidth"
+              value={description}
+              onChange={handleDescriptionChange}
+              placeholder="Highlight description"
+            />
+            <DatePicker value={date} onChange={setDate} />
+          </VerticalLayout>
+        </HorizontalLayout>
+        <HorizontalLayout gap={8}>
+          <Button
+            onClick={handleCreateHighlight}
+            disabled={name === "" || description === "" || !image}
+          >
+            Create
+          </Button>
+          <Link href={DASHBOARD_HIGHLIGHTS}>
+            <span>
+              <Button>Cancel</Button>
+            </span>
+          </Link>
+        </HorizontalLayout>
+        <ImagePicker
+          title="Pick highlight image"
+          open={isImagePickerOpen}
+          onClose={handleCloseImagePicker}
+          images={fetchImagesHandler.data}
+          onImageSelected={handleImageChange}
+        />
+        <style jsx>{`
+          .image {
+            border: 1px solid black;
+            border-radius: 8px;
+          }
+        `}</style>
+      </Root>
+    </Protected>
   );
 };
 

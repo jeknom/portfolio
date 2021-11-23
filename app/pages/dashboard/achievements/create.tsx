@@ -10,6 +10,7 @@ import {
   Title,
   VerticalLayout,
   Toggle,
+  Protected,
 } from "components/Core";
 import { DASHBOARD_ACHIEVEMENTS } from "@constants/routes";
 import { useRouter } from "next/router";
@@ -19,6 +20,7 @@ import { Achievements, Images } from ".prisma/client";
 import { createFetchImagesRequest } from "requests/images";
 import ImagePreviewButton from "components/Dashboard/ImagePreviewButton";
 import ImagePicker from "components/Dashboard/ImagePicker";
+import { permissions } from "@constants/index";
 
 interface CreateProps {}
 
@@ -80,77 +82,81 @@ const Create: FC<CreateProps> = () => {
   };
 
   return (
-    <Root alignItems="center" gap={12}>
-      <Title text="Create new achievement" />
-      {createAchievementHandler.error && (
-        <Alert type="error">{createAchievementHandler.error.toString()}</Alert>
-      )}
-      <HorizontalLayout className="fullWidth" alignItems="center" gap={32}>
-        <ImagePreviewButton
-          selectedImage={image}
-          onClick={handleOpenImagePicker}
-        />
-        <VerticalLayout className="fullWidth">
-          <TextField
-            className="fullWidth"
-            label="Title"
-            value={title}
-            onChange={handleTitleChange}
-            placeholder="Some cool title"
+    <Protected permissions={[permissions.ALLOWED_TO_EDIT_ACHIEVEMENTS]}>
+      <Root alignItems="center" gap={12}>
+        <Title text="Create new achievement" />
+        {createAchievementHandler.error && (
+          <Alert type="error">
+            {createAchievementHandler.error.toString()}
+          </Alert>
+        )}
+        <HorizontalLayout className="fullWidth" alignItems="center" gap={32}>
+          <ImagePreviewButton
+            selectedImage={image}
+            onClick={handleOpenImagePicker}
           />
-          <TextField
-            className="fullWidth"
-            label="Subtitle"
-            value={subtitle}
-            onChange={handleSubtitleChange}
-            placeholder="Name of an organization"
-          />
-          <DatePicker
-            label="Start date"
-            value={startDate}
-            onChange={setStartDate}
-          />
-          <HorizontalLayout>
+          <VerticalLayout className="fullWidth">
+            <TextField
+              className="fullWidth"
+              label="Title"
+              value={title}
+              onChange={handleTitleChange}
+              placeholder="Some cool title"
+            />
+            <TextField
+              className="fullWidth"
+              label="Subtitle"
+              value={subtitle}
+              onChange={handleSubtitleChange}
+              placeholder="Name of an organization"
+            />
             <DatePicker
-              label="End date"
-              value={endDate}
-              onChange={setEndDate}
-              disabled={!isEndDateEnabled}
+              label="Start date"
+              value={startDate}
+              onChange={setStartDate}
             />
-            <Toggle
-              enabled={isEndDateEnabled}
-              onToggle={() => setIsEndDateEnabled(!isEndDateEnabled)}
-            />
-          </HorizontalLayout>
-        </VerticalLayout>
-      </HorizontalLayout>
-      <HorizontalLayout gap={8}>
-        <Button
-          onClick={handleCreateAchievement}
-          disabled={title === "" || subtitle === "" || !image}
-        >
-          Create
-        </Button>
-        <Link href={DASHBOARD_ACHIEVEMENTS}>
-          <span>
-            <Button>Cancel</Button>
-          </span>
-        </Link>
-      </HorizontalLayout>
-      <ImagePicker
-        title="Achievement image"
-        open={isImagePickerOpen}
-        onClose={handleCloseImagePicker}
-        images={fetchImagesHandler.data}
-        onImageSelected={handleImageChange}
-      />
-      <style jsx>{`
-        .image {
-          border: 1px solid black;
-          border-radius: 8px;
-        }
-      `}</style>
-    </Root>
+            <HorizontalLayout>
+              <DatePicker
+                label="End date"
+                value={endDate}
+                onChange={setEndDate}
+                disabled={!isEndDateEnabled}
+              />
+              <Toggle
+                enabled={isEndDateEnabled}
+                onToggle={() => setIsEndDateEnabled(!isEndDateEnabled)}
+              />
+            </HorizontalLayout>
+          </VerticalLayout>
+        </HorizontalLayout>
+        <HorizontalLayout gap={8}>
+          <Button
+            onClick={handleCreateAchievement}
+            disabled={title === "" || subtitle === "" || !image}
+          >
+            Create
+          </Button>
+          <Link href={DASHBOARD_ACHIEVEMENTS}>
+            <span>
+              <Button>Cancel</Button>
+            </span>
+          </Link>
+        </HorizontalLayout>
+        <ImagePicker
+          title="Achievement image"
+          open={isImagePickerOpen}
+          onClose={handleCloseImagePicker}
+          images={fetchImagesHandler.data}
+          onImageSelected={handleImageChange}
+        />
+        <style jsx>{`
+          .image {
+            border: 1px solid black;
+            border-radius: 8px;
+          }
+        `}</style>
+      </Root>
+    </Protected>
   );
 };
 

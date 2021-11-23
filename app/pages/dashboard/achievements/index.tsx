@@ -16,6 +16,7 @@ import {
   Dialog,
   Alert,
   Sidebar,
+  Protected,
 } from "components/Core";
 import {
   createDeleteAchievementRequest,
@@ -27,6 +28,7 @@ import {
   DASHBOARD_ACHIEVEMENTS_CREATE,
 } from "@constants/routes";
 import DialogActions from "components/Core/Dialog/DialogActions";
+import { permissions } from "@constants/index";
 
 interface AchievementProps {}
 
@@ -124,45 +126,47 @@ const Achievements: FC<AchievementProps> = () => {
   };
 
   return (
-    <Root alignItems="center" justifyContent="center" gap={12}>
-      <Sidebar
-        routes={dashboardRoutes}
-        selectedRoute={DASHBOARD_ACHIEVEMENTS}
-      />
-      <TextField
-        className="fullWidth"
-        placeholder="Search for achievements"
-        value={searchText}
-        onChange={handleSearchTextChange}
-      />
-      {getAlert()}
-      <LoadingContainer loading={fetchAchievementsHandler.isLoading}>
-        {achievementElements.length === 0 && (
-          <p className="captionText">
-            There seems to be no achievements here, create a new one!
+    <Protected permissions={[permissions.ALLOWED_TO_EDIT_ACHIEVEMENTS]}>
+      <Root alignItems="center" justifyContent="center" gap={12}>
+        <Sidebar
+          routes={dashboardRoutes}
+          selectedRoute={DASHBOARD_ACHIEVEMENTS}
+        />
+        <TextField
+          className="fullWidth"
+          placeholder="Search for achievements"
+          value={searchText}
+          onChange={handleSearchTextChange}
+        />
+        {getAlert()}
+        <LoadingContainer loading={fetchAchievementsHandler.isLoading}>
+          {achievementElements.length === 0 && (
+            <p className="captionText">
+              There seems to be no achievements here, create a new one!
+            </p>
+          )}
+          <List>{achievementElements}</List>
+        </LoadingContainer>
+        <Link href={DASHBOARD_ACHIEVEMENTS_CREATE}>
+          <span>
+            <Button>Add new</Button>
+          </span>
+        </Link>
+        <Dialog
+          title="Delete achievement"
+          open={achievementToDelete !== null}
+          onClose={handleCloseDeleteConfirmation}
+        >
+          <p className="secondaryText">
+            Are you sure you would like to delete this achievement?
           </p>
-        )}
-        <List>{achievementElements}</List>
-      </LoadingContainer>
-      <Link href={DASHBOARD_ACHIEVEMENTS_CREATE}>
-        <span>
-          <Button>Add new</Button>
-        </span>
-      </Link>
-      <Dialog
-        title="Delete achievement"
-        open={achievementToDelete !== null}
-        onClose={handleCloseDeleteConfirmation}
-      >
-        <p className="secondaryText">
-          Are you sure you would like to delete this achievement?
-        </p>
-        <DialogActions>
-          <Button onClick={handleDeleteAchievement}>Delete</Button>
-          <Button onClick={handleCloseDeleteConfirmation}>Close</Button>
-        </DialogActions>
-      </Dialog>
-    </Root>
+          <DialogActions>
+            <Button onClick={handleDeleteAchievement}>Delete</Button>
+            <Button onClick={handleCloseDeleteConfirmation}>Close</Button>
+          </DialogActions>
+        </Dialog>
+      </Root>
+    </Protected>
   );
 };
 

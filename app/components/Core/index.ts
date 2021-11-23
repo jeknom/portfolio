@@ -27,6 +27,7 @@ import Root from "./Root";
 import Alert from "./Alert";
 import DatePicker from "./DatePicker";
 import Sidebar from "./Sidebar";
+import Protected from "./Protected";
 
 export {
   Button,
@@ -58,4 +59,5 @@ export {
   Alert,
   DatePicker,
   Sidebar,
+  Protected,
 };
