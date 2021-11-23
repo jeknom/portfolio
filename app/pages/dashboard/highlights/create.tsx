@@ -3,6 +3,7 @@ import Link from "next/link";
 import {
   Alert,
   Button,
+  DatePicker,
   HorizontalLayout,
   Root,
   TextField,
@@ -23,7 +24,7 @@ interface CreateProps {}
 const Create: FC<CreateProps> = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [dateString, setDateString] = useState("");
+  const [date, setDate] = useState(new Date());
   const [image, setImage] = useState<Images>(null);
   const [isImagePickerOpen, setIsImagePickerOpen] = useState(false);
   const fetchImagesHandler = useRequest<PortfolioAPIResponse<Images[]>>(
@@ -35,7 +36,7 @@ const Create: FC<CreateProps> = () => {
   );
 
   const createHighlightHandler = useRequest<PortfolioAPIResponse<Highlights>>(
-    createHighlightRequest(name, description, new Date(dateString), image?.id)
+    createHighlightRequest(name, description, date, image?.id)
   );
   const router = useRouter();
 
@@ -45,10 +46,6 @@ const Create: FC<CreateProps> = () => {
 
   const handleDescriptionChange = (event: ChangeEvent<HTMLInputElement>) => {
     setDescription(event.target.value);
-  };
-
-  const handleDateChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setDateString(event.target.value);
   };
 
   const handleOpenImagePicker = () => {
@@ -99,7 +96,7 @@ const Create: FC<CreateProps> = () => {
             onChange={handleDescriptionChange}
             placeholder="Highlight description"
           />
-          <input type="date" value={dateString} onChange={handleDateChange} />
+          <DatePicker value={date} onChange={setDate} />
         </VerticalLayout>
       </HorizontalLayout>
       <HorizontalLayout gap={8}>

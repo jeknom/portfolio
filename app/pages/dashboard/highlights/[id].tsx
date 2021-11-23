@@ -3,6 +3,7 @@ import Link from "next/link";
 import {
   Alert,
   Button,
+  DatePicker,
   HorizontalLayout,
   LoadingContainer,
   Root,
@@ -27,8 +28,8 @@ interface EditProps {}
 const Edit: FC<EditProps> = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [dateString, setDateString] = useState("");
   const [image, setImage] = useState<Images>(null);
+  const [date, setDate] = useState(new Date());
   const [isImagePickerOpen, setIsImagePickerOpen] = useState(false);
   const router = useRouter();
   const { id } = router.query;
@@ -53,13 +54,7 @@ const Edit: FC<EditProps> = () => {
   >(createFetchHighlightsRequest(currentId));
 
   const updateHighlightHandler = useRequest<PortfolioAPIResponse<Highlights>>(
-    createUpdateHighlightRequest(
-      currentId,
-      name,
-      description,
-      new Date(dateString),
-      image?.id
-    )
+    createUpdateHighlightRequest(currentId, name, description, date, image?.id)
   );
 
   const handleImageNameChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -68,10 +63,6 @@ const Edit: FC<EditProps> = () => {
 
   const handleDescriptionChange = (event: ChangeEvent<HTMLInputElement>) => {
     setDescription(event.target.value);
-  };
-
-  const handleDateChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setDateString(event.target.value);
   };
 
   const handleOpenImagePicker = () => {
@@ -98,23 +89,14 @@ const Edit: FC<EditProps> = () => {
     if (currentId) {
       const highlight = await fetchHighlightHandler.doRequest();
       if (!highlight.error) {
-        const date = new Date(highlight.date);
-        const day = date.getDate().toString();
-        const month = date.getMonth().toString();
-        const year = date.getFullYear().toString();
-
         setName(highlight.name);
         setDescription(highlight.description);
         setImage(highlight.images);
-        setDateString(
-          `${year.length === 1 ? `0${year}` : year}-${
-            month.length === 1 ? `0${month}` : month
-          }-${day.length === 1 ? `0${day}` : day}`
-        );
+        setDate(highlight.date);
       }
     }
   };
-  console.log(dateString);
+
   useEffect(() => {
     handleInit();
   }, [currentId]);
@@ -154,7 +136,7 @@ const Edit: FC<EditProps> = () => {
               onChange={handleDescriptionChange}
               placeholder="Highlight description"
             />
-            <input type="date" value={dateString} onChange={handleDateChange} />
+            <DatePicker value={date} onChange={setDate} />
           </VerticalLayout>
         </HorizontalLayout>
       </LoadingContainer>

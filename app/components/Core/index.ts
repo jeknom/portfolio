@@ -25,6 +25,7 @@ import TextField from "./TextField";
 import Toggle from "./Toggle";
 import Root from "./Root";
 import Alert from "./Alert";
+import DatePicker from "./DatePicker";
 
 export {
   Button,
@@ -54,4 +55,5 @@ export {
   Toggle,
   Root,
   Alert,
+  DatePicker,
 };
