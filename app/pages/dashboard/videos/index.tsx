@@ -7,9 +7,8 @@ import {
   List,
   LoadingContainer,
   ListItem,
-  ListItemIcon,
   ListItemText,
-  NavBar,
+  Sidebar,
   TextField,
   ListItemActions,
   Button,
@@ -100,7 +99,7 @@ const Videos: FC<VideosProps> = () => {
 
   return (
     <Root alignItems="center" justifyContent="center" gap={12}>
-      <NavBar routes={dashboardRoutes} selectedRoute={DASHBOARD_VIDEOS} />
+      <Sidebar routes={dashboardRoutes} selectedRoute={DASHBOARD_VIDEOS} />
       <TextField
         className="fullWidth"
         placeholder="Search for videos"

@@ -9,7 +9,7 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  NavBar,
+  Sidebar,
   TextField,
   ListItemActions,
   Button,
@@ -121,7 +121,7 @@ const Highlights: FC<HighlightsProps> = () => {
 
   return (
     <Root alignItems="center" justifyContent="center" gap={12}>
-      <NavBar routes={dashboardRoutes} selectedRoute={DASHBOARD_HIGHLIGHTS} />
+      <Sidebar routes={dashboardRoutes} selectedRoute={DASHBOARD_HIGHLIGHTS} />
       <TextField
         className="fullWidth"
         placeholder="Search for highlights"

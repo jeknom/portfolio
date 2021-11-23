@@ -10,7 +10,7 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  NavBar,
+  Sidebar,
   TextField,
   ListItemActions,
   Button,
@@ -110,7 +110,7 @@ const Images: FC<ImagesProps> = () => {
 
   return (
     <Root alignItems="center" justifyContent="center" gap={12}>
-      <NavBar routes={dashboardRoutes} selectedRoute={DASHBOARD_IMAGES} />
+      <Sidebar routes={dashboardRoutes} selectedRoute={DASHBOARD_IMAGES} />
       <TextField
         className="fullWidth"
         placeholder="Search for images"

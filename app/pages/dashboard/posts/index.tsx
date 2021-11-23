@@ -6,7 +6,7 @@ import { DASHBOARD_POSTS_CREATE, DASHBOARD_POSTS } from "@constants/routes";
 import {
   HorizontalLayout,
   Button,
-  NavBar,
+  Sidebar,
   LoadingContainer,
   List,
   ListItem,
@@ -68,7 +68,7 @@ const Posts: FC<PostsProps> = () => {
   const deletePostHandler = useRequest<PortfolioAPIResponse<Post>>(
     createDeletePostRequest(postToDelete?.id)
   );
-  console.log(getPostsHandler.data);
+
   const posts = (getPostsHandler.data || []).map((p: Post) => (
     <PostListItem key={p.id} post={p} onDelete={setPostToDelete} />
   ));
@@ -88,7 +88,7 @@ const Posts: FC<PostsProps> = () => {
   return (
     <Protected permissions={[permissions.ALLOWED_TO_SEE_DASHBOARD]}>
       <Root gap={12} alignItems="center">
-        <NavBar selectedRoute={DASHBOARD_POSTS} routes={dashboardRoutes} />
+        <Sidebar selectedRoute={DASHBOARD_POSTS} routes={dashboardRoutes} />
         {getPostsHandler.error && (
           <Alert type="error">{getPostsHandler.error.toString()}</Alert>
         )}

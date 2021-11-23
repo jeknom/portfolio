@@ -3,7 +3,7 @@ import { useSession } from "next-auth/client";
 import { dashboardRoutes } from "constants/index";
 import {
   LoadingContainer,
-  NavBar,
+  Sidebar,
   VerticalLayout,
   Avatar,
 } from "components/Core";
@@ -40,7 +40,7 @@ const Profile: FC<DashboardProps> = () => {
     <Protected>
       <LoadingContainer loading={loading}>
         <VerticalLayout gap={32} alignItems="center">
-          <NavBar selectedRoute={PROFILE} routes={dashboardRoutes} />
+          <Sidebar selectedRoute={PROFILE} routes={dashboardRoutes} />
           <Avatar image={session?.user?.image} />
           <VerticalLayout alignItems="center">
             <p className="primaryText">Hello, {session?.user?.name || ""}!</p>

@@ -15,6 +15,7 @@ import {
   Button,
   Dialog,
   Alert,
+  Sidebar,
 } from "components/Core";
 import {
   createDeleteAchievementRequest,
@@ -124,7 +125,10 @@ const Achievements: FC<AchievementProps> = () => {
 
   return (
     <Root alignItems="center" justifyContent="center" gap={12}>
-      <NavBar routes={dashboardRoutes} selectedRoute={DASHBOARD_ACHIEVEMENTS} />
+      <Sidebar
+        routes={dashboardRoutes}
+        selectedRoute={DASHBOARD_ACHIEVEMENTS}
+      />
       <TextField
         className="fullWidth"
         placeholder="Search for achievements"

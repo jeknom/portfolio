@@ -26,6 +26,7 @@ import Toggle from "./Toggle";
 import Root from "./Root";
 import Alert from "./Alert";
 import DatePicker from "./DatePicker";
+import Sidebar from "./Sidebar";
 
 export {
   Button,
@@ -56,4 +57,5 @@ export {
   Root,
   Alert,
   DatePicker,
+  Sidebar,
 };
