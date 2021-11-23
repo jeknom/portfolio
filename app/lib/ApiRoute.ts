@@ -138,12 +138,10 @@ class ApiRoute {
           error instanceof Prisma.PrismaClientKnownRequestError &&
           error.code === "P2001"
         ) {
-          res
-            .status(400)
-            .json({
-              code: 404,
-              error: "The requested resource does not exist.",
-            });
+          res.status(400).json({
+            code: 404,
+            error: "The requested resource does not exist.",
+          });
         } else {
           console.trace(error);
           res.status(500).json({ code: 500, error });
@@ -152,14 +150,15 @@ class ApiRoute {
     };
   }
 
-  private static isValidParams(obj: object, params: string[]) {
+  private static getMissingParams(obj: object, params: string[]) {
+    const missing: string[] = [];
     for (let param of params) {
       if (!obj[param]) {
-        return false;
+        missing.push(param);
       }
     }
 
-    return true;
+    return missing;
   }
 
   private static async getValidatedHandler(
@@ -175,17 +174,25 @@ class ApiRoute {
         (options.requiredPermissions || []).every((p) =>
           userPermissions.includes(p)
         ) || userPermissions.includes(permissions.ADMIN);
-      const isValidBody = this.isValidParams(
+      const missingBodyParams = this.getMissingParams(
         req.body,
         options.requiredBodyParams || []
       );
-      const isValidQuery = this.isValidParams(
+      const missingQueryParams = this.getMissingParams(
         req.query,
         options.requiredQueryParams || []
       );
 
-      if (!isValidBody || !isValidQuery) {
-        const error = "Missing request params.";
+      if (missingQueryParams.length > 0) {
+        const error = `Missing query params ${missingQueryParams.join(", ")}.`;
+        console.warn(error);
+        res.status(400).json({ code: 400, error });
+
+        return;
+      }
+
+      if (missingBodyParams.length > 0) {
+        const error = `Missing body params ${missingBodyParams.join(", ")}.`;
         console.warn(error);
         res.status(400).json({ code: 400, error });
 

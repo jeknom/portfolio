@@ -57,7 +57,7 @@ const Edit: FC<EditProps> = () => {
     createUpdateHighlightRequest(currentId, name, description, date, image?.id)
   );
 
-  const handleImageNameChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleNameChange = (event: ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
   };
 
@@ -127,7 +127,7 @@ const Edit: FC<EditProps> = () => {
             <TextField
               className="fullWidth"
               value={name}
-              onChange={handleImageNameChange}
+              onChange={handleNameChange}
               placeholder="Highlight name"
             />
             <TextField

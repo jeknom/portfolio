@@ -6,9 +6,15 @@ interface TextFieldProps {}
 
 const TextField: FC<TextFieldProps & HTMLProps<HTMLInputElement>> = ({
   className,
+  label,
   ...rest
 }) => {
-  return <input {...rest} className={classNames(className, styles.input)} />;
+  return (
+    <div className="fullWidth">
+      {label && <p className="secondaryText">{label}</p>}
+      <input {...rest} className={classNames(className, styles.input)} />
+    </div>
+  );
 };
 
 export default TextField;

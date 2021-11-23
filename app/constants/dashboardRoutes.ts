@@ -1,4 +1,5 @@
 import {
+  DASHBOARD_ACHIEVEMENTS,
   DASHBOARD_HIGHLIGHTS,
   DASHBOARD_IMAGES,
   DASHBOARD_POSTS,
@@ -31,6 +32,11 @@ const dashboardRoutes = [
     label: "Highlights",
     path: DASHBOARD_HIGHLIGHTS,
     iconPath: "/highlight.svg",
+  },
+  {
+    label: "Achievements",
+    path: DASHBOARD_ACHIEVEMENTS,
+    iconPath: "/achievement.svg",
   },
 ];
 

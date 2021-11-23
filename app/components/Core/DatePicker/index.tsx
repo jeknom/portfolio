@@ -1,12 +1,22 @@
 import { FC, ChangeEvent } from "react";
+import classNames from "classnames";
 import styles from "./datePicker.module.css";
 
 interface DatePickerProps {
+  label?: string;
   value?: Date;
   onChange?: (date: Date) => void;
+  required?: boolean;
+  disabled?: boolean;
 }
 
-const DatePicker: FC<DatePickerProps> = ({ value, onChange }) => {
+const DatePicker: FC<DatePickerProps> = ({
+  label,
+  value,
+  onChange,
+  disabled,
+  required = true,
+}) => {
   const date = value ? new Date(value) : new Date();
   const dateString = date.toISOString().split("T")[0];
 
@@ -20,13 +30,30 @@ const DatePicker: FC<DatePickerProps> = ({ value, onChange }) => {
   };
 
   return (
-    <input
-      className={styles.input}
-      type="date"
-      value={dateString}
-      onChange={handleChange}
-      required
-    />
+    <div className="fullWidth">
+      {label && (
+        <p
+          className={classNames(
+            "secondaryText",
+            disabled && styles.disabledInput
+          )}
+        >
+          {label}
+        </p>
+      )}
+      <input
+        className={classNames(
+          "fullWidth",
+          styles.input,
+          disabled && styles.disabledInput
+        )}
+        type="date"
+        value={dateString}
+        onChange={handleChange}
+        required={required}
+        disabled={disabled}
+      />
+    </div>
   );
 };
 

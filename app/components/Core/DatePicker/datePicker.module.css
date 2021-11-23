@@ -9,3 +9,8 @@
   outline: none;
   border-bottom: 2px solid black;
 }
+
+.disabledInput {
+  border-color: gray;
+  color: gray;
+}

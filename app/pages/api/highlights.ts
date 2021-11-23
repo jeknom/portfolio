@@ -52,7 +52,7 @@ async function handleUpdateHighlight(
   const { id, name, description, date, image_id } = req.body;
   const updatedHighlight = await prisma.highlights.update({
     where: { id },
-    data: { id, name, description, date, image_id },
+    data: { name, description, date, image_id },
   });
 
   res.status(200).json(updatedHighlight);

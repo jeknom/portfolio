@@ -25,7 +25,7 @@ const ImageItem: FC<ImageItemProps> = ({ image, onSelected }) => {
         layout="responsive"
         width={128}
         height={128}
-        objectFit="contain"
+        objectFit="cover"
       />
     </div>
   );

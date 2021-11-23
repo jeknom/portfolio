@@ -40,7 +40,7 @@ const Create: FC<CreateProps> = () => {
   );
   const router = useRouter();
 
-  const handleImageNameChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleNameChange = (event: ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
   };
 
@@ -87,7 +87,7 @@ const Create: FC<CreateProps> = () => {
           <TextField
             className="fullWidth"
             value={name}
-            onChange={handleImageNameChange}
+            onChange={handleNameChange}
             placeholder="Highlight name"
           />
           <TextField
