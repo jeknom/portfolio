@@ -3,6 +3,7 @@ import {
   DASHBOARD_CONTACT_INFORMATION,
   DASHBOARD_HIGHLIGHTS,
   DASHBOARD_IMAGES,
+  DASHBOARD_MAINTAINER,
   DASHBOARD_POSTS,
   DASHBOARD_SKILLS,
   DASHBOARD_VIDEOS,
@@ -49,6 +50,11 @@ const dashboardRoutes = [
     label: "Contact information",
     path: DASHBOARD_CONTACT_INFORMATION,
     iconPath: "/contact.svg",
+  },
+  {
+    label: "Maintainer",
+    path: DASHBOARD_MAINTAINER,
+    iconPath: "/maintainer.svg",
   },
 ];
 

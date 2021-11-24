@@ -18,6 +18,8 @@ const mapPermissionToPrettyName = (permission: string) => {
       return "Allowed to edit skills";
     case permissions.ALLOWED_TO_EDIT_CONTACT_INFORMATION:
       return "Allowed to edit contact information";
+    case permissions.ALLOWED_TO_EDIT_MAINTAINER:
+      return "Allowed to edit maintainer";
     default:
       return permission;
   }
