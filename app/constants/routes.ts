@@ -12,4 +12,6 @@ export const DASHBOARD_HIGHLIGHTS = `${PROFILE}/highlights`;
 export const DASHBOARD_HIGHLIGHTS_CREATE = `${PROFILE}/highlights/create`;
 export const DASHBOARD_ACHIEVEMENTS = `${PROFILE}/achievements`;
 export const DASHBOARD_ACHIEVEMENTS_CREATE = `${PROFILE}/achievements/create`;
+export const DASHBOARD_SKILLS = `${PROFILE}/skills`;
+export const DASHBOARD_SKILLS_CREATE = `${PROFILE}/skills/create`;
 export const RESOURCE_NOT_FOUND = "/404";

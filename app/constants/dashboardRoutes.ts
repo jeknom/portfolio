@@ -3,6 +3,7 @@ import {
   DASHBOARD_HIGHLIGHTS,
   DASHBOARD_IMAGES,
   DASHBOARD_POSTS,
+  DASHBOARD_SKILLS,
   DASHBOARD_VIDEOS,
   PROFILE,
 } from "@constants/routes";
@@ -37,6 +38,11 @@ const dashboardRoutes = [
     label: "Achievements",
     path: DASHBOARD_ACHIEVEMENTS,
     iconPath: "/achievement.svg",
+  },
+  {
+    label: "Skills",
+    path: DASHBOARD_SKILLS,
+    iconPath: "/skill.svg",
   },
 ];
 

@@ -8,6 +8,16 @@ const mapPermissionToPrettyName = (permission: string) => {
       return "Allowed to see dashboard pages";
     case permissions.ALLOWED_TO_EDIT_POSTS:
       return "Allowed to edit posts";
+    case permissions.ALLOWED_TO_EDIT_MEDIA:
+      return "Allowed to edit images and videos";
+    case permissions.ALLOWED_TO_EDIT_HIGHLIGHTS:
+      return "Allowed to edit highlights";
+    case permissions.ALLOWED_TO_EDIT_ACHIEVEMENTS:
+      return "Allowed to edit achievements";
+    case permissions.ALLOWED_TO_EDIT_SKILLS:
+      return "Allowed to edit skills";
+    default:
+      return permission;
   }
 };
 
