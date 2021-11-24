@@ -1,5 +1,6 @@
 import {
   DASHBOARD_ACHIEVEMENTS,
+  DASHBOARD_CONTACT_INFORMATION,
   DASHBOARD_HIGHLIGHTS,
   DASHBOARD_IMAGES,
   DASHBOARD_POSTS,
@@ -43,6 +44,11 @@ const dashboardRoutes = [
     label: "Skills",
     path: DASHBOARD_SKILLS,
     iconPath: "/skill.svg",
+  },
+  {
+    label: "Contact information",
+    path: DASHBOARD_CONTACT_INFORMATION,
+    iconPath: "/contact.svg",
   },
 ];
 

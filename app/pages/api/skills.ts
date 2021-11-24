@@ -66,5 +66,5 @@ export default new ApiRoute()
     [permissions.ALLOWED_TO_EDIT_SKILLS],
     ["id", "name", "score", "icon_id"]
   )
-  .delete(handleDeleteSkill, [permissions.ALLOWED_TO_EDIT_HIGHLIGHTS], ["id"])
+  .delete(handleDeleteSkill, [permissions.ALLOWED_TO_EDIT_SKILLS], ["id"])
   .build();

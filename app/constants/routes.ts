@@ -14,4 +14,6 @@ export const DASHBOARD_ACHIEVEMENTS = `${PROFILE}/achievements`;
 export const DASHBOARD_ACHIEVEMENTS_CREATE = `${PROFILE}/achievements/create`;
 export const DASHBOARD_SKILLS = `${PROFILE}/skills`;
 export const DASHBOARD_SKILLS_CREATE = `${PROFILE}/skills/create`;
+export const DASHBOARD_CONTACT_INFORMATION = `${PROFILE}/contact`;
+export const DASHBOARD_CONTACT_INFORMATION_CREATE = `${PROFILE}/contact/create`;
 export const RESOURCE_NOT_FOUND = "/404";
