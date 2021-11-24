@@ -4,6 +4,7 @@ import {
   DASHBOARD_HIGHLIGHTS,
   DASHBOARD_IMAGES,
   DASHBOARD_MAINTAINER,
+  DASHBOARD_OPEN_GRAPH_DATA,
   DASHBOARD_POSTS,
   DASHBOARD_SKILLS,
   DASHBOARD_VIDEOS,
@@ -55,6 +56,11 @@ const dashboardRoutes = [
     label: "Maintainer",
     path: DASHBOARD_MAINTAINER,
     iconPath: "/maintainer.svg",
+  },
+  {
+    label: "Open graph data",
+    path: DASHBOARD_OPEN_GRAPH_DATA,
+    iconPath: "/opengraph.svg",
   },
 ];
 
