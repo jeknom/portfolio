@@ -43,6 +43,9 @@ const ImagePicker: FC<ImagePickerProps & DialogProps> = ({
 
   return (
     <Dialog {...rest} onClose={onClose}>
+      {imageItems.length === 0 && (
+        <p className="secondaryText">Nothing to see here.</p>
+      )}
       <div className={styles.imageGrid}>{imageItems}</div>
       <DialogActions>
         <Button onClick={onClose}>Close</Button>

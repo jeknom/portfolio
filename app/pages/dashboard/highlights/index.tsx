@@ -1,6 +1,7 @@
 import { ChangeEvent, FC, useState } from "react";
 import { useRequest } from "hooks/requests";
 import Link from "next/link";
+import Image from "next/image";
 import { Highlights, Images } from ".prisma/client";
 import {
   Root,
@@ -37,16 +38,30 @@ interface HighlightItemProps {
 }
 
 const HighlightItem: FC<HighlightItemProps> = ({ highlight, onDelete }) => {
-  return (
-    <ListItem>
-      <ListItemIcon>
-        <img
-          src={highlight.images?.path || ""}
-          alt={highlight.description}
+  const imageElement = highlight.images ? (
+    <ListItemIcon>
+      <div className="image">
+        <Image
+          src={highlight.images.path}
+          alt={highlight.images.description}
+          layout="responsive"
           width={64}
           height={64}
+          objectFit="cover"
         />
-      </ListItemIcon>
+      </div>
+      <style jsx>{`
+        .image {
+          width: 64px;
+          height: 64px;
+        }
+      `}</style>
+    </ListItemIcon>
+  ) : null;
+
+  return (
+    <ListItem>
+      {imageElement}
       <ListItemText
         primary={highlight.name}
         secondary={`${highlight.description} (${new Date(

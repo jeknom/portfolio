@@ -1,6 +1,7 @@
-import { ChangeEvent, FC, useState } from "react";
+import { ChangeEvent, FC, useState, ReactNode } from "react";
 import { useRequest } from "hooks/requests";
 import Link from "next/link";
+import Image from "next/image";
 import { Video } from ".prisma/client";
 import {
   Root,
@@ -8,6 +9,7 @@ import {
   LoadingContainer,
   ListItem,
   ListItemText,
+  ListItemIcon,
   Sidebar,
   TextField,
   ListItemActions,
@@ -24,6 +26,7 @@ import dashboardRoutes from "@constants/dashboardRoutes";
 import { DASHBOARD_VIDEOS, DASHBOARD_VIDEOS_CREATE } from "@constants/routes";
 import DialogActions from "components/Core/Dialog/DialogActions";
 import { permissions } from "@constants/index";
+import { getYoutubeVideoIdFromEmbedUrl } from "utils/stringUtils";
 
 interface VideosProps {}
 
@@ -33,8 +36,30 @@ interface VideoItemProps {
 }
 
 const VideoItem: FC<VideoItemProps> = ({ video, onDelete }) => {
+  let imageUrl:
+    | string
+    | null = `http://img.youtube.com/vi/${getYoutubeVideoIdFromEmbedUrl(
+    video.url
+  )}/0.jpg`;
+  let imageElement: ReactNode | null = null;
+
+  if (imageUrl && imageUrl !== "") {
+    imageElement = (
+      <ListItemIcon>
+        <Image
+          src={imageUrl}
+          alt={video.description}
+          width={64}
+          height={64}
+          objectFit="cover"
+        />
+      </ListItemIcon>
+    );
+  }
+
   return (
     <ListItem>
+      {imageElement}
       <ListItemText primary={video.description} secondary={video.url} />
       <ListItemActions>
         <Link href={`${DASHBOARD_VIDEOS}/${video.id}`}>

@@ -6,6 +6,7 @@ import {
   DASHBOARD_MAINTAINER,
   DASHBOARD_OPEN_GRAPH_DATA,
   DASHBOARD_POSTS,
+  DASHBOARD_PROJECTS,
   DASHBOARD_SKILLS,
   DASHBOARD_VIDEOS,
   PROFILE,
@@ -16,6 +17,36 @@ const dashboardRoutes = [
     label: "Profile",
     path: PROFILE,
     iconPath: "/profile.svg",
+  },
+  {
+    label: "Maintainer",
+    path: DASHBOARD_MAINTAINER,
+    iconPath: "/maintainer.svg",
+  },
+  {
+    label: "Projects",
+    path: DASHBOARD_PROJECTS,
+    iconPath: "/projects.svg",
+  },
+  {
+    label: "Highlights",
+    path: DASHBOARD_HIGHLIGHTS,
+    iconPath: "/highlight.svg",
+  },
+  {
+    label: "Skills",
+    path: DASHBOARD_SKILLS,
+    iconPath: "/skill.svg",
+  },
+  {
+    label: "Achievements",
+    path: DASHBOARD_ACHIEVEMENTS,
+    iconPath: "/achievement.svg",
+  },
+  {
+    label: "Contact information",
+    path: DASHBOARD_CONTACT_INFORMATION,
+    iconPath: "/contact.svg",
   },
   {
     label: "Images",
@@ -31,31 +62,6 @@ const dashboardRoutes = [
     label: "Posts",
     path: DASHBOARD_POSTS,
     iconPath: "/post.svg",
-  },
-  {
-    label: "Highlights",
-    path: DASHBOARD_HIGHLIGHTS,
-    iconPath: "/highlight.svg",
-  },
-  {
-    label: "Achievements",
-    path: DASHBOARD_ACHIEVEMENTS,
-    iconPath: "/achievement.svg",
-  },
-  {
-    label: "Skills",
-    path: DASHBOARD_SKILLS,
-    iconPath: "/skill.svg",
-  },
-  {
-    label: "Contact information",
-    path: DASHBOARD_CONTACT_INFORMATION,
-    iconPath: "/contact.svg",
-  },
-  {
-    label: "Maintainer",
-    path: DASHBOARD_MAINTAINER,
-    iconPath: "/maintainer.svg",
   },
   {
     label: "Open graph data",

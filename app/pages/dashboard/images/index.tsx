@@ -36,13 +36,22 @@ const ImageItem: FC<ImageItemProps> = ({ image, onDelete }) => {
   return (
     <ListItem>
       <ListItemIcon>
-        <Image
-          src={image.path}
-          alt={image.description}
-          width={64}
-          height={64}
-          objectFit="contain"
-        />
+        <div className="image">
+          <Image
+            src={image.path}
+            alt={image.description}
+            layout="responsive"
+            width={64}
+            height={64}
+            objectFit="cover"
+          />
+        </div>
+        <style jsx>{`
+          .image {
+            width: 64px;
+            height: 64px;
+          }
+        `}</style>
       </ListItemIcon>
       <ListItemText primary={image.description} secondary={image.path} />
       <ListItemActions>
