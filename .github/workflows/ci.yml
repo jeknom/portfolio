@@ -34,11 +34,10 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-          context: app
+          context: ./app
           file: ./app/Dockerfile.production
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            # Needs to be added in order for the build to succeed
             DATABASE_URL: NOTSET
