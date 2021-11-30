@@ -20,4 +20,5 @@ export const DASHBOARD_MAINTAINER = `${PROFILE}/maintainer`;
 export const DASHBOARD_OPEN_GRAPH_DATA = `${PROFILE}/openGraphData`;
 export const DASHBOARD_PROJECTS = `${PROFILE}/projects`;
 export const DASHBOARD_PROJECTS_CREATE = `${PROFILE}/projects/create`;
+export const DASHBOARD_USERS = `${PROFILE}/users`;
 export const RESOURCE_NOT_FOUND = "/404";

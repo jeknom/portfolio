@@ -8,6 +8,7 @@ import {
   DASHBOARD_POSTS,
   DASHBOARD_PROJECTS,
   DASHBOARD_SKILLS,
+  DASHBOARD_USERS,
   DASHBOARD_VIDEOS,
   PROFILE,
 } from "@constants/routes";
@@ -67,6 +68,11 @@ const dashboardRoutes = [
     label: "Open graph data",
     path: DASHBOARD_OPEN_GRAPH_DATA,
     iconPath: "/opengraph.svg",
+  },
+  {
+    label: "Users",
+    path: DASHBOARD_USERS,
+    iconPath: "/user-permissions.svg",
   },
 ];
 

@@ -53,8 +53,6 @@ const Edit: FC<EditProps> = () => {
     console.warn("Failed to parse image ID from query params");
   }
 
-  console.log("Current id", currentId);
-
   const fetchProjectHandler = useRequest<
     PortfolioAPIResponse<
       Project & {
@@ -116,8 +114,6 @@ const Edit: FC<EditProps> = () => {
       });
     }
   }
-
-  console.log({ projectImages, projectVideos });
 
   const updateProjectHandler = useRequest<PortfolioAPIResponse<PrismaProject>>(
     createUpdateProjectRequest(

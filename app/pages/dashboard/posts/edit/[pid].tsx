@@ -44,7 +44,6 @@ const EditPost: FC<EditPostProps> = () => {
   };
 
   const handleMount = async () => {
-    console.log(pid);
     const data = await getPostHandler.doRequest();
 
     if (data) {

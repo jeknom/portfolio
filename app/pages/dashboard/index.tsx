@@ -1,14 +1,15 @@
 import { FC } from "react";
-import { useSession } from "next-auth/client";
+import { signOut, useSession } from "next-auth/client";
 import { dashboardRoutes } from "constants/index";
 import {
   LoadingContainer,
   Sidebar,
   VerticalLayout,
   Avatar,
+  Protected,
+  Button,
 } from "components/Core";
 import { PROFILE } from "@constants/routes";
-import Protected from "components/Core/Protected";
 import { mapPermissionToPrettyName } from "constants/index";
 
 interface DashboardProps {}
@@ -49,6 +50,7 @@ const Profile: FC<DashboardProps> = () => {
               <PermissionsList permissions={session?.user?.permissions} />
             </VerticalLayout>
           </VerticalLayout>
+          <Button onClick={() => signOut()}>Sign out</Button>
         </VerticalLayout>
       </LoadingContainer>
     </Protected>

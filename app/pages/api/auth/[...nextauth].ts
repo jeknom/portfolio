@@ -33,6 +33,18 @@ const options: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   debug: isDebugEnabled,
   callbacks: {
+    async signIn({ user, account, profile, email, credentials }) {
+      const isFirstUser = (await prisma.user.count()) === 0;
+      const permittedEmail = await prisma.permittedUserEmail.findFirst({
+        where: { email },
+      });
+
+      if (isFirstUser || permittedEmail) {
+        return true;
+      }
+
+      return "/unauthorized";
+    },
     async session(session, user) {
       return await fillUserPermissions(session, user);
     },

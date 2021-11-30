@@ -93,7 +93,6 @@ const Edit: FC<EditProps> = () => {
   };
 
   const handleUpdateAchievement = async () => {
-    console.log("End date", endDate);
     const response = await updateAchievementHandler.doRequest();
     if (!response.error) {
       router.push(DASHBOARD_ACHIEVEMENTS);
