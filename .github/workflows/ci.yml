@@ -42,4 +42,4 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            DATABASE_URL=NOTSET
+            DATABASE_URL=mysql://root:1234@db:3306/portfolio-db
