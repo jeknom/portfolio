@@ -50,3 +50,9 @@ services:
       - 80:80
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
+  watchtower:
+    image: containrrr/watchtower
+    container_name: watchtower
+    command: ["portfolio-app", "watchtower"]
+    volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
