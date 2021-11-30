@@ -39,6 +39,6 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          build-args:
+          build-args: |
             # Needs to be added in order for the build to succeed
-            - DATABASE_URL: NOTSET
+            DATABASE_URL: NOTSET
