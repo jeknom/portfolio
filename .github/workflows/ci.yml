@@ -25,9 +25,9 @@ jobs:
           context: ./app
           file: ./app/Dockerfile.production
           push: true
-          tags:
-            - "latest"
-            - "0.0.6"
+          tags: |
+            latest
+            0.0.6
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
             DATABASE_URL=mysql://root:1234@db:3306/portfolio-db
