@@ -25,8 +25,6 @@ jobs:
           context: ./app
           file: ./app/Dockerfile.production
           push: true
-          tags: |
-            jeknom/porfolio-alpine:latest
-            jeknom/porfolio-alpine:0.0.6
+          tags: jeknom/porfolio-alpine:latest
           build-args: |
             DATABASE_URL=mysql://root:1234@db:3306/portfolio-db
