@@ -17,7 +17,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Docker meta
-        id: meta:
+        id: meta
         uses: docker/metadata-action@v3
         with:
           images: |
@@ -41,4 +41,4 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           build-args:
             # Needs to be added in order for the build to succeed
-          - DATABASE_URL: NOTSET
+            - DATABASE_URL: NOTSET
