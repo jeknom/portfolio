@@ -16,8 +16,9 @@ The dockerized, minimal in style Portfolio.
 
 ## 📘 Docs
 
-- [Concepts](docs/concepts.md)
+- [Glossary](docs/glossary.md)
 - [Setting up for development](docs/setting-up-for-development.md)
 - [Setting up for production](docs/setting-up-for-production.md)
 - [Database and migrations](docs/database-and-migrations.md)
 - [Environment variables](docs/environment-variables.md)
+- [Troubleshooting](docs/troubleshooting.md)

@@ -1,6 +1,6 @@
 [Back to main](../README.md)
 
-# 💡 Concepts
+# 💡 Glossary
 
 Take a look at the [live demo](https://johku.org) and the [database schema](../app/prisma/schema.prisma), it will give a good idea of what will be written here next. With that out of the way, this portfolio consists of the following types of data:
 

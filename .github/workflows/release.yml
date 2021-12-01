@@ -27,6 +27,6 @@ jobs:
           push: true
           tags: |
             jeknom/portfolio-alpine:latest
-            0.0.6
+            jeknom/portfolio-alpine:0.0.6
           build-args: |
             DATABASE_URL=mysql://root:1234@db:3306/portfolio-db
