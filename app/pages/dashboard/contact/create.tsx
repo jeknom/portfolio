@@ -5,7 +5,6 @@ import {
   Button,
   HorizontalLayout,
   Protected,
-  Root,
   TextField,
   Title,
 } from "components/Core";
@@ -44,47 +43,45 @@ const Create: FC<CreateProps> = () => {
 
   return (
     <Protected permissions={[permissions.ALLOWED_TO_EDIT_CONTACT_INFORMATION]}>
-      <Root alignItems="center" gap={12}>
-        <Title text="Create new contact information" />
-        {createContactInformationHandler.error && (
-          <Alert type="error">
-            {createContactInformationHandler.error.toString()}
-          </Alert>
-        )}
-        <TextField
-          className="fullWidth"
-          label="Name"
-          value={name}
-          onChange={handleNameChange}
-          placeholder="Cool website"
-        />
-        <TextField
-          className="fullWidth"
-          label="Link"
-          value={link}
-          onChange={handleLinkChange}
-          placeholder="https://www.myprofileatsomeothersite.com"
-        />
-        <HorizontalLayout gap={8}>
-          <Button
-            onClick={handleCreateContactInformation}
-            disabled={name === "" || link === ""}
-          >
-            Create
-          </Button>
-          <Link href={DASHBOARD_CONTACT_INFORMATION}>
-            <span>
-              <Button>Cancel</Button>
-            </span>
-          </Link>
-        </HorizontalLayout>
-        <style jsx>{`
-          .image {
-            border: 1px solid black;
-            border-radius: 8px;
-          }
-        `}</style>
-      </Root>
+      <Title text="Create new contact information" />
+      {createContactInformationHandler.error && (
+        <Alert type="error">
+          {createContactInformationHandler.error.toString()}
+        </Alert>
+      )}
+      <TextField
+        className="fullWidth"
+        label="Name"
+        value={name}
+        onChange={handleNameChange}
+        placeholder="Cool website"
+      />
+      <TextField
+        className="fullWidth"
+        label="Link"
+        value={link}
+        onChange={handleLinkChange}
+        placeholder="https://www.myprofileatsomeothersite.com"
+      />
+      <HorizontalLayout gap={8}>
+        <Button
+          onClick={handleCreateContactInformation}
+          disabled={name === "" || link === ""}
+        >
+          Create
+        </Button>
+        <Link href={DASHBOARD_CONTACT_INFORMATION}>
+          <span>
+            <Button>Cancel</Button>
+          </span>
+        </Link>
+      </HorizontalLayout>
+      <style jsx>{`
+        .image {
+          border: 1px solid black;
+          border-radius: 8px;
+        }
+      `}</style>
     </Protected>
   );
 };

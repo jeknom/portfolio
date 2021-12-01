@@ -4,7 +4,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { Video } from ".prisma/client";
 import {
-  Root,
   List,
   LoadingContainer,
   ListItem,
@@ -126,42 +125,40 @@ const Videos: FC<VideosProps> = () => {
 
   return (
     <Protected permissions={[permissions.ALLOWED_TO_EDIT_MEDIA]}>
-      <Root alignItems="center" justifyContent="center" gap={12}>
-        <Sidebar routes={dashboardRoutes} selectedRoute={DASHBOARD_VIDEOS} />
-        <TextField
-          className="fullWidth"
-          placeholder="Search for videos"
-          value={searchText}
-          onChange={handleSearchTextChange}
-        />
-        {getAlert()}
-        <LoadingContainer loading={fetchVideosHandler.isLoading}>
-          {videoElements.length === 0 && (
-            <p className="captionText">
-              There seems to be no videos here, create a new one!
-            </p>
-          )}
-          <List>{videoElements}</List>
-        </LoadingContainer>
-        <Link href={DASHBOARD_VIDEOS_CREATE}>
-          <span>
-            <Button>Add new</Button>
-          </span>
-        </Link>
-        <Dialog
-          title="Delete video"
-          open={videoToDelete !== null}
-          onClose={handleCloseDeleteConfirmation}
-        >
-          <p className="secondaryText">
-            Are you sure you would like to delete this video?
+      <Sidebar routes={dashboardRoutes} selectedRoute={DASHBOARD_VIDEOS} />
+      <TextField
+        className="fullWidth"
+        placeholder="Search for videos"
+        value={searchText}
+        onChange={handleSearchTextChange}
+      />
+      {getAlert()}
+      <LoadingContainer loading={fetchVideosHandler.isLoading}>
+        {videoElements.length === 0 && (
+          <p className="captionText">
+            There seems to be no videos here, create a new one!
           </p>
-          <DialogActions>
-            <Button onClick={handleDeleteVideo}>Delete</Button>
-            <Button onClick={handleCloseDeleteConfirmation}>Close</Button>
-          </DialogActions>
-        </Dialog>
-      </Root>
+        )}
+        <List>{videoElements}</List>
+      </LoadingContainer>
+      <Link href={DASHBOARD_VIDEOS_CREATE}>
+        <span>
+          <Button>Add new</Button>
+        </span>
+      </Link>
+      <Dialog
+        title="Delete video"
+        open={videoToDelete !== null}
+        onClose={handleCloseDeleteConfirmation}
+      >
+        <p className="secondaryText">
+          Are you sure you would like to delete this video?
+        </p>
+        <DialogActions>
+          <Button onClick={handleDeleteVideo}>Delete</Button>
+          <Button onClick={handleCloseDeleteConfirmation}>Close</Button>
+        </DialogActions>
+      </Dialog>
     </Protected>
   );
 };

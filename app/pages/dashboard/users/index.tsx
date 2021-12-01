@@ -4,7 +4,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { User, PermittedUserEmail } from ".prisma/client";
 import {
-  Root,
   List,
   LoadingContainer,
   ListItem,
@@ -173,68 +172,66 @@ const User: FC<UsersProps> = () => {
 
   return (
     <Protected permissions={[permissions.ALLOWED_TO_EDIT_USERS]}>
-      <Root alignItems="center" justifyContent="center" gap={12}>
-        <Sidebar routes={dashboardRoutes} selectedRoute={DASHBOARD_USERS} />
-        <Title text="Users" />
-        <TextField
-          className="fullWidth"
-          placeholder="Search for users information"
-          value={searchText}
-          onChange={handleSearchTextChange}
-        />
-        {getAlert()}
-        <LoadingContainer
-          loading={
-            fetchUsersHandler.isLoading ||
-            fetchPermittedUserEmailsHandler.isLoading
-          }
-        >
-          {userElements.length === 0 && (
-            <p className="captionText">
-              There seems to be no user information here, create a new one!
-            </p>
-          )}
-          <List>{userElements}</List>
-          <Title text="Permitted emails" />
-          {permittedUserEmailElements.length === 0 && (
-            <p className="captionText">
-              There seems to be no permitted user information here, create a new
-              one!
-            </p>
-          )}
-          <List>{permittedUserEmailElements}</List>
-          <HorizontalLayout className="fullWidth" gap={4}>
-            <TextField
-              label="Add new permitted user"
-              placeholder="jane.doe@gmail.com"
-              className="fullWidth"
-              value={permittedUserEmail}
-              onChange={handlePermittedUserEmailChange}
-            />
-            <Button
-              onClick={handleCreatePermittedUserEmail}
-              disabled={!isPermittedUserEmailValid}
-            >
-              Create
-            </Button>
-          </HorizontalLayout>
-        </LoadingContainer>
-        <HorizontalLayout></HorizontalLayout>
-        <Dialog
-          title="Delete permitted user"
-          open={permittedUserEmailToDelete !== null}
-          onClose={handleCloseDeleteConfirmation}
-        >
-          <p className="secondaryText">
-            Are you sure you would like to revoke this user's access to the
-            dashboard?
+      <Sidebar routes={dashboardRoutes} selectedRoute={DASHBOARD_USERS} />
+      <Title text="Users" />
+      <TextField
+        className="fullWidth"
+        placeholder="Search for users information"
+        value={searchText}
+        onChange={handleSearchTextChange}
+      />
+      {getAlert()}
+      <LoadingContainer
+        loading={
+          fetchUsersHandler.isLoading ||
+          fetchPermittedUserEmailsHandler.isLoading
+        }
+      >
+        {userElements.length === 0 && (
+          <p className="captionText">
+            There seems to be no user information here, create a new one!
           </p>
-          <DialogActions>
-            <Button onClick={handleDeletePermittedUserEmail}>Delete</Button>
-            <Button onClick={handleCloseDeleteConfirmation}>Close</Button>
-          </DialogActions>
-        </Dialog>
-      </Root>
+        )}
+        <List>{userElements}</List>
+        <Title text="Permitted emails" />
+        {permittedUserEmailElements.length === 0 && (
+          <p className="captionText">
+            There seems to be no permitted user information here, create a new
+            one!
+          </p>
+        )}
+        <List>{permittedUserEmailElements}</List>
+        <HorizontalLayout className="fullWidth" gap={4}>
+          <TextField
+            label="Add new permitted user"
+            placeholder="jane.doe@gmail.com"
+            className="fullWidth"
+            value={permittedUserEmail}
+            onChange={handlePermittedUserEmailChange}
+          />
+          <Button
+            onClick={handleCreatePermittedUserEmail}
+            disabled={!isPermittedUserEmailValid}
+          >
+            Create
+          </Button>
+        </HorizontalLayout>
+      </LoadingContainer>
+      <HorizontalLayout></HorizontalLayout>
+      <Dialog
+        title="Delete permitted user"
+        open={permittedUserEmailToDelete !== null}
+        onClose={handleCloseDeleteConfirmation}
+      >
+        <p className="secondaryText">
+          Are you sure you would like to revoke this user's access to the
+          dashboard?
+        </p>
+        <DialogActions>
+          <Button onClick={handleDeletePermittedUserEmail}>Delete</Button>
+          <Button onClick={handleCloseDeleteConfirmation}>Close</Button>
+        </DialogActions>
+      </Dialog>
     </Protected>
   );
 };

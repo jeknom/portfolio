@@ -1,13 +1,3 @@
-.homeRoot {
-  width: clamp(10%, 50%, 60%);
-}
-
-@media only screen and (max-width: 768px) {
-  .homeRoot {
-    width: clamp(10%, 80%, 95%);
-  }
-}
-
 .profilePicture {
   border-radius: 26px;
 }

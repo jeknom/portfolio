@@ -4,7 +4,6 @@ import {
   Alert,
   Button,
   HorizontalLayout,
-  Root,
   TextField,
   Title,
   Protected,
@@ -43,45 +42,43 @@ const Create: FC<CreateProps> = () => {
 
   return (
     <Protected permissions={[permissions.ALLOWED_TO_EDIT_MEDIA]}>
-      <Root alignItems="center" gap={12}>
-        <Title text="Create new video" />
-        {createVideoHandler.error && (
-          <Alert type="error">{createVideoHandler.error.toString()}</Alert>
-        )}
-        <iframe
-          width="560"
-          height="315"
-          src={url}
-          title="YouTube video player"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        />
-        <TextField
-          className="fullWidth"
-          value={url}
-          onChange={handleVideoUrlChange}
-          placeholder="Video URL"
-        />
-        <TextField
-          className="fullWidth"
-          value={description}
-          onChange={handleDescriptionChange}
-          placeholder="Video description"
-        />
-        <HorizontalLayout gap={8}>
-          <Button
-            onClick={handleCreateVideo}
-            disabled={url === "" || description === ""}
-          >
-            Create
-          </Button>
-          <Link href={DASHBOARD_VIDEOS}>
-            <span>
-              <Button>Cancel</Button>
-            </span>
-          </Link>
-        </HorizontalLayout>
-      </Root>
+      <Title text="Create new video" />
+      {createVideoHandler.error && (
+        <Alert type="error">{createVideoHandler.error.toString()}</Alert>
+      )}
+      <iframe
+        width="560"
+        height="315"
+        src={url}
+        title="YouTube video player"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+      />
+      <TextField
+        className="fullWidth"
+        value={url}
+        onChange={handleVideoUrlChange}
+        placeholder="Video URL"
+      />
+      <TextField
+        className="fullWidth"
+        value={description}
+        onChange={handleDescriptionChange}
+        placeholder="Video description"
+      />
+      <HorizontalLayout gap={8}>
+        <Button
+          onClick={handleCreateVideo}
+          disabled={url === "" || description === ""}
+        >
+          Create
+        </Button>
+        <Link href={DASHBOARD_VIDEOS}>
+          <span>
+            <Button>Cancel</Button>
+          </span>
+        </Link>
+      </HorizontalLayout>
     </Protected>
   );
 };

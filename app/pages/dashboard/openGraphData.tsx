@@ -2,7 +2,6 @@ import { ChangeEvent, FC, useState, useEffect } from "react";
 import { useRequest } from "hooks/requests";
 import { OpenGraphData, Images } from ".prisma/client";
 import {
-  Root,
   LoadingContainer,
   Sidebar,
   TextField,
@@ -116,57 +115,55 @@ const OpenGraphData: FC<OpenGraphDataProps> = () => {
 
   return (
     <Protected permissions={[permissions.ALLOWED_TO_EDIT_OPEN_GRAPH_DATA]}>
-      <Root alignItems="center" justifyContent="center" gap={12}>
-        <Sidebar
-          routes={dashboardRoutes}
-          selectedRoute={DASHBOARD_OPEN_GRAPH_DATA}
-        />
-        {getAlert()}
-        <LoadingContainer loading={fetchOpenGraphDataHandler.isLoading}>
-          <VerticalLayout className="fullWidth" gap={8} alignItems="center">
-            <ImagePreviewButton
-              onClick={handleOpenImagePicker}
-              selectedImage={image}
-              width={256}
-              height={164}
-            />
-            <ImagePicker
-              title="Pick open graph cover image"
-              open={isImagePickerOpen}
-              onClose={handleCloseImagePicker}
-              images={fetchImagesHandler.data}
-              onImageSelected={handleImageChange}
-            />
-            <TextField
-              className="fullWidth"
-              value={title}
-              label="Title"
-              placeholder="Jane Doe - The Master of Monopoly"
-              onChange={handleTitleChange}
-            />
-            <TextField
-              className="fullWidth"
-              value={description}
-              label="Description"
-              placeholder="Check out the portfolio from the one and only, master of monopoly!"
-              onChange={handleDescriptionChange}
-            />
-            <TextField
-              className="fullWidth"
-              value={type}
-              label="Type"
-              placeholder="website"
-              onChange={handleTypeChange}
-            />
-            <Button
-              onClick={handleUpdateOpenGraphData}
-              disabled={isUpdateDisabled}
-            >
-              Update
-            </Button>
-          </VerticalLayout>
-        </LoadingContainer>
-      </Root>
+      <Sidebar
+        routes={dashboardRoutes}
+        selectedRoute={DASHBOARD_OPEN_GRAPH_DATA}
+      />
+      {getAlert()}
+      <LoadingContainer loading={fetchOpenGraphDataHandler.isLoading}>
+        <VerticalLayout className="fullWidth" gap={8} alignItems="center">
+          <ImagePreviewButton
+            onClick={handleOpenImagePicker}
+            selectedImage={image}
+            width={256}
+            height={164}
+          />
+          <ImagePicker
+            title="Pick open graph cover image"
+            open={isImagePickerOpen}
+            onClose={handleCloseImagePicker}
+            images={fetchImagesHandler.data}
+            onImageSelected={handleImageChange}
+          />
+          <TextField
+            className="fullWidth"
+            value={title}
+            label="Title"
+            placeholder="Jane Doe - The Master of Monopoly"
+            onChange={handleTitleChange}
+          />
+          <TextField
+            className="fullWidth"
+            value={description}
+            label="Description"
+            placeholder="Check out the portfolio from the one and only, master of monopoly!"
+            onChange={handleDescriptionChange}
+          />
+          <TextField
+            className="fullWidth"
+            value={type}
+            label="Type"
+            placeholder="website"
+            onChange={handleTypeChange}
+          />
+          <Button
+            onClick={handleUpdateOpenGraphData}
+            disabled={isUpdateDisabled}
+          >
+            Update
+          </Button>
+        </VerticalLayout>
+      </LoadingContainer>
     </Protected>
   );
 };

@@ -6,7 +6,6 @@ import {
   HorizontalLayout,
   LoadingContainer,
   Protected,
-  Root,
   TextField,
   Title,
 } from "components/Core";
@@ -75,54 +74,52 @@ const Edit: FC<EditProps> = () => {
 
   return (
     <Protected permissions={[permissions.ALLOWED_TO_EDIT_CONTACT_INFORMATION]}>
-      <Root alignItems="center" gap={12}>
-        <Title text="Update contact information" />
-        <LoadingContainer
-          loading={
-            fetchContactInformationHandler.isLoading ||
-            updateContactInformationHandler.isLoading
-          }
+      <Title text="Update contact information" />
+      <LoadingContainer
+        loading={
+          fetchContactInformationHandler.isLoading ||
+          updateContactInformationHandler.isLoading
+        }
+      >
+        {updateContactInformationHandler.error && (
+          <Alert type="error">
+            {updateContactInformationHandler.error.toString()}
+          </Alert>
+        )}
+        <TextField
+          className="fullWidth"
+          label="Name"
+          value={name}
+          onChange={handleNameChange}
+          placeholder="Cool website"
+        />
+        <TextField
+          className="fullWidth"
+          label="Link"
+          value={link}
+          onChange={handleLinkChange}
+          placeholder="https://www.myprofileatsomeothersite.com"
+        />
+      </LoadingContainer>
+      <HorizontalLayout gap={8}>
+        <Button
+          onClick={handleUpdateContactInformation}
+          disabled={name === "" || link === ""}
         >
-          {updateContactInformationHandler.error && (
-            <Alert type="error">
-              {updateContactInformationHandler.error.toString()}
-            </Alert>
-          )}
-          <TextField
-            className="fullWidth"
-            label="Name"
-            value={name}
-            onChange={handleNameChange}
-            placeholder="Cool website"
-          />
-          <TextField
-            className="fullWidth"
-            label="Link"
-            value={link}
-            onChange={handleLinkChange}
-            placeholder="https://www.myprofileatsomeothersite.com"
-          />
-        </LoadingContainer>
-        <HorizontalLayout gap={8}>
-          <Button
-            onClick={handleUpdateContactInformation}
-            disabled={name === "" || link === ""}
-          >
-            Update
-          </Button>
-          <Link href={DASHBOARD_CONTACT_INFORMATION}>
-            <span>
-              <Button>Cancel</Button>
-            </span>
-          </Link>
-        </HorizontalLayout>
-        <style jsx>{`
-          .image {
-            border: 1px solid black;
-            border-radius: 8px;
-          }
-        `}</style>
-      </Root>
+          Update
+        </Button>
+        <Link href={DASHBOARD_CONTACT_INFORMATION}>
+          <span>
+            <Button>Cancel</Button>
+          </span>
+        </Link>
+      </HorizontalLayout>
+      <style jsx>{`
+        .image {
+          border: 1px solid black;
+          border-radius: 8px;
+        }
+      `}</style>
     </Protected>
   );
 };

@@ -4,11 +4,10 @@
 
 .navbarRoot {
   display: flex;
-  gap: 12px;
+  gap: 2rem;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
-  min-width: 400px;
+  justify-content: center;
 }
 
 @media only screen and (max-width: 768px) {

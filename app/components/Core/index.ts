@@ -55,9 +55,9 @@ export {
   TextArea,
   TextField,
   Toggle,
-  Root,
   Alert,
   DatePicker,
   Sidebar,
   Protected,
+  Root,
 };

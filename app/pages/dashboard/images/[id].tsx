@@ -6,7 +6,6 @@ import {
   HorizontalLayout,
   LoadingContainer,
   Protected,
-  Root,
   TextField,
   Title,
 } from "components/Core";
@@ -72,57 +71,55 @@ const Edit: FC<EditProps> = () => {
 
   return (
     <Protected permissions={[permissions.ALLOWED_TO_EDIT_MEDIA]}>
-      <Root alignItems="center" gap={12}>
-        <Title text="Edit image" />
-        <LoadingContainer
-          loading={fetchImageHandler.isLoading || updateImageHandler.isLoading}
-        >
-          {fetchImageHandler.error ||
-            (updateImageHandler.error && (
-              <Alert type="error">
-                {fetchImageHandler.error.toString() ||
-                  updateImageHandler.error.toString()}
-              </Alert>
-            ))}
-          <img
-            className="image"
-            src={path}
-            alt="Type in the URL and the image will show here"
-          />
-          <TextField
-            className="fullWidth"
-            value={path}
-            onChange={handleImagePathChange}
-            placeholder="Image URL"
-          />
-          <TextField
-            className="fullWidth"
-            value={description}
-            onChange={handleDescriptionChange}
-            placeholder="Image description"
-          />
-          <HorizontalLayout gap={8}>
-            <Button
-              onClick={handleUpdateImage}
-              disabled={path === "" || description === ""}
-            >
-              Update
-            </Button>
-            <Link href={DASHBOARD_IMAGES}>
-              <span>
-                <Button>Cancel</Button>
-              </span>
-            </Link>
-          </HorizontalLayout>
-        </LoadingContainer>
-        <style jsx>{`
-          .image {
-            max-width: 128px;
-            border: 1px solid black;
-            border-radius: 8px;
-          }
-        `}</style>
-      </Root>
+      <Title text="Edit image" />
+      <LoadingContainer
+        loading={fetchImageHandler.isLoading || updateImageHandler.isLoading}
+      >
+        {fetchImageHandler.error ||
+          (updateImageHandler.error && (
+            <Alert type="error">
+              {fetchImageHandler.error.toString() ||
+                updateImageHandler.error.toString()}
+            </Alert>
+          ))}
+        <img
+          className="image"
+          src={path}
+          alt="Type in the URL and the image will show here"
+        />
+        <TextField
+          className="fullWidth"
+          value={path}
+          onChange={handleImagePathChange}
+          placeholder="Image URL"
+        />
+        <TextField
+          className="fullWidth"
+          value={description}
+          onChange={handleDescriptionChange}
+          placeholder="Image description"
+        />
+        <HorizontalLayout gap={8}>
+          <Button
+            onClick={handleUpdateImage}
+            disabled={path === "" || description === ""}
+          >
+            Update
+          </Button>
+          <Link href={DASHBOARD_IMAGES}>
+            <span>
+              <Button>Cancel</Button>
+            </span>
+          </Link>
+        </HorizontalLayout>
+      </LoadingContainer>
+      <style jsx>{`
+        .image {
+          max-width: 128px;
+          border: 1px solid black;
+          border-radius: 8px;
+        }
+      `}</style>
     </Protected>
   );
 };

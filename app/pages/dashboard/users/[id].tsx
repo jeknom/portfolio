@@ -8,7 +8,6 @@ import {
   List,
   LoadingContainer,
   Protected,
-  Root,
   ListItem,
   ListItemText,
   ListItemActions,
@@ -133,47 +132,45 @@ const Edit: FC<EditProps> = () => {
 
   return (
     <Protected permissions={[constPermissions.ALLOWED_TO_EDIT_USERS]}>
-      <Root alignItems="center" gap={12}>
-        <LoadingContainer loading={isAnyRequestPending}>
-          {updateUserPermissionsHandler.error && (
-            <Alert type="error">
-              {updateUserPermissionsHandler.error.toString()}
-            </Alert>
-          )}
-          <Title text={fetchUserHandler.data?.name || ""} />
-          {userImageElement}
-          <p className="secondaryText">{fetchUserHandler.data?.email || ""}</p>
-          <Title text="User permissions" />
-          {existingPermissions.length === 0 && (
-            <p className="secondaryText">User has no permissions</p>
-          )}
-          <List>{existingPermissions}</List>
-          <Title text="Missing permissions" />
-          {missingPermissions.length === 0 && (
-            <p className="secondaryText">User has all permissions</p>
-          )}
-          <List>{missingPermissions}</List>
-        </LoadingContainer>
-        <HorizontalLayout gap={8}>
-          <Button
-            onClick={handleUpdatePermissions}
-            disabled={isAnyRequestPending}
-          >
-            Update
-          </Button>
-          <Link href={DASHBOARD_USERS}>
-            <span>
-              <Button>Back</Button>
-            </span>
-          </Link>
-        </HorizontalLayout>
-        <style jsx>{`
-          .image {
-            border: 1px solid black;
-            border-radius: 8px;
-          }
-        `}</style>
-      </Root>
+      <LoadingContainer loading={isAnyRequestPending}>
+        {updateUserPermissionsHandler.error && (
+          <Alert type="error">
+            {updateUserPermissionsHandler.error.toString()}
+          </Alert>
+        )}
+        <Title text={fetchUserHandler.data?.name || ""} />
+        {userImageElement}
+        <p className="secondaryText">{fetchUserHandler.data?.email || ""}</p>
+        <Title text="User permissions" />
+        {existingPermissions.length === 0 && (
+          <p className="secondaryText">User has no permissions</p>
+        )}
+        <List>{existingPermissions}</List>
+        <Title text="Missing permissions" />
+        {missingPermissions.length === 0 && (
+          <p className="secondaryText">User has all permissions</p>
+        )}
+        <List>{missingPermissions}</List>
+      </LoadingContainer>
+      <HorizontalLayout gap={8}>
+        <Button
+          onClick={handleUpdatePermissions}
+          disabled={isAnyRequestPending}
+        >
+          Update
+        </Button>
+        <Link href={DASHBOARD_USERS}>
+          <span>
+            <Button>Back</Button>
+          </span>
+        </Link>
+      </HorizontalLayout>
+      <style jsx>{`
+        .image {
+          border: 1px solid black;
+          border-radius: 8px;
+        }
+      `}</style>
     </Protected>
   );
 };

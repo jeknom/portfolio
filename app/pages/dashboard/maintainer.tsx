@@ -2,7 +2,6 @@ import { ChangeEvent, FC, useState, useEffect } from "react";
 import { useRequest } from "hooks/requests";
 import { Maintainers, Images } from ".prisma/client";
 import {
-  Root,
   LoadingContainer,
   Sidebar,
   TextField,
@@ -117,59 +116,51 @@ const Maintainer: FC<MaintainerProps> = () => {
 
   return (
     <Protected permissions={[permissions.ALLOWED_TO_EDIT_MAINTAINER]}>
-      <Root alignItems="center" justifyContent="center" gap={12}>
-        <Sidebar
-          routes={dashboardRoutes}
-          selectedRoute={DASHBOARD_MAINTAINER}
-        />
-        {getAlert()}
-        <LoadingContainer loading={fetchMaintainerHandler.isLoading}>
-          <VerticalLayout className="fullWidth" gap={8} alignItems="center">
-            <ImagePreviewButton
-              onClick={handleOpenImagePicker}
-              selectedImage={image}
-              width={256}
-              height={256}
-            />
-            <ImagePicker
-              title="Pick maintainer image"
-              open={isImagePickerOpen}
-              onClose={handleCloseImagePicker}
-              images={fetchImagesHandler.data}
-              onImageSelected={handleImageChange}
-            />
-            <TextField
+      <Sidebar routes={dashboardRoutes} selectedRoute={DASHBOARD_MAINTAINER} />
+      {getAlert()}
+      <LoadingContainer loading={fetchMaintainerHandler.isLoading}>
+        <VerticalLayout className="fullWidth" gap={8} alignItems="center">
+          <ImagePreviewButton
+            onClick={handleOpenImagePicker}
+            selectedImage={image}
+            width={256}
+            height={256}
+          />
+          <ImagePicker
+            title="Pick maintainer image"
+            open={isImagePickerOpen}
+            onClose={handleCloseImagePicker}
+            images={fetchImagesHandler.data}
+            onImageSelected={handleImageChange}
+          />
+          <TextField
+            className="fullWidth"
+            value={name}
+            label="Name"
+            placeholder="Jane Doe"
+            onChange={handleNameChange}
+          />
+          <TextField
+            className="fullWidth"
+            value={headline}
+            label="Headline"
+            placeholder="Monopoly enthusiast"
+            onChange={handleHeadlineChange}
+          />
+          <VerticalLayout className="fullWidth">
+            <p className="secondaryText">Bio</p>
+            <TextArea
               className="fullWidth"
-              value={name}
-              label="Name"
-              placeholder="Jane Doe"
-              onChange={handleNameChange}
+              value={bio}
+              onChange={handleBioChange}
+              rows={10}
             />
-            <TextField
-              className="fullWidth"
-              value={headline}
-              label="Headline"
-              placeholder="Monopoly enthusiast"
-              onChange={handleHeadlineChange}
-            />
-            <VerticalLayout className="fullWidth">
-              <p className="secondaryText">Bio</p>
-              <TextArea
-                className="fullWidth"
-                value={bio}
-                onChange={handleBioChange}
-                rows={10}
-              />
-            </VerticalLayout>
-            <Button
-              onClick={handleUpdateMaintainer}
-              disabled={isUpdateDisabled}
-            >
-              Update
-            </Button>
           </VerticalLayout>
-        </LoadingContainer>
-      </Root>
+          <Button onClick={handleUpdateMaintainer} disabled={isUpdateDisabled}>
+            Update
+          </Button>
+        </VerticalLayout>
+      </LoadingContainer>
     </Protected>
   );
 };

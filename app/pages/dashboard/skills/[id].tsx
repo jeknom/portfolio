@@ -6,7 +6,6 @@ import {
   HorizontalLayout,
   LoadingContainer,
   Protected,
-  Root,
   TextField,
   Title,
   VerticalLayout,
@@ -107,74 +106,72 @@ const Edit: FC<EditProps> = () => {
 
   return (
     <Protected permissions={[permissions.ALLOWED_TO_EDIT_SKILLS]}>
-      <Root alignItems="center" gap={12}>
-        <Title text="Update skill" />
-        <LoadingContainer
-          loading={
-            fetchSkillHandler.isLoading ||
-            fetchImagesHandler.isLoading ||
-            updateSkillHandler.isLoading
-          }
+      <Title text="Update skill" />
+      <LoadingContainer
+        loading={
+          fetchSkillHandler.isLoading ||
+          fetchImagesHandler.isLoading ||
+          updateSkillHandler.isLoading
+        }
+      >
+        {updateSkillHandler.error && (
+          <Alert type="error">{updateSkillHandler.error.toString()}</Alert>
+        )}
+        <HorizontalLayout
+          className="fullWidth"
+          alignItems="center"
+          gap={12}
+          justifyContent="flex-start"
         >
-          {updateSkillHandler.error && (
-            <Alert type="error">{updateSkillHandler.error.toString()}</Alert>
-          )}
-          <HorizontalLayout
-            className="fullWidth"
-            alignItems="center"
-            gap={12}
-            justifyContent="flex-start"
-          >
-            <ImagePreviewButton
-              selectedImage={image}
-              onClick={handleOpenImagePicker}
+          <ImagePreviewButton
+            selectedImage={image}
+            onClick={handleOpenImagePicker}
+          />
+          <VerticalLayout className="fullWidth">
+            <TextField
+              className="fullWidth"
+              label="Name"
+              value={name}
+              onChange={handleNameChange}
+              placeholder="Microsoft Powerpoint 1999"
             />
-            <VerticalLayout className="fullWidth">
-              <TextField
-                className="fullWidth"
-                label="Name"
-                value={name}
-                onChange={handleNameChange}
-                placeholder="Microsoft Powerpoint 1999"
-              />
-              <TextField
-                className="fullWidth"
-                label="Score"
-                type="number"
-                value={score}
-                onChange={handleScoreChange}
-                placeholder="1-5, or more, that's up to you."
-              />
-            </VerticalLayout>
-          </HorizontalLayout>
-        </LoadingContainer>
-        <HorizontalLayout gap={8}>
-          <Button
-            onClick={handleUpdateSkill}
-            disabled={name === "" || score <= 0 || !image?.id}
-          >
-            Update
-          </Button>
-          <Link href={DASHBOARD_SKILLS}>
-            <span>
-              <Button>Cancel</Button>
-            </span>
-          </Link>
+            <TextField
+              className="fullWidth"
+              label="Score"
+              type="number"
+              value={score}
+              onChange={handleScoreChange}
+              placeholder="1-5, or more, that's up to you."
+            />
+          </VerticalLayout>
         </HorizontalLayout>
-        <ImagePicker
-          title="Skill image"
-          open={isImagePickerOpen}
-          onClose={handleCloseImagePicker}
-          images={fetchImagesHandler.data}
-          onImageSelected={handleImageChange}
-        />
-        <style jsx>{`
-          .image {
-            border: 1px solid black;
-            border-radius: 8px;
-          }
-        `}</style>
-      </Root>
+      </LoadingContainer>
+      <HorizontalLayout gap={8}>
+        <Button
+          onClick={handleUpdateSkill}
+          disabled={name === "" || score <= 0 || !image?.id}
+        >
+          Update
+        </Button>
+        <Link href={DASHBOARD_SKILLS}>
+          <span>
+            <Button>Cancel</Button>
+          </span>
+        </Link>
+      </HorizontalLayout>
+      <ImagePicker
+        title="Skill image"
+        open={isImagePickerOpen}
+        onClose={handleCloseImagePicker}
+        images={fetchImagesHandler.data}
+        onImageSelected={handleImageChange}
+      />
+      <style jsx>{`
+        .image {
+          border: 1px solid black;
+          border-radius: 8px;
+        }
+      `}</style>
     </Protected>
   );
 };

@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Head, NavBar, VerticalLayout } from "../components/Core";
+import { Head, NavBar } from "../components/Core";
 import { Timeline as TimelineComponent } from "../components/Timeline";
 import { fetchOpenGraphData } from "server/endpoints/openGraphData";
 import { fetchAllAchievements } from "@endpoints/achievements";
@@ -8,7 +8,6 @@ import prisma from "../server/prismaClient";
 import { TIMELINE } from "@constants/routes";
 import mainRoutes from "@constants/mainNavBarRoutes";
 import { fetchAllProjects } from "@endpoints/projects";
-import styles from "../styles/Timeline.module.css";
 
 interface TimelineProps {
   achievements?: Achievement[];
@@ -34,18 +33,12 @@ const Timeline: FC<TimelineProps> = ({
         type={type}
         imagePath={imageUrl}
       />
-      <VerticalLayout
-        className={styles.timelineRoot}
-        alignItems="center"
-        justifyContent="center"
-      >
-        <NavBar selectedRoute={TIMELINE} routes={mainRoutes} />
-        <TimelineComponent
-          highlights={highlights}
-          achievements={achievements}
-          projects={projects}
-        />
-      </VerticalLayout>
+      <NavBar selectedRoute={TIMELINE} routes={mainRoutes} />
+      <TimelineComponent
+        highlights={highlights}
+        achievements={achievements}
+        projects={projects}
+      />
     </>
   );
 };

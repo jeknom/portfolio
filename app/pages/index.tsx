@@ -50,33 +50,26 @@ const Home: FC<HomeProps> = ({
         description={description}
         imagePath={openGraphData.imageUrl}
       />
-      <VerticalLayout className={styles.homeRoot} alignItems="center">
-        <Header
-          className={styles.section}
-          name={name}
-          headline={headline}
-          image={imageUrl}
-        />
-        <VerticalLayout
-          className={classNames(styles.section, styles.navBar)}
-          alignItems="center"
-        >
-          <NavBar selectedRoute={HOME} routes={mainRoutes} />
-        </VerticalLayout>
-        <Intro className={styles.section} bio={bio} />
-        <Highlights
-          className={styles.section}
-          recentHighlights={recentHighlights}
-        />
-        <Skills className={styles.section} skills={skills} />
-        <Achievements
-          className={styles.section}
-          recentAchievements={recentAchievements}
-        />
-        <footer>
-          <Contact information={contactInformation} />
-        </footer>
-      </VerticalLayout>
+      <Header
+        className={styles.section}
+        name={name}
+        headline={headline}
+        image={imageUrl}
+      />
+      <NavBar selectedRoute={HOME} routes={mainRoutes} />
+      <Intro className={styles.section} bio={bio} />
+      <Highlights
+        className={styles.section}
+        recentHighlights={recentHighlights}
+      />
+      <Skills className={styles.section} skills={skills} />
+      <Achievements
+        className={styles.section}
+        recentAchievements={recentAchievements}
+      />
+      <footer>
+        <Contact information={contactInformation} />
+      </footer>
     </>
   );
 };

@@ -10,7 +10,6 @@ import {
   ProjectVideo,
 } from ".prisma/client";
 import {
-  Root,
   List,
   LoadingContainer,
   ListItem,
@@ -178,42 +177,40 @@ const Project: FC<ProjectsProps> = () => {
 
   return (
     <Protected permissions={[permissions.ALLOWED_TO_EDIT_PROJECTS]}>
-      <Root alignItems="center" justifyContent="center" gap={12}>
-        <Sidebar routes={dashboardRoutes} selectedRoute={DASHBOARD_PROJECTS} />
-        <TextField
-          className="fullWidth"
-          placeholder="Search for projects"
-          value={searchText}
-          onChange={handleSearchTextChange}
-        />
-        {getAlert()}
-        <LoadingContainer loading={fetchProjectsHandler.isLoading}>
-          {projectElements.length === 0 && (
-            <p className="captionText">
-              There seems to be no projects here, create a new one!
-            </p>
-          )}
-          <List>{projectElements}</List>
-        </LoadingContainer>
-        <Link href={DASHBOARD_PROJECTS_CREATE}>
-          <span>
-            <Button>Add new</Button>
-          </span>
-        </Link>
-        <Dialog
-          title="Delete project"
-          open={projectToDelete !== null}
-          onClose={handleCloseDeleteConfirmation}
-        >
-          <p className="secondaryText">
-            Are you sure you would like to delete this project?
+      <Sidebar routes={dashboardRoutes} selectedRoute={DASHBOARD_PROJECTS} />
+      <TextField
+        className="fullWidth"
+        placeholder="Search for projects"
+        value={searchText}
+        onChange={handleSearchTextChange}
+      />
+      {getAlert()}
+      <LoadingContainer loading={fetchProjectsHandler.isLoading}>
+        {projectElements.length === 0 && (
+          <p className="captionText">
+            There seems to be no projects here, create a new one!
           </p>
-          <DialogActions>
-            <Button onClick={handleDeleteProject}>Delete</Button>
-            <Button onClick={handleCloseDeleteConfirmation}>Close</Button>
-          </DialogActions>
-        </Dialog>
-      </Root>
+        )}
+        <List>{projectElements}</List>
+      </LoadingContainer>
+      <Link href={DASHBOARD_PROJECTS_CREATE}>
+        <span>
+          <Button>Add new</Button>
+        </span>
+      </Link>
+      <Dialog
+        title="Delete project"
+        open={projectToDelete !== null}
+        onClose={handleCloseDeleteConfirmation}
+      >
+        <p className="secondaryText">
+          Are you sure you would like to delete this project?
+        </p>
+        <DialogActions>
+          <Button onClick={handleDeleteProject}>Delete</Button>
+          <Button onClick={handleCloseDeleteConfirmation}>Close</Button>
+        </DialogActions>
+      </Dialog>
     </Protected>
   );
 };

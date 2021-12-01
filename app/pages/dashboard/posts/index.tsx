@@ -14,7 +14,6 @@ import {
   ListItemActions,
   Dialog,
   Alert,
-  Root,
 } from "components/Core";
 import Protected from "components/Core/Protected";
 import { useRequest } from "hooks/requests";
@@ -87,40 +86,38 @@ const Posts: FC<PostsProps> = () => {
 
   return (
     <Protected permissions={[permissions.ALLOWED_TO_SEE_DASHBOARD]}>
-      <Root gap={12} alignItems="center">
-        <Sidebar selectedRoute={DASHBOARD_POSTS} routes={dashboardRoutes} />
-        {getPostsHandler.error && (
-          <Alert type="error">{getPostsHandler.error.toString()}</Alert>
-        )}
-        <LoadingContainer loading={getPostsHandler.isLoading}>
-          {posts.length === 0 && (
-            <p className="captionText">
-              There are no posts, create new ones and they will appear here.
-            </p>
-          )}
-          <List>{posts}</List>
-        </LoadingContainer>
-        <HorizontalLayout alignItems="center">
-          <Link href={DASHBOARD_POSTS_CREATE}>
-            <span>
-              <Button>Create new</Button>
-            </span>
-          </Link>
-        </HorizontalLayout>
-        <Dialog
-          title="Delete post"
-          open={postToDelete !== null}
-          onClose={handleCloseDeleteConfirmation}
-        >
-          <p className="secondaryText">
-            Are you sure you wish to delete post {postToDelete?.title}?
+      <Sidebar selectedRoute={DASHBOARD_POSTS} routes={dashboardRoutes} />
+      {getPostsHandler.error && (
+        <Alert type="error">{getPostsHandler.error.toString()}</Alert>
+      )}
+      <LoadingContainer loading={getPostsHandler.isLoading}>
+        {posts.length === 0 && (
+          <p className="captionText">
+            There are no posts, create new ones and they will appear here.
           </p>
-          <DialogActions>
-            <Button onClick={handleDeletePost}>Yes</Button>
-            <Button onClick={handleCloseDeleteConfirmation}>No</Button>
-          </DialogActions>
-        </Dialog>
-      </Root>
+        )}
+        <List>{posts}</List>
+      </LoadingContainer>
+      <HorizontalLayout alignItems="center">
+        <Link href={DASHBOARD_POSTS_CREATE}>
+          <span>
+            <Button>Create new</Button>
+          </span>
+        </Link>
+      </HorizontalLayout>
+      <Dialog
+        title="Delete post"
+        open={postToDelete !== null}
+        onClose={handleCloseDeleteConfirmation}
+      >
+        <p className="secondaryText">
+          Are you sure you wish to delete post {postToDelete?.title}?
+        </p>
+        <DialogActions>
+          <Button onClick={handleDeletePost}>Yes</Button>
+          <Button onClick={handleCloseDeleteConfirmation}>No</Button>
+        </DialogActions>
+      </Dialog>
     </Protected>
   );
 };

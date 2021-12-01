@@ -2,7 +2,6 @@ import React, { FC, useState, useEffect } from "react";
 import Link from "next/link";
 import {
   HorizontalLayout,
-  Root,
   Toggle,
   Button,
   Alert,
@@ -63,68 +62,62 @@ const EditPost: FC<EditPostProps> = () => {
   }
   return (
     <Protected permissions={[permissions.ALLOWED_TO_EDIT_POSTS]}>
-      <Root alignItems="center" gap={12}>
-        <LoadingContainer loading={getPostHandler.isLoading}>
-          <HorizontalLayout gap={12}>
-            <p className="captionText">Post ID: {getPostHandler.data?.id}</p>
-            <p className="captionText">|</p>
-            <p className="captionText">
-              Created:{" "}
-              {getShortDateOr(
-                getPostHandler.data?.createdAt.toString(),
-                "Unknown"
-              )}
-            </p>
-            <p className="captionText">|</p>
-            <p className="captionText">
-              Last update:{" "}
-              {getShortDateOr(
-                getPostHandler.data?.updatedAt.toString(),
-                "Unknown"
-              )}
-            </p>
-          </HorizontalLayout>
-          {getPostHandler.error && (
-            <Alert type="error">{getPostHandler.error}</Alert>
-          )}
-          {updatePostHandler.error && (
-            <Alert type="error">{updatePostHandler.error}</Alert>
-          )}
-          <HorizontalLayout gap={8}>
-            <Toggle
-              label="Preview"
-              enabled={isPreview}
-              onToggle={setIsPreview}
+      <LoadingContainer loading={getPostHandler.isLoading}>
+        <HorizontalLayout gap={12}>
+          <p className="captionText">Post ID: {getPostHandler.data?.id}</p>
+          <p className="captionText">|</p>
+          <p className="captionText">
+            Created:{" "}
+            {getShortDateOr(
+              getPostHandler.data?.createdAt.toString(),
+              "Unknown"
+            )}
+          </p>
+          <p className="captionText">|</p>
+          <p className="captionText">
+            Last update:{" "}
+            {getShortDateOr(
+              getPostHandler.data?.updatedAt.toString(),
+              "Unknown"
+            )}
+          </p>
+        </HorizontalLayout>
+        {getPostHandler.error && (
+          <Alert type="error">{getPostHandler.error}</Alert>
+        )}
+        {updatePostHandler.error && (
+          <Alert type="error">{updatePostHandler.error}</Alert>
+        )}
+        <HorizontalLayout gap={8}>
+          <Toggle label="Preview" enabled={isPreview} onToggle={setIsPreview} />
+        </HorizontalLayout>
+        <HorizontalLayout className="fullWidth">
+          {!isPreview && (
+            <Edit
+              titleText={postTitle}
+              contentText={postContent}
+              onChangeTitle={setPostTitle}
+              onChangeContent={setPostContent}
             />
-          </HorizontalLayout>
-          <HorizontalLayout className="fullWidth">
-            {!isPreview && (
-              <Edit
-                titleText={postTitle}
-                contentText={postContent}
-                onChangeTitle={setPostTitle}
-                onChangeContent={setPostContent}
-              />
-            )}
-            {isPreview && (
-              <Preview titleText={postTitle} contentText={postContent} />
-            )}
-          </HorizontalLayout>
-          <HorizontalLayout gap={8}>
-            <Button
-              disabled={postTitle === "" || postContent === ""}
-              onClick={handleUpdatePost}
-            >
-              Update
-            </Button>
-            <Link href={DASHBOARD_POSTS}>
-              <span>
-                <Button>Cancel</Button>
-              </span>
-            </Link>
-          </HorizontalLayout>
-        </LoadingContainer>
-      </Root>
+          )}
+          {isPreview && (
+            <Preview titleText={postTitle} contentText={postContent} />
+          )}
+        </HorizontalLayout>
+        <HorizontalLayout gap={8}>
+          <Button
+            disabled={postTitle === "" || postContent === ""}
+            onClick={handleUpdatePost}
+          >
+            Update
+          </Button>
+          <Link href={DASHBOARD_POSTS}>
+            <span>
+              <Button>Cancel</Button>
+            </span>
+          </Link>
+        </HorizontalLayout>
+      </LoadingContainer>
     </Protected>
   );
 };

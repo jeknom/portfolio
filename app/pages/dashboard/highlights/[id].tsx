@@ -7,7 +7,6 @@ import {
   HorizontalLayout,
   LoadingContainer,
   Protected,
-  Root,
   TextField,
   Title,
   VerticalLayout,
@@ -105,73 +104,69 @@ const Edit: FC<EditProps> = () => {
 
   return (
     <Protected permissions={[permissions.ALLOWED_TO_EDIT_HIGHLIGHTS]}>
-      <Root alignItems="center" gap={12}>
-        <Title text="Update highlight" />
-        <LoadingContainer
-          loading={
-            fetchHighlightHandler.isLoading ||
-            fetchImagesHandler.isLoading ||
-            updateHighlightHandler.isLoading
-          }
+      <Title text="Update highlight" />
+      <LoadingContainer
+        loading={
+          fetchHighlightHandler.isLoading ||
+          fetchImagesHandler.isLoading ||
+          updateHighlightHandler.isLoading
+        }
+      >
+        {updateHighlightHandler.error && (
+          <Alert type="error">{updateHighlightHandler.error.toString()}</Alert>
+        )}
+        <HorizontalLayout
+          className="fullWidth"
+          gap={12}
+          justifyContent="flex-start"
         >
-          {updateHighlightHandler.error && (
-            <Alert type="error">
-              {updateHighlightHandler.error.toString()}
-            </Alert>
-          )}
-          <HorizontalLayout
-            className="fullWidth"
-            gap={12}
-            justifyContent="flex-start"
-          >
-            <ImagePreviewButton
-              selectedImage={image}
-              onClick={handleOpenImagePicker}
+          <ImagePreviewButton
+            selectedImage={image}
+            onClick={handleOpenImagePicker}
+          />
+          <VerticalLayout className="fullWidth">
+            <TextField
+              className="fullWidth"
+              value={name}
+              onChange={handleNameChange}
+              placeholder="Highlight name"
             />
-            <VerticalLayout className="fullWidth">
-              <TextField
-                className="fullWidth"
-                value={name}
-                onChange={handleNameChange}
-                placeholder="Highlight name"
-              />
-              <TextField
-                className="fullWidth"
-                value={description}
-                onChange={handleDescriptionChange}
-                placeholder="Highlight description"
-              />
-              <DatePicker value={date} onChange={setDate} />
-            </VerticalLayout>
-          </HorizontalLayout>
-        </LoadingContainer>
-        <HorizontalLayout gap={8}>
-          <Button
-            onClick={handleUpdateHighlight}
-            disabled={name === "" || description === ""}
-          >
-            Update
-          </Button>
-          <Link href={DASHBOARD_HIGHLIGHTS}>
-            <span>
-              <Button>Cancel</Button>
-            </span>
-          </Link>
+            <TextField
+              className="fullWidth"
+              value={description}
+              onChange={handleDescriptionChange}
+              placeholder="Highlight description"
+            />
+            <DatePicker value={date} onChange={setDate} />
+          </VerticalLayout>
         </HorizontalLayout>
-        <ImagePicker
-          title="Pick highlight image"
-          open={isImagePickerOpen}
-          onClose={handleCloseImagePicker}
-          images={fetchImagesHandler.data}
-          onImageSelected={handleImageChange}
-        />
-        <style jsx>{`
-          .image {
-            border: 1px solid black;
-            border-radius: 8px;
-          }
-        `}</style>
-      </Root>
+      </LoadingContainer>
+      <HorizontalLayout gap={8}>
+        <Button
+          onClick={handleUpdateHighlight}
+          disabled={name === "" || description === ""}
+        >
+          Update
+        </Button>
+        <Link href={DASHBOARD_HIGHLIGHTS}>
+          <span>
+            <Button>Cancel</Button>
+          </span>
+        </Link>
+      </HorizontalLayout>
+      <ImagePicker
+        title="Pick highlight image"
+        open={isImagePickerOpen}
+        onClose={handleCloseImagePicker}
+        images={fetchImagesHandler.data}
+        onImageSelected={handleImageChange}
+      />
+      <style jsx>{`
+        .image {
+          border: 1px solid black;
+          border-radius: 8px;
+        }
+      `}</style>
     </Protected>
   );
 };

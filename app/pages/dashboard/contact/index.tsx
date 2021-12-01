@@ -3,7 +3,6 @@ import { useRequest } from "hooks/requests";
 import Link from "next/link";
 import { ContactInformation } from ".prisma/client";
 import {
-  Root,
   List,
   LoadingContainer,
   ListItem,
@@ -119,45 +118,43 @@ const ContactInformation: FC<ContactInformationProps> = () => {
 
   return (
     <Protected permissions={[permissions.ALLOWED_TO_EDIT_CONTACT_INFORMATION]}>
-      <Root alignItems="center" justifyContent="center" gap={12}>
-        <Sidebar
-          routes={dashboardRoutes}
-          selectedRoute={DASHBOARD_CONTACT_INFORMATION}
-        />
-        <TextField
-          className="fullWidth"
-          placeholder="Search for contact information"
-          value={searchText}
-          onChange={handleSearchTextChange}
-        />
-        {getAlert()}
-        <LoadingContainer loading={fetchContactInformationHandler.isLoading}>
-          {contactInformationElements.length === 0 && (
-            <p className="captionText">
-              There seems to be no contact information here, create a new one!
-            </p>
-          )}
-          <List>{contactInformationElements}</List>
-        </LoadingContainer>
-        <Link href={DASHBOARD_CONTACT_INFORMATION_CREATE}>
-          <span>
-            <Button>Add new</Button>
-          </span>
-        </Link>
-        <Dialog
-          title="Delete contact information"
-          open={contactInformationToDelete !== null}
-          onClose={handleCloseDeleteConfirmation}
-        >
-          <p className="secondaryText">
-            Are you sure you would like to delete this contact information?
+      <Sidebar
+        routes={dashboardRoutes}
+        selectedRoute={DASHBOARD_CONTACT_INFORMATION}
+      />
+      <TextField
+        className="fullWidth"
+        placeholder="Search for contact information"
+        value={searchText}
+        onChange={handleSearchTextChange}
+      />
+      {getAlert()}
+      <LoadingContainer loading={fetchContactInformationHandler.isLoading}>
+        {contactInformationElements.length === 0 && (
+          <p className="captionText">
+            There seems to be no contact information here, create a new one!
           </p>
-          <DialogActions>
-            <Button onClick={handleDeleteContactInformation}>Delete</Button>
-            <Button onClick={handleCloseDeleteConfirmation}>Close</Button>
-          </DialogActions>
-        </Dialog>
-      </Root>
+        )}
+        <List>{contactInformationElements}</List>
+      </LoadingContainer>
+      <Link href={DASHBOARD_CONTACT_INFORMATION_CREATE}>
+        <span>
+          <Button>Add new</Button>
+        </span>
+      </Link>
+      <Dialog
+        title="Delete contact information"
+        open={contactInformationToDelete !== null}
+        onClose={handleCloseDeleteConfirmation}
+      >
+        <p className="secondaryText">
+          Are you sure you would like to delete this contact information?
+        </p>
+        <DialogActions>
+          <Button onClick={handleDeleteContactInformation}>Delete</Button>
+          <Button onClick={handleCloseDeleteConfirmation}>Close</Button>
+        </DialogActions>
+      </Dialog>
     </Protected>
   );
 };

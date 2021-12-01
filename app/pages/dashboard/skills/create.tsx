@@ -5,7 +5,6 @@ import {
   Button,
   HorizontalLayout,
   Protected,
-  Root,
   TextField,
   Title,
   VerticalLayout,
@@ -75,66 +74,64 @@ const Create: FC<CreateProps> = () => {
 
   return (
     <Protected permissions={[permissions.ALLOWED_TO_EDIT_SKILLS]}>
-      <Root alignItems="center" gap={12}>
-        <Title text="Create new skill" />
-        {createSkillHandler.error && (
-          <Alert type="error">{createSkillHandler.error.toString()}</Alert>
-        )}
-        <HorizontalLayout
-          className="fullWidth"
-          alignItems="center"
-          gap={12}
-          justifyContent="flex-start"
-        >
-          <ImagePreviewButton
-            selectedImage={image}
-            onClick={handleOpenImagePicker}
-          />
-          <VerticalLayout className="fullWidth">
-            <TextField
-              className="fullWidth"
-              label="Name"
-              value={name}
-              onChange={handleNameChange}
-              placeholder="Microsoft Powerpoint 1999"
-            />
-            <TextField
-              className="fullWidth"
-              label="Score"
-              type="number"
-              value={score}
-              onChange={handleScoreChange}
-              placeholder="1-5, or more, that's up to you."
-            />
-          </VerticalLayout>
-        </HorizontalLayout>
-        <HorizontalLayout gap={8}>
-          <Button
-            onClick={handleCreateSkill}
-            disabled={name === "" || score <= 0 || !image}
-          >
-            Create
-          </Button>
-          <Link href={DASHBOARD_SKILLS}>
-            <span>
-              <Button>Cancel</Button>
-            </span>
-          </Link>
-        </HorizontalLayout>
-        <ImagePicker
-          title="Skill image"
-          open={isImagePickerOpen}
-          onClose={handleCloseImagePicker}
-          images={fetchImagesHandler.data}
-          onImageSelected={handleImageChange}
+      <Title text="Create new skill" />
+      {createSkillHandler.error && (
+        <Alert type="error">{createSkillHandler.error.toString()}</Alert>
+      )}
+      <HorizontalLayout
+        className="fullWidth"
+        alignItems="center"
+        gap={12}
+        justifyContent="flex-start"
+      >
+        <ImagePreviewButton
+          selectedImage={image}
+          onClick={handleOpenImagePicker}
         />
-        <style jsx>{`
-          .image {
-            border: 1px solid black;
-            border-radius: 8px;
-          }
-        `}</style>
-      </Root>
+        <VerticalLayout className="fullWidth">
+          <TextField
+            className="fullWidth"
+            label="Name"
+            value={name}
+            onChange={handleNameChange}
+            placeholder="Microsoft Powerpoint 1999"
+          />
+          <TextField
+            className="fullWidth"
+            label="Score"
+            type="number"
+            value={score}
+            onChange={handleScoreChange}
+            placeholder="1-5, or more, that's up to you."
+          />
+        </VerticalLayout>
+      </HorizontalLayout>
+      <HorizontalLayout gap={8}>
+        <Button
+          onClick={handleCreateSkill}
+          disabled={name === "" || score <= 0 || !image}
+        >
+          Create
+        </Button>
+        <Link href={DASHBOARD_SKILLS}>
+          <span>
+            <Button>Cancel</Button>
+          </span>
+        </Link>
+      </HorizontalLayout>
+      <ImagePicker
+        title="Skill image"
+        open={isImagePickerOpen}
+        onClose={handleCloseImagePicker}
+        images={fetchImagesHandler.data}
+        onImageSelected={handleImageChange}
+      />
+      <style jsx>{`
+        .image {
+          border: 1px solid black;
+          border-radius: 8px;
+        }
+      `}</style>
     </Protected>
   );
 };

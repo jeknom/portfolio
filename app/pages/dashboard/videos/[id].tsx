@@ -5,7 +5,6 @@ import {
   Button,
   HorizontalLayout,
   LoadingContainer,
-  Root,
   TextField,
   Title,
 } from "components/Core";
@@ -72,53 +71,51 @@ const Edit: FC<EditProps> = () => {
 
   return (
     <Protected permissions={[permissions.ALLOWED_TO_EDIT_MEDIA]}>
-      <Root alignItems="center" gap={12}>
-        <Title text="Edit video" />
-        <LoadingContainer
-          loading={fetchVideoHandler.isLoading || updateVideoHandler.isLoading}
-        >
-          {fetchVideoHandler.error ||
-            (updateVideoHandler.error && (
-              <Alert type="error">
-                {fetchVideoHandler.error.toString() ||
-                  updateVideoHandler.error.toString()}
-              </Alert>
-            ))}
-          <iframe
-            width="560"
-            height="315"
-            src={url}
-            title="YouTube video player"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          />
-          <TextField
-            className="fullWidth"
-            value={url}
-            onChange={handleVideoUrlChange}
-            placeholder="Video URL"
-          />
-          <TextField
-            className="fullWidth"
-            value={description}
-            onChange={handleDescriptionChange}
-            placeholder="Video description"
-          />
-          <HorizontalLayout gap={8}>
-            <Button
-              onClick={handleUpdateVideo}
-              disabled={url === "" || description === ""}
-            >
-              Update
-            </Button>
-            <Link href={DASHBOARD_VIDEOS}>
-              <span>
-                <Button>Cancel</Button>
-              </span>
-            </Link>
-          </HorizontalLayout>
-        </LoadingContainer>
-      </Root>
+      <Title text="Edit video" />
+      <LoadingContainer
+        loading={fetchVideoHandler.isLoading || updateVideoHandler.isLoading}
+      >
+        {fetchVideoHandler.error ||
+          (updateVideoHandler.error && (
+            <Alert type="error">
+              {fetchVideoHandler.error.toString() ||
+                updateVideoHandler.error.toString()}
+            </Alert>
+          ))}
+        <iframe
+          width="560"
+          height="315"
+          src={url}
+          title="YouTube video player"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        />
+        <TextField
+          className="fullWidth"
+          value={url}
+          onChange={handleVideoUrlChange}
+          placeholder="Video URL"
+        />
+        <TextField
+          className="fullWidth"
+          value={description}
+          onChange={handleDescriptionChange}
+          placeholder="Video description"
+        />
+        <HorizontalLayout gap={8}>
+          <Button
+            onClick={handleUpdateVideo}
+            disabled={url === "" || description === ""}
+          >
+            Update
+          </Button>
+          <Link href={DASHBOARD_VIDEOS}>
+            <span>
+              <Button>Cancel</Button>
+            </span>
+          </Link>
+        </HorizontalLayout>
+      </LoadingContainer>
     </Protected>
   );
 };

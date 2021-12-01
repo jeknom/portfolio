@@ -6,9 +6,7 @@ interface UnauthorizedProps {}
 const Unauthorized: FC<UnauthorizedProps> = () => {
   return (
     <>
-      <Root className="root" alignItems="center" justifyContent="center">
-        <p className="primaryText">You are not authorized.</p>
-      </Root>
+      <p className="primaryText">You are not authorized.</p>
       <style jsx>{`
         .root {
           height: 100%;

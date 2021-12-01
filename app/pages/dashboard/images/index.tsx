@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { Images } from ".prisma/client";
 import {
-  Root,
   List,
   LoadingContainer,
   ListItem,
@@ -16,6 +15,7 @@ import {
   Button,
   Dialog,
   Alert,
+  Protected,
 } from "components/Core";
 import {
   createDeleteImageRequest,
@@ -24,6 +24,7 @@ import {
 import dashboardRoutes from "@constants/dashboardRoutes";
 import { DASHBOARD_IMAGES, DASHBOARD_IMAGES_CREATE } from "@constants/routes";
 import DialogActions from "components/Core/Dialog/DialogActions";
+import { permissions } from "@constants/index";
 
 interface ImagesProps {}
 
@@ -118,7 +119,7 @@ const Images: FC<ImagesProps> = () => {
   };
 
   return (
-    <Root alignItems="center" justifyContent="center" gap={12}>
+    <Protected permissions={[permissions.ALLOWED_TO_EDIT_MEDIA]}>
       <Sidebar routes={dashboardRoutes} selectedRoute={DASHBOARD_IMAGES} />
       <TextField
         className="fullWidth"
@@ -153,7 +154,7 @@ const Images: FC<ImagesProps> = () => {
           <Button onClick={handleCloseDeleteConfirmation}>Close</Button>
         </DialogActions>
       </Dialog>
-    </Root>
+    </Protected>
   );
 };
 

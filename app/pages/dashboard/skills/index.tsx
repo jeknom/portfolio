@@ -3,7 +3,6 @@ import { useRequest } from "hooks/requests";
 import Link from "next/link";
 import { Skills, Images } from ".prisma/client";
 import {
-  Root,
   List,
   LoadingContainer,
   ListItem,
@@ -111,42 +110,40 @@ const Skills: FC<SkillsProps> = () => {
 
   return (
     <Protected permissions={[permissions.ALLOWED_TO_EDIT_SKILLS]}>
-      <Root alignItems="center" justifyContent="center" gap={12}>
-        <Sidebar routes={dashboardRoutes} selectedRoute={DASHBOARD_SKILLS} />
-        <TextField
-          className="fullWidth"
-          placeholder="Search for skills"
-          value={searchText}
-          onChange={handleSearchTextChange}
-        />
-        {getAlert()}
-        <LoadingContainer loading={fetchSkillsHandler.isLoading}>
-          {skillElements.length === 0 && (
-            <p className="captionText">
-              There seems to be no skills here, create a new one!
-            </p>
-          )}
-          <List>{skillElements}</List>
-        </LoadingContainer>
-        <Link href={DASHBOARD_SKILLS_CREATE}>
-          <span>
-            <Button>Add new</Button>
-          </span>
-        </Link>
-        <Dialog
-          title="Delete skill"
-          open={skillToDelete !== null}
-          onClose={handleCloseDeleteConfirmation}
-        >
-          <p className="secondaryText">
-            Are you sure you would like to delete this skill?
+      <Sidebar routes={dashboardRoutes} selectedRoute={DASHBOARD_SKILLS} />
+      <TextField
+        className="fullWidth"
+        placeholder="Search for skills"
+        value={searchText}
+        onChange={handleSearchTextChange}
+      />
+      {getAlert()}
+      <LoadingContainer loading={fetchSkillsHandler.isLoading}>
+        {skillElements.length === 0 && (
+          <p className="captionText">
+            There seems to be no skills here, create a new one!
           </p>
-          <DialogActions>
-            <Button onClick={handleDeleteSkill}>Delete</Button>
-            <Button onClick={handleCloseDeleteConfirmation}>Close</Button>
-          </DialogActions>
-        </Dialog>
-      </Root>
+        )}
+        <List>{skillElements}</List>
+      </LoadingContainer>
+      <Link href={DASHBOARD_SKILLS_CREATE}>
+        <span>
+          <Button>Add new</Button>
+        </span>
+      </Link>
+      <Dialog
+        title="Delete skill"
+        open={skillToDelete !== null}
+        onClose={handleCloseDeleteConfirmation}
+      >
+        <p className="secondaryText">
+          Are you sure you would like to delete this skill?
+        </p>
+        <DialogActions>
+          <Button onClick={handleDeleteSkill}>Delete</Button>
+          <Button onClick={handleCloseDeleteConfirmation}>Close</Button>
+        </DialogActions>
+      </Dialog>
     </Protected>
   );
 };

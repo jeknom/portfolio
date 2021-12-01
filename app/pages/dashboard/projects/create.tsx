@@ -5,7 +5,6 @@ import {
   Button,
   DatePicker,
   HorizontalLayout,
-  Root,
   TextField,
   TextArea,
   Title,
@@ -122,72 +121,70 @@ const Create: FC<CreateProps> = () => {
 
   return (
     <Protected permissions={[permissions.ALLOWED_TO_EDIT_PROJECTS]}>
-      <Root alignItems="center" gap={12}>
-        <Title text="Create new project" />
-        {createProjectHandler.error && (
-          <Alert type="error">{createProjectHandler.error.toString()}</Alert>
-        )}
-        <HorizontalLayout className="fullWidth" alignItems="center" gap={32}>
-          <VerticalLayout className="fullWidth">
-            <TextField
+      <Title text="Create new project" />
+      {createProjectHandler.error && (
+        <Alert type="error">{createProjectHandler.error.toString()}</Alert>
+      )}
+      <HorizontalLayout className="fullWidth" alignItems="center" gap={32}>
+        <VerticalLayout className="fullWidth">
+          <TextField
+            className="fullWidth"
+            label="Name"
+            value={name}
+            onChange={handleNameChange}
+            placeholder="The best project"
+          />
+          <TextField
+            className="fullWidth"
+            label="Description"
+            value={description}
+            onChange={handleDescriptionChange}
+            placeholder="This is a project where I did this and that. It was awesome!"
+          />
+          <DatePicker label="Date" value={date} onChange={setDate} />
+          <MediaItemList
+            images={fetchImagesHandler.data}
+            videos={fetchVideosHandler.data}
+            selectedMedia={selectedMedia}
+            onSelectedMediaChange={setSelectedMedia}
+          />
+          <VerticalLayout>
+            <p className="secondaryText">Content</p>
+            <TextArea
               className="fullWidth"
-              label="Name"
-              value={name}
-              onChange={handleNameChange}
-              placeholder="The best project"
+              value={content}
+              onChange={handleContentChange}
+              rows={25}
             />
-            <TextField
-              className="fullWidth"
-              label="Description"
-              value={description}
-              onChange={handleDescriptionChange}
-              placeholder="This is a project where I did this and that. It was awesome!"
-            />
-            <DatePicker label="Date" value={date} onChange={setDate} />
-            <MediaItemList
-              images={fetchImagesHandler.data}
-              videos={fetchVideosHandler.data}
-              selectedMedia={selectedMedia}
-              onSelectedMediaChange={setSelectedMedia}
-            />
-            <VerticalLayout>
-              <p className="secondaryText">Content</p>
-              <TextArea
-                className="fullWidth"
-                value={content}
-                onChange={handleContentChange}
-                rows={25}
-              />
-            </VerticalLayout>
           </VerticalLayout>
-        </HorizontalLayout>
-        <HorizontalLayout gap={8}>
-          <Button onClick={handleOpenPreview}>Preview</Button>
-          <Button
-            onClick={handleCreateProject}
-            disabled={name === "" || description === "" || content === ""}
-          >
-            Create
-          </Button>
-          <Link href={DASHBOARD_PROJECTS}>
-            <span>
-              <Button>Cancel</Button>
-            </span>
-          </Link>
-        </HorizontalLayout>
-        <ProjectDialog
-          title={name}
-          open={previewProject !== null}
-          onClose={handleClosePreview}
-          selectedProject={previewProject}
-        />
-        <style jsx>{`
-          .image {
-            border: 1px solid black;
-            border-radius: 8px;
-          }
-        `}</style>
-      </Root>
+        </VerticalLayout>
+      </HorizontalLayout>
+      <HorizontalLayout gap={8}>
+        <Button onClick={handleOpenPreview}>Preview</Button>
+        <Button
+          onClick={handleCreateProject}
+          disabled={name === "" || description === "" || content === ""}
+        >
+          Create
+        </Button>
+        <Link href={DASHBOARD_PROJECTS}>
+          <span>
+            <Button>Cancel</Button>
+          </span>
+        </Link>
+      </HorizontalLayout>
+      <ProjectDialog
+        title={name}
+        open={previewProject !== null}
+        onClose={handleClosePreview}
+        selectedProject={previewProject}
+      />
+      <style jsx>{`
+        .image {
+          border: 1px solid black;
+          border-radius: 8px;
+        }
+      `}</style>
     </Protected>
   );
 };

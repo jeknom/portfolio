@@ -37,10 +37,8 @@ const Projects: FC<ProjectsProps> = ({ openGraphData, projects }) => {
         type={type}
         imagePath={imageUrl}
       />
-      <VerticalLayout gap={32} alignItems="center">
-        <NavBar selectedRoute={PROJECTS} routes={mainRoutes} />
-        <GridMenu>{projectItems}</GridMenu>
-      </VerticalLayout>
+      <NavBar selectedRoute={PROJECTS} routes={mainRoutes} />
+      <GridMenu>{projectItems}</GridMenu>
       <ProjectDialog
         title={selectedProject?.name || ""}
         open={selectedProject !== null}

@@ -4,7 +4,7 @@ import {
   Alert,
   Button,
   HorizontalLayout,
-  Root,
+  Protected,
   TextField,
   Title,
 } from "components/Core";
@@ -13,6 +13,7 @@ import { useRouter } from "next/router";
 import { useRequest } from "hooks/requests";
 import { createImageRequest } from "requests/images";
 import { Images } from ".prisma/client";
+import { permissions } from "@constants/index";
 
 interface CreateProps {}
 
@@ -40,7 +41,7 @@ const Create: FC<CreateProps> = () => {
   };
 
   return (
-    <Root alignItems="center" gap={12}>
+    <Protected permissions={[permissions.ALLOWED_TO_EDIT_MEDIA]}>
       <Title text="Create new image" />
       {createImageHandler.error && (
         <Alert type="error">{createImageHandler.error.toString()}</Alert>
@@ -83,7 +84,7 @@ const Create: FC<CreateProps> = () => {
           border-radius: 8px;
         }
       `}</style>
-    </Root>
+    </Protected>
   );
 };
 
