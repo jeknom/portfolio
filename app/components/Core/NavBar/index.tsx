@@ -124,6 +124,11 @@ const MobileNavBar: FC<MobileNavBarProps> = ({
           <div className={styles.mobileMenuRoutes}>{routeElements}</div>
         </div>
       )}
+      <style jsx global>{`
+        body {
+          ${isMenuOpen ? "overflow: hidden;" : ""}
+        }
+      `}</style>
     </>
   );
 };
