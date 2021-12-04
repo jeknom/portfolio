@@ -1,4 +1,3 @@
-import { Root } from "components/Core";
 import { FC } from "react";
 
 interface UnauthorizedProps {}
