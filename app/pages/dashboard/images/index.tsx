@@ -16,6 +16,7 @@ import {
   Dialog,
   Alert,
   Protected,
+  VerticalLayout,
 } from "components/Core";
 import {
   createDeleteImageRequest,
@@ -121,26 +122,28 @@ const Images: FC<ImagesProps> = () => {
   return (
     <Protected permissions={[permissions.ALLOWED_TO_EDIT_MEDIA]}>
       <Sidebar routes={dashboardRoutes} selectedRoute={DASHBOARD_IMAGES} />
-      <TextField
-        className="fullWidth"
-        placeholder="Search for images"
-        value={searchText}
-        onChange={handleSearchTextChange}
-      />
-      {getAlert()}
       <LoadingContainer loading={fetchImagesHandler.isLoading}>
-        {imageElements.length === 0 && (
-          <p className="captionText">
-            There seems to be no images here, create a new one!
-          </p>
-        )}
-        <List>{imageElements}</List>
+        <VerticalLayout className="fullWidth" alignItems="center" gap={12}>
+          <TextField
+            className="fullWidth"
+            placeholder="Search for images"
+            value={searchText}
+            onChange={handleSearchTextChange}
+          />
+          {getAlert()}
+          {imageElements.length === 0 && (
+            <p className="captionText">
+              There seems to be no images here, create a new one!
+            </p>
+          )}
+          <List>{imageElements}</List>
+          <Link href={DASHBOARD_IMAGES_CREATE}>
+            <span>
+              <Button>Add new</Button>
+            </span>
+          </Link>
+        </VerticalLayout>
       </LoadingContainer>
-      <Link href={DASHBOARD_IMAGES_CREATE}>
-        <span>
-          <Button>Add new</Button>
-        </span>
-      </Link>
       <Dialog
         title="Delete image"
         open={imageToDelete !== null}

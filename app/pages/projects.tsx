@@ -1,20 +1,25 @@
 import { FC, useState } from "react";
 import prisma from "server/prismaClient";
 import { fetchOpenGraphData } from "@endpoints/openGraphData";
-import { Head, NavBar, VerticalLayout } from "components/Core";
+import { ContactInformation, Head, NavBar } from "components/Core";
 import { GridMenu, GridMenuItem } from "components/Core";
 import { ProjectDialog } from "components/Projects";
 import { fetchAllProjects } from "@endpoints/projects";
 import mainRoutes from "@constants/mainNavBarRoutes";
 import { PROJECTS } from "@constants/routes";
-import styles from "../styles/Projects.module.css";
+import { fetchAllContactInformation } from "@endpoints/contactInformation";
 
 interface ProjectsProps {
   openGraphData: OpenGraphData;
   projects: Project[];
+  contactInformation: ContactInformation[];
 }
 
-const Projects: FC<ProjectsProps> = ({ openGraphData, projects }) => {
+const Projects: FC<ProjectsProps> = ({
+  openGraphData,
+  projects,
+  contactInformation,
+}) => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const handleCloseSelectedProjectDialog = () => setSelectedProject(null);
 
@@ -45,21 +50,24 @@ const Projects: FC<ProjectsProps> = ({ openGraphData, projects }) => {
         selectedProject={selectedProject}
         onClose={handleCloseSelectedProjectDialog}
       />
+      <ContactInformation information={contactInformation} />
     </>
   );
 };
 
 export async function getServerSideProps() {
   try {
-    const [openGraphData, projects] = await Promise.all([
+    const [openGraphData, projects, contactInformation] = await Promise.all([
       fetchOpenGraphData(prisma),
       fetchAllProjects(prisma),
+      fetchAllContactInformation(prisma),
     ]);
 
     return {
       props: {
         openGraphData,
         projects,
+        contactInformation,
       },
     };
   } catch (error) {

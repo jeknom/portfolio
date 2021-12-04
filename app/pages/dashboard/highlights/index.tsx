@@ -16,6 +16,7 @@ import {
   Dialog,
   Alert,
   Protected,
+  VerticalLayout,
 } from "components/Core";
 import {
   createDeleteHighlightRequest,
@@ -138,26 +139,28 @@ const Highlights: FC<HighlightsProps> = () => {
   return (
     <Protected permissions={[permissions.ALLOWED_TO_EDIT_HIGHLIGHTS]}>
       <Sidebar routes={dashboardRoutes} selectedRoute={DASHBOARD_HIGHLIGHTS} />
-      <TextField
-        className="fullWidth"
-        placeholder="Search for highlights"
-        value={searchText}
-        onChange={handleSearchTextChange}
-      />
-      {getAlert()}
       <LoadingContainer loading={fetchHighlightsHandler.isLoading}>
-        {highlightElements.length === 0 && (
-          <p className="captionText">
-            There seems to be no highlights here, create a new one!
-          </p>
-        )}
-        <List>{highlightElements}</List>
+        <VerticalLayout gap={12} alignItems="center">
+          <TextField
+            className="fullWidth"
+            placeholder="Search for highlights"
+            value={searchText}
+            onChange={handleSearchTextChange}
+          />
+          {getAlert()}
+          {highlightElements.length === 0 && (
+            <p className="captionText">
+              There seems to be no highlights here, create a new one!
+            </p>
+          )}
+          <List>{highlightElements}</List>
+          <Link href={DASHBOARD_HIGHLIGHTS_CREATE}>
+            <span>
+              <Button>Add new</Button>
+            </span>
+          </Link>
+        </VerticalLayout>
       </LoadingContainer>
-      <Link href={DASHBOARD_HIGHLIGHTS_CREATE}>
-        <span>
-          <Button>Add new</Button>
-        </span>
-      </Link>
       <Dialog
         title="Delete highlight"
         open={highlightToDelete !== null}

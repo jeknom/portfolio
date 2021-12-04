@@ -16,6 +16,7 @@ import {
   Alert,
   Sidebar,
   Protected,
+  VerticalLayout,
 } from "components/Core";
 import {
   createDeleteAchievementRequest,
@@ -130,26 +131,28 @@ const Achievements: FC<AchievementProps> = () => {
         routes={dashboardRoutes}
         selectedRoute={DASHBOARD_ACHIEVEMENTS}
       />
-      <TextField
-        className="fullWidth"
-        placeholder="Search for achievements"
-        value={searchText}
-        onChange={handleSearchTextChange}
-      />
-      {getAlert()}
       <LoadingContainer loading={fetchAchievementsHandler.isLoading}>
-        {achievementElements.length === 0 && (
-          <p className="captionText">
-            There seems to be no achievements here, create a new one!
-          </p>
-        )}
-        <List>{achievementElements}</List>
+        <VerticalLayout className="fullWidth" alignItems="center" gap={12}>
+          <TextField
+            className="fullWidth"
+            placeholder="Search for achievements"
+            value={searchText}
+            onChange={handleSearchTextChange}
+          />
+          {getAlert()}
+          {achievementElements.length === 0 && (
+            <p className="captionText">
+              There seems to be no achievements here, create a new one!
+            </p>
+          )}
+          <List>{achievementElements}</List>
+          <Link href={DASHBOARD_ACHIEVEMENTS_CREATE}>
+            <span>
+              <Button>Add new</Button>
+            </span>
+          </Link>
+        </VerticalLayout>
       </LoadingContainer>
-      <Link href={DASHBOARD_ACHIEVEMENTS_CREATE}>
-        <span>
-          <Button>Add new</Button>
-        </span>
-      </Link>
       <Dialog
         title="Delete achievement"
         open={achievementToDelete !== null}

@@ -16,6 +16,7 @@ import {
   Dialog,
   Alert,
   Protected,
+  VerticalLayout,
 } from "components/Core";
 import {
   createDeleteVideoRequest,
@@ -126,26 +127,28 @@ const Videos: FC<VideosProps> = () => {
   return (
     <Protected permissions={[permissions.ALLOWED_TO_EDIT_MEDIA]}>
       <Sidebar routes={dashboardRoutes} selectedRoute={DASHBOARD_VIDEOS} />
-      <TextField
-        className="fullWidth"
-        placeholder="Search for videos"
-        value={searchText}
-        onChange={handleSearchTextChange}
-      />
-      {getAlert()}
       <LoadingContainer loading={fetchVideosHandler.isLoading}>
-        {videoElements.length === 0 && (
-          <p className="captionText">
-            There seems to be no videos here, create a new one!
-          </p>
-        )}
-        <List>{videoElements}</List>
+        <VerticalLayout className="fullWidth" alignItems="center" gap={12}>
+          <TextField
+            className="fullWidth"
+            placeholder="Search for videos"
+            value={searchText}
+            onChange={handleSearchTextChange}
+          />
+          {getAlert()}
+          {videoElements.length === 0 && (
+            <p className="captionText">
+              There seems to be no videos here, create a new one!
+            </p>
+          )}
+          <List>{videoElements}</List>
+          <Link href={DASHBOARD_VIDEOS_CREATE}>
+            <span>
+              <Button>Add new</Button>
+            </span>
+          </Link>
+        </VerticalLayout>
       </LoadingContainer>
-      <Link href={DASHBOARD_VIDEOS_CREATE}>
-        <span>
-          <Button>Add new</Button>
-        </span>
-      </Link>
       <Dialog
         title="Delete video"
         open={videoToDelete !== null}

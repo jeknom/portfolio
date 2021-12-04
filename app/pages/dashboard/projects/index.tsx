@@ -22,6 +22,7 @@ import {
   Alert,
   Sidebar,
   Protected,
+  VerticalLayout,
 } from "components/Core";
 import {
   createDeleteProjectRequest,
@@ -178,26 +179,28 @@ const Project: FC<ProjectsProps> = () => {
   return (
     <Protected permissions={[permissions.ALLOWED_TO_EDIT_PROJECTS]}>
       <Sidebar routes={dashboardRoutes} selectedRoute={DASHBOARD_PROJECTS} />
-      <TextField
-        className="fullWidth"
-        placeholder="Search for projects"
-        value={searchText}
-        onChange={handleSearchTextChange}
-      />
-      {getAlert()}
       <LoadingContainer loading={fetchProjectsHandler.isLoading}>
-        {projectElements.length === 0 && (
-          <p className="captionText">
-            There seems to be no projects here, create a new one!
-          </p>
-        )}
-        <List>{projectElements}</List>
+        <VerticalLayout className="fullWidth" alignItems="center" gap={12}>
+          <TextField
+            className="fullWidth"
+            placeholder="Search for projects"
+            value={searchText}
+            onChange={handleSearchTextChange}
+          />
+          {getAlert()}
+          {projectElements.length === 0 && (
+            <p className="captionText">
+              There seems to be no projects here, create a new one!
+            </p>
+          )}
+          <List>{projectElements}</List>
+          <Link href={DASHBOARD_PROJECTS_CREATE}>
+            <span>
+              <Button>Add new</Button>
+            </span>
+          </Link>
+        </VerticalLayout>
       </LoadingContainer>
-      <Link href={DASHBOARD_PROJECTS_CREATE}>
-        <span>
-          <Button>Add new</Button>
-        </span>
-      </Link>
       <Dialog
         title="Delete project"
         open={projectToDelete !== null}

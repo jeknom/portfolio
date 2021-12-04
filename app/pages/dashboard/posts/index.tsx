@@ -8,11 +8,12 @@ import {
   Button,
   Sidebar,
   LoadingContainer,
-  List,
+  VerticalLayout,
   ListItem,
   ListItemText,
   ListItemActions,
   Dialog,
+  List,
   Alert,
 } from "components/Core";
 import Protected from "components/Core/Protected";
@@ -87,24 +88,26 @@ const Posts: FC<PostsProps> = () => {
   return (
     <Protected permissions={[permissions.ALLOWED_TO_SEE_DASHBOARD]}>
       <Sidebar selectedRoute={DASHBOARD_POSTS} routes={dashboardRoutes} />
-      {getPostsHandler.error && (
-        <Alert type="error">{getPostsHandler.error.toString()}</Alert>
-      )}
       <LoadingContainer loading={getPostsHandler.isLoading}>
-        {posts.length === 0 && (
-          <p className="captionText">
-            There are no posts, create new ones and they will appear here.
-          </p>
-        )}
-        <List>{posts}</List>
+        <VerticalLayout className="fullWidth" gap={12} alignItems="center">
+          {getPostsHandler.error && (
+            <Alert type="error">{getPostsHandler.error.toString()}</Alert>
+          )}
+          {posts.length === 0 && (
+            <p className="captionText">
+              There are no posts, create new ones and they will appear here.
+            </p>
+          )}
+          <List>{posts}</List>
+          <HorizontalLayout alignItems="center">
+            <Link href={DASHBOARD_POSTS_CREATE}>
+              <span>
+                <Button>Create new</Button>
+              </span>
+            </Link>
+          </HorizontalLayout>
+        </VerticalLayout>
       </LoadingContainer>
-      <HorizontalLayout alignItems="center">
-        <Link href={DASHBOARD_POSTS_CREATE}>
-          <span>
-            <Button>Create new</Button>
-          </span>
-        </Link>
-      </HorizontalLayout>
       <Dialog
         title="Delete post"
         open={postToDelete !== null}

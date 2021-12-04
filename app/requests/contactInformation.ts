@@ -11,24 +11,26 @@ export function createFetchContactInformationRequest(
 
 export function createContactInformationRequest(
   name: string,
-  link: string
+  link: string,
+  imageId: number
 ): PortfolioAPIRequest {
   return {
     method: "PUT",
     url: baseUrl,
-    body: { name, link },
+    body: { name, link, imageId },
   };
 }
 
 export function createUpdateContactInformationRequest(
   id: number,
   name: string,
-  link: string
+  link: string,
+  imageId: number
 ): PortfolioAPIRequest {
   return {
     method: "POST",
     url: baseUrl,
-    body: { id, name, link },
+    body: { id, name, link, imageId },
   };
 }
 

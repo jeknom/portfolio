@@ -1,12 +1,15 @@
 import React, { FC } from "react";
-import { Head, VerticalLayout, NavBar } from "../components/Core";
+import {
+  Head,
+  ContactInformation as Contact,
+  NavBar,
+} from "../components/Core";
 import {
   Header,
   Intro,
   Skills,
   Achievements,
   Highlights,
-  ContactInformation as Contact,
 } from "../components/Home";
 import styles from "@styles/Home.module.css";
 import { fetchMaintainer } from "@endpoints/maintainer";
@@ -19,7 +22,6 @@ import { ContactInformation } from "@prisma/client";
 import prisma from "../server/prismaClient";
 import mainRoutes from "@constants/mainNavBarRoutes";
 import { HOME } from "@constants/routes";
-import classNames from "classnames";
 import { fetchAllProjects } from "@endpoints/projects";
 
 interface HomeProps {
@@ -67,9 +69,7 @@ const Home: FC<HomeProps> = ({
         className={styles.section}
         recentAchievements={recentAchievements}
       />
-      <footer>
-        <Contact information={contactInformation} />
-      </footer>
+      <Contact information={contactInformation} />
     </>
   );
 };

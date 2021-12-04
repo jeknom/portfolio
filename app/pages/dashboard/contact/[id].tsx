@@ -8,7 +8,10 @@ import {
   Protected,
   TextField,
   Title,
+  VerticalLayout,
 } from "components/Core";
+import ImagePicker from "components/Dashboard/ImagePicker";
+import ImagePreviewButton from "components/Dashboard/ImagePreviewButton";
 import { DASHBOARD_CONTACT_INFORMATION } from "@constants/routes";
 import { useRouter } from "next/router";
 import { useRequest } from "hooks/requests";
@@ -16,14 +19,17 @@ import {
   createFetchContactInformationRequest,
   createUpdateContactInformationRequest,
 } from "requests/contactInformation";
-import { ContactInformation } from ".prisma/client";
+import { ContactInformation, Images } from ".prisma/client";
 import { permissions } from "@constants/index";
+import { createFetchImagesRequest } from "requests/images";
 
 interface EditProps {}
 
 const Edit: FC<EditProps> = () => {
+  const [isImagePickerOpen, setIsImagePickerOpen] = useState(false);
   const [name, setName] = useState("");
   const [link, setLink] = useState("");
+  const [image, setImage] = useState<Images>();
   const router = useRouter();
   const { id } = router.query;
   let currentId: number = -1;
@@ -35,12 +41,21 @@ const Edit: FC<EditProps> = () => {
   }
 
   const fetchContactInformationHandler = useRequest<
-    PortfolioAPIResponse<ContactInformation>
+    PortfolioAPIResponse<
+      ContactInformation & {
+        image: Images;
+      }
+    >
   >(createFetchContactInformationRequest(currentId));
 
   const updateContactInformationHandler = useRequest<
     PortfolioAPIResponse<ContactInformation>
-  >(createUpdateContactInformationRequest(currentId, name, link));
+  >(createUpdateContactInformationRequest(currentId, name, link, image?.id));
+
+  const fetchImagesHandler = useRequest<PortfolioAPIResponse<Images[]>>(
+    createFetchImagesRequest(),
+    { doRequestOnMount: true, defaultValue: [] }
+  );
 
   const handleNameChange = (event: ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
@@ -48,6 +63,19 @@ const Edit: FC<EditProps> = () => {
 
   const handleLinkChange = (event: ChangeEvent<HTMLInputElement>) => {
     setLink(event.target.value);
+  };
+
+  const handleOpenImagePicker = () => {
+    setIsImagePickerOpen(true);
+  };
+
+  const handleCloseImagePicker = () => {
+    setIsImagePickerOpen(false);
+  };
+
+  const handleImageSelected = (img: Images) => {
+    setImage(img);
+    handleCloseImagePicker();
   };
 
   const handleUpdateContactInformation = async () => {
@@ -64,6 +92,7 @@ const Edit: FC<EditProps> = () => {
       if (!contactInformation.error) {
         setName(contactInformation.name);
         setLink(contactInformation.link);
+        setImage(contactInformation.image);
       }
     }
   };
@@ -86,25 +115,42 @@ const Edit: FC<EditProps> = () => {
             {updateContactInformationHandler.error.toString()}
           </Alert>
         )}
-        <TextField
+        <HorizontalLayout
           className="fullWidth"
-          label="Name"
-          value={name}
-          onChange={handleNameChange}
-          placeholder="Cool website"
-        />
-        <TextField
-          className="fullWidth"
-          label="Link"
-          value={link}
-          onChange={handleLinkChange}
-          placeholder="https://www.myprofileatsomeothersite.com"
-        />
+          alignItems="center"
+          justifyContent="center"
+          gap={16}
+        >
+          <ImagePreviewButton
+            selectedImage={image}
+            onClick={handleOpenImagePicker}
+          />
+          <VerticalLayout
+            className="fullWidth"
+            alignItems="center"
+            justifyContent="center"
+          >
+            <TextField
+              className="fullWidth"
+              label="Name"
+              value={name}
+              onChange={handleNameChange}
+              placeholder="Cool website"
+            />
+            <TextField
+              className="fullWidth"
+              label="Link"
+              value={link}
+              onChange={handleLinkChange}
+              placeholder="https://www.myprofileatsomeothersite.com"
+            />
+          </VerticalLayout>
+        </HorizontalLayout>
       </LoadingContainer>
       <HorizontalLayout gap={8}>
         <Button
           onClick={handleUpdateContactInformation}
-          disabled={name === "" || link === ""}
+          disabled={name === "" || link === "" || !image}
         >
           Update
         </Button>
@@ -114,6 +160,13 @@ const Edit: FC<EditProps> = () => {
           </span>
         </Link>
       </HorizontalLayout>
+      <ImagePicker
+        title="Pick image"
+        open={isImagePickerOpen}
+        images={fetchImagesHandler.data}
+        onImageSelected={handleImageSelected}
+        onClose={handleCloseImagePicker}
+      />
       <style jsx>{`
         .image {
           border: 1px solid black;

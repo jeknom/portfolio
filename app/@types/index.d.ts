@@ -9,6 +9,7 @@ declare type Achievement = {
 declare type ContactInformation = {
   name: string;
   link: string;
+  imageUrl?: string;
 };
 
 declare type Highlight = {

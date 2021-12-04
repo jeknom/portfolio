@@ -3,11 +3,13 @@ import { catchAndLogErrors } from "utils";
 
 export async function fetchAllContactInformation(prisma: PrismaClient) {
   const [contactInformation] = await catchAndLogErrors(
-    prisma.contactInformation.findMany()
+    prisma.contactInformation.findMany({ include: { image: true } })
   );
 
   const mapped: ContactInformation[] = contactInformation.map((c) => ({
-    ...c,
+    name: c.name,
+    link: c.link,
+    imageUrl: c.image?.path || null,
   }));
 
   return mapped;

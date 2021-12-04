@@ -40,18 +40,16 @@ const Profile: FC<DashboardProps> = () => {
   return (
     <Protected>
       <LoadingContainer loading={loading}>
-        <VerticalLayout gap={32} alignItems="center">
-          <Sidebar selectedRoute={PROFILE} routes={dashboardRoutes} />
+        <Sidebar selectedRoute={PROFILE} routes={dashboardRoutes} />
+        <VerticalLayout className="fullWidth" alignItems="center">
           <Avatar image={session?.user?.image} />
-          <VerticalLayout alignItems="center">
-            <p className="primaryText">Hello, {session?.user?.name || ""}!</p>
-            <VerticalLayout>
-              <p>Your permissions:</p>
-              <PermissionsList permissions={session?.user?.permissions} />
-            </VerticalLayout>
+          <p className="primaryText">Hello, {session?.user?.name || ""}!</p>
+          <VerticalLayout>
+            <p>Your permissions:</p>
+            <PermissionsList permissions={session?.user?.permissions} />
           </VerticalLayout>
-          <Button onClick={() => signOut()}>Sign out</Button>
         </VerticalLayout>
+        <Button onClick={() => signOut()}>Sign out</Button>
       </LoadingContainer>
     </Protected>
   );

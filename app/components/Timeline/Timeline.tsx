@@ -24,7 +24,6 @@ const Timeline: FC<TimelineProps> = ({
   const handleCloseProjectDialog = useCallback(() => {
     setSelectedProject(null);
   }, []);
-
   const renderTimeline = () => {
     const yearRecords = [];
     const currentYear = new Date().getFullYear();

@@ -15,6 +15,7 @@ import {
   Dialog,
   Alert,
   Protected,
+  VerticalLayout,
 } from "components/Core";
 import {
   createDeleteSkillRequest,
@@ -111,26 +112,28 @@ const Skills: FC<SkillsProps> = () => {
   return (
     <Protected permissions={[permissions.ALLOWED_TO_EDIT_SKILLS]}>
       <Sidebar routes={dashboardRoutes} selectedRoute={DASHBOARD_SKILLS} />
-      <TextField
-        className="fullWidth"
-        placeholder="Search for skills"
-        value={searchText}
-        onChange={handleSearchTextChange}
-      />
-      {getAlert()}
       <LoadingContainer loading={fetchSkillsHandler.isLoading}>
-        {skillElements.length === 0 && (
-          <p className="captionText">
-            There seems to be no skills here, create a new one!
-          </p>
-        )}
-        <List>{skillElements}</List>
+        <VerticalLayout className="fullWidth" alignItems="center" gap={12}>
+          <TextField
+            className="fullWidth"
+            placeholder="Search for skills"
+            value={searchText}
+            onChange={handleSearchTextChange}
+          />
+          {getAlert()}
+          {skillElements.length === 0 && (
+            <p className="captionText">
+              There seems to be no skills here, create a new one!
+            </p>
+          )}
+          <List>{skillElements}</List>
+          <Link href={DASHBOARD_SKILLS_CREATE}>
+            <span>
+              <Button>Add new</Button>
+            </span>
+          </Link>
+        </VerticalLayout>
       </LoadingContainer>
-      <Link href={DASHBOARD_SKILLS_CREATE}>
-        <span>
-          <Button>Add new</Button>
-        </span>
-      </Link>
       <Dialog
         title="Delete skill"
         open={skillToDelete !== null}

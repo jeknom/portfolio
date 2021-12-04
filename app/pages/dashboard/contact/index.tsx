@@ -1,7 +1,8 @@
 import { ChangeEvent, FC, useState } from "react";
 import { useRequest } from "hooks/requests";
 import Link from "next/link";
-import { ContactInformation } from ".prisma/client";
+import Image from "next/image";
+import { ContactInformation, Images } from ".prisma/client";
 import {
   List,
   LoadingContainer,
@@ -15,6 +16,7 @@ import {
   Dialog,
   Alert,
   Protected,
+  VerticalLayout,
 } from "components/Core";
 import {
   createDeleteContactInformationRequest,
@@ -31,7 +33,9 @@ import { permissions } from "@constants/index";
 interface ContactInformationProps {}
 
 interface ContactInformationItemProps {
-  contactInformation: ContactInformation;
+  contactInformation: ContactInformation & {
+    image: Images;
+  };
   onDelete: (contactInformation: ContactInformation) => void;
 }
 
@@ -41,6 +45,16 @@ const ContactInformationItem: FC<ContactInformationItemProps> = ({
 }) => {
   return (
     <ListItem>
+      {contactInformation.image && (
+        <ListItemIcon>
+          <Image
+            src={contactInformation.image.path}
+            alt={`${contactInformation.image.description}`}
+            width={36}
+            height={36}
+          />
+        </ListItemIcon>
+      )}
       <ListItemText
         primary={contactInformation.name}
         secondary={contactInformation.link}
@@ -64,7 +78,11 @@ const ContactInformation: FC<ContactInformationProps> = () => {
   const [contactInformationToDelete, setContactInformationToDelete] =
     useState<ContactInformation>(null);
   const fetchContactInformationHandler = useRequest<
-    PortfolioAPIResponse<ContactInformation[]>
+    PortfolioAPIResponse<
+      (ContactInformation & {
+        image: Images;
+      })[]
+    >
   >(createFetchContactInformationRequest(), {
     doRequestOnMount: true,
     defaultValue: [],
@@ -122,26 +140,28 @@ const ContactInformation: FC<ContactInformationProps> = () => {
         routes={dashboardRoutes}
         selectedRoute={DASHBOARD_CONTACT_INFORMATION}
       />
-      <TextField
-        className="fullWidth"
-        placeholder="Search for contact information"
-        value={searchText}
-        onChange={handleSearchTextChange}
-      />
-      {getAlert()}
       <LoadingContainer loading={fetchContactInformationHandler.isLoading}>
-        {contactInformationElements.length === 0 && (
-          <p className="captionText">
-            There seems to be no contact information here, create a new one!
-          </p>
-        )}
-        <List>{contactInformationElements}</List>
+        <VerticalLayout className="fullWidth" alignItems="center" gap={12}>
+          <TextField
+            className="fullWidth"
+            placeholder="Search for contact information"
+            value={searchText}
+            onChange={handleSearchTextChange}
+          />
+          {getAlert()}
+          {contactInformationElements.length === 0 && (
+            <p className="captionText">
+              There seems to be no contact information here, create a new one!
+            </p>
+          )}
+          <List>{contactInformationElements}</List>
+          <Link href={DASHBOARD_CONTACT_INFORMATION_CREATE}>
+            <span>
+              <Button>Add new</Button>
+            </span>
+          </Link>
+        </VerticalLayout>
       </LoadingContainer>
-      <Link href={DASHBOARD_CONTACT_INFORMATION_CREATE}>
-        <span>
-          <Button>Add new</Button>
-        </span>
-      </Link>
       <Dialog
         title="Delete contact information"
         open={contactInformationToDelete !== null}

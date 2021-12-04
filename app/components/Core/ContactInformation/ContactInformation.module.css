@@ -1,0 +1,18 @@
+.contactRoot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20%;
+  padding: 8px;
+  background: white;
+  gap: 12px;
+}
+
+.image {
+  border-radius: 8px;
+}
+
+.imageContainer {
+  width: 32px;
+  height: 32px;
+}

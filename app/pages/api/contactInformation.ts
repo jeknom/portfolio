@@ -1,4 +1,4 @@
-import { ContactInformation } from ".prisma/client";
+import { ContactInformation, Images } from ".prisma/client";
 import { permissions } from "@constants/index";
 import ApiRoute from "lib/ApiRoute";
 import { NextApiRequest, NextApiResponse } from "next";
@@ -11,13 +11,21 @@ async function handleFetchContactInformation(
 ) {
   const id = req.query.id;
 
-  let response: ContactInformation | ContactInformation[];
+  let response:
+    | (ContactInformation & {
+        image: Images;
+      })
+    | (ContactInformation & {
+        image: Images;
+      })[];
   if (id && id !== "undefined" && id !== "") {
     response = await prisma.contactInformation.findUnique({
       where: { id: parseInt(id as string) },
+      include: { image: true },
     });
   } else {
     response = await prisma.contactInformation.findMany({
+      include: { image: true },
       orderBy: { name: "asc" },
     });
   }
@@ -36,9 +44,9 @@ async function handleCreateContactInformation(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { name, link } = req.body;
+  const { name, link, imageId } = req.body;
   const createdContactInformation = await prisma.contactInformation.create({
-    data: { name, link },
+    data: { name, link, imageId },
   });
 
   res.status(200).json(createdContactInformation);
@@ -48,10 +56,10 @@ async function handleUpdateContactInformation(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { id, name, link } = req.body;
+  const { id, name, link, imageId } = req.body;
   const updatedContactInformation = await prisma.contactInformation.update({
     where: { id },
-    data: { name, link },
+    data: { name, link, imageId },
   });
 
   res.status(200).json(updatedContactInformation);
@@ -74,12 +82,12 @@ export default new ApiRoute()
   .put(
     handleCreateContactInformation,
     [permissions.ALLOWED_TO_EDIT_CONTACT_INFORMATION],
-    ["name", "link"]
+    ["name", "link", "imageId"]
   )
   .post(
     handleUpdateContactInformation,
     [permissions.ALLOWED_TO_EDIT_CONTACT_INFORMATION],
-    ["id", "name", "link"]
+    ["id", "name", "link", "imageId"]
   )
   .delete(
     handleDeleteContactInformation,

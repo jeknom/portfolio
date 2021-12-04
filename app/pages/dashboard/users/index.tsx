@@ -18,6 +18,7 @@ import {
   Protected,
   HorizontalLayout,
   Title,
+  VerticalLayout,
 } from "components/Core";
 import {
   createPermittedUserEmailRequest,
@@ -173,51 +174,52 @@ const User: FC<UsersProps> = () => {
   return (
     <Protected permissions={[permissions.ALLOWED_TO_EDIT_USERS]}>
       <Sidebar routes={dashboardRoutes} selectedRoute={DASHBOARD_USERS} />
-      <Title text="Users" />
-      <TextField
-        className="fullWidth"
-        placeholder="Search for users information"
-        value={searchText}
-        onChange={handleSearchTextChange}
-      />
-      {getAlert()}
       <LoadingContainer
         loading={
           fetchUsersHandler.isLoading ||
           fetchPermittedUserEmailsHandler.isLoading
         }
       >
-        {userElements.length === 0 && (
-          <p className="captionText">
-            There seems to be no user information here, create a new one!
-          </p>
-        )}
-        <List>{userElements}</List>
-        <Title text="Permitted emails" />
-        {permittedUserEmailElements.length === 0 && (
-          <p className="captionText">
-            There seems to be no permitted user information here, create a new
-            one!
-          </p>
-        )}
-        <List>{permittedUserEmailElements}</List>
-        <HorizontalLayout className="fullWidth" gap={4}>
+        <VerticalLayout className="fullWidth" gap={12} alignItems="center">
+          <Title text="Users" />
           <TextField
-            label="Add new permitted user"
-            placeholder="jane.doe@gmail.com"
             className="fullWidth"
-            value={permittedUserEmail}
-            onChange={handlePermittedUserEmailChange}
+            placeholder="Search for users information"
+            value={searchText}
+            onChange={handleSearchTextChange}
           />
-          <Button
-            onClick={handleCreatePermittedUserEmail}
-            disabled={!isPermittedUserEmailValid}
-          >
-            Create
-          </Button>
-        </HorizontalLayout>
+          {getAlert()}
+          {userElements.length === 0 && (
+            <p className="captionText">
+              There seems to be no user information here, create a new one!
+            </p>
+          )}
+          <List>{userElements}</List>
+          <Title text="Permitted emails" />
+          {permittedUserEmailElements.length === 0 && (
+            <p className="captionText">
+              There seems to be no permitted user information here, create a new
+              one!
+            </p>
+          )}
+          <List>{permittedUserEmailElements}</List>
+          <HorizontalLayout className="fullWidth" gap={4}>
+            <TextField
+              label="Add new permitted user"
+              placeholder="jane.doe@gmail.com"
+              className="fullWidth"
+              value={permittedUserEmail}
+              onChange={handlePermittedUserEmailChange}
+            />
+            <Button
+              onClick={handleCreatePermittedUserEmail}
+              disabled={!isPermittedUserEmailValid}
+            >
+              Create
+            </Button>
+          </HorizontalLayout>
+        </VerticalLayout>
       </LoadingContainer>
-      <HorizontalLayout></HorizontalLayout>
       <Dialog
         title="Delete permitted user"
         open={permittedUserEmailToDelete !== null}

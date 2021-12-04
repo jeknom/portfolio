@@ -23,11 +23,11 @@ import ListItemIcon from "./List/ListItemIcon";
 import TextArea from "./TextArea";
 import TextField from "./TextField";
 import Toggle from "./Toggle";
-import Root from "./Root";
 import Alert from "./Alert";
 import DatePicker from "./DatePicker";
 import Sidebar from "./Sidebar";
 import Protected from "./Protected";
+import ContactInformation from "./ContactInformation";
 
 export {
   Button,
@@ -59,5 +59,5 @@ export {
   DatePicker,
   Sidebar,
   Protected,
-  Root,
+  ContactInformation,
 };

@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Head, NavBar } from "../components/Core";
+import { Head, NavBar, ContactInformation } from "../components/Core";
 import { Timeline as TimelineComponent } from "../components/Timeline";
 import { fetchOpenGraphData } from "server/endpoints/openGraphData";
 import { fetchAllAchievements } from "@endpoints/achievements";
@@ -8,6 +8,7 @@ import prisma from "../server/prismaClient";
 import { TIMELINE } from "@constants/routes";
 import mainRoutes from "@constants/mainNavBarRoutes";
 import { fetchAllProjects } from "@endpoints/projects";
+import { fetchAllContactInformation } from "@endpoints/contactInformation";
 
 interface TimelineProps {
   achievements?: Achievement[];
@@ -15,6 +16,7 @@ interface TimelineProps {
   projects?: Project[];
   minYear?: number;
   openGraphData?: OpenGraphData;
+  contactInformation: ContactInformation[];
 }
 
 const Timeline: FC<TimelineProps> = ({
@@ -22,6 +24,8 @@ const Timeline: FC<TimelineProps> = ({
   achievements,
   highlights,
   projects,
+  contactInformation,
+  minYear,
 }) => {
   const { title, description, type, imageUrl } = openGraphData;
 
@@ -38,20 +42,58 @@ const Timeline: FC<TimelineProps> = ({
         highlights={highlights}
         achievements={achievements}
         projects={projects}
+        minYear={minYear}
       />
+      <ContactInformation information={contactInformation} />
     </>
   );
 };
 
 export async function getServerSideProps() {
   try {
-    const [openGraphData, achievements, highlights, projects] =
-      await Promise.all([
-        fetchOpenGraphData(prisma),
-        fetchAllAchievements(prisma),
-        fetchAllHighlights(prisma),
-        fetchAllProjects(prisma),
-      ]);
+    const [
+      openGraphData,
+      achievements,
+      highlights,
+      projects,
+      contactInformation,
+    ] = await Promise.all([
+      fetchOpenGraphData(prisma),
+      fetchAllAchievements(prisma),
+      fetchAllHighlights(prisma),
+      fetchAllProjects(prisma),
+      fetchAllContactInformation(prisma),
+    ]);
+
+    const achievementsLength = achievements.length;
+    let achievementsMinYear = 2010;
+    if (achievementsLength > 0) {
+      achievementsMinYear = new Date(
+        achievements[achievementsLength - 1]?.startDate
+      ).getFullYear();
+    }
+
+    const highlightsLength = highlights.length;
+    let highlightsMinYear = 2010;
+    if (highlightsLength > 0) {
+      highlightsMinYear = new Date(
+        highlights[highlightsLength - 1].date
+      ).getFullYear();
+    }
+
+    const projectsLength = projects.length;
+    let projectsMinYear = 2010;
+    if (projectsLength > 0) {
+      projectsMinYear = new Date(
+        projects[projectsLength - 1].date
+      ).getFullYear();
+    }
+
+    const minYear = Math.min(
+      achievementsMinYear,
+      highlightsMinYear,
+      projectsMinYear
+    );
 
     return {
       props: {
@@ -59,6 +101,8 @@ export async function getServerSideProps() {
         achievements,
         highlights,
         projects,
+        minYear,
+        contactInformation,
       },
     };
   } catch (error) {
