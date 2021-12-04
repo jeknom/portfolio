@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Head, NavBar, ContactInformation } from "../components/Core";
+import { Head, NavBar, Contact } from "../components/Core";
 import { Timeline as TimelineComponent } from "../components/Timeline";
 import { fetchOpenGraphData } from "server/endpoints/openGraphData";
 import { fetchAllAchievements } from "@endpoints/achievements";
@@ -44,7 +44,7 @@ const Timeline: FC<TimelineProps> = ({
         projects={projects}
         minYear={minYear}
       />
-      <ContactInformation information={contactInformation} />
+      <Contact information={contactInformation} />
     </>
   );
 };

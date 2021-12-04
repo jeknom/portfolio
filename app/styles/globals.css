@@ -36,7 +36,7 @@ img {
   min-height: 97.5vh;
 }
 
-.__appRoot {
+.root {
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -47,7 +47,7 @@ img {
 }
 
 @media only screen and (max-width: 768px) {
-  .__appRoot {
+  .root {
     width: clamp(10%, 80%, 95%);
   }
 }

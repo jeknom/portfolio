@@ -1,9 +1,5 @@
 import React, { FC } from "react";
-import {
-  Head,
-  ContactInformation as Contact,
-  NavBar,
-} from "../components/Core";
+import { Head, Contact, NavBar } from "../components/Core";
 import {
   Header,
   Intro,

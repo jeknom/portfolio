@@ -13,9 +13,9 @@ const TopProgressBar = dynamic(
 function App({ Component, pageProps }) {
   return (
     <>
-      <TopProgressBar />
       <Provider session={pageProps.session}>
-        <div className="__appRoot">
+        <TopProgressBar />
+        <div className="root">
           <Component {...pageProps} />
         </div>
       </Provider>

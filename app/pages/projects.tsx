@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 import prisma from "server/prismaClient";
 import { fetchOpenGraphData } from "@endpoints/openGraphData";
-import { ContactInformation, Head, NavBar } from "components/Core";
+import { Contact, Head, NavBar } from "components/Core";
 import { GridMenu, GridMenuItem } from "components/Core";
 import { ProjectDialog } from "components/Projects";
 import { fetchAllProjects } from "@endpoints/projects";
@@ -50,7 +50,7 @@ const Projects: FC<ProjectsProps> = ({
         selectedProject={selectedProject}
         onClose={handleCloseSelectedProjectDialog}
       />
-      <ContactInformation information={contactInformation} />
+      <Contact information={contactInformation} />
     </>
   );
 };
