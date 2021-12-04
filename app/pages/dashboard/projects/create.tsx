@@ -15,13 +15,7 @@ import { DASHBOARD_PROJECTS } from "@constants/routes";
 import { useRouter } from "next/router";
 import { useRequest } from "hooks/requests";
 import { createProjectRequest } from "requests/projects";
-import {
-  Project as PrismaProject,
-  Images,
-  Video,
-  ProjectImage,
-  ProjectVideo,
-} from ".prisma/client";
+import { Project as PrismaProject, Images, Video } from ".prisma/client";
 import { createFetchImagesRequest } from "requests/images";
 import { permissions } from "@constants/index";
 import { createFetchVideosRequest } from "requests/videos";
@@ -60,7 +54,7 @@ const Create: FC<CreateProps> = () => {
 
   for (
     let mediaIndex = selectedMedia.length - 1;
-    mediaIndex > 0;
+    mediaIndex >= 0;
     mediaIndex--
   ) {
     const media = selectedMedia[mediaIndex];

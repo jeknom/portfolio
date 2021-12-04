@@ -157,7 +157,8 @@ const Edit: FC<EditProps> = () => {
   const handleLoadProject = async () => {
     const project = await fetchProjectHandler.doRequest();
     if (!project.error) {
-      const { projectImages, projectVideos, name, description, date } = project;
+      const { projectImages, projectVideos, name, description, date, content } =
+        project;
       const selectedImages = projectImages.map(
         (i) =>
           ({
@@ -178,6 +179,7 @@ const Edit: FC<EditProps> = () => {
 
       setName(name);
       setDescription(description);
+      setContent(content);
       setDate(new Date(date));
       setSelectedMedia(selectedImages.concat(selectedVideos));
     }
