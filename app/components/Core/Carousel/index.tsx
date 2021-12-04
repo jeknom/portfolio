@@ -4,6 +4,7 @@ import FlatButton from "../FlatButton";
 import VerticalLayout from "../VerticalLayout";
 import HorizontalLayout from "../HorizontalLayout";
 import styles from "./Carousel.module.css";
+import classNames from "classnames";
 
 interface CarouselProps {
   currentIndex: number;
@@ -42,37 +43,60 @@ const Carousel: FC<CarouselProps> = ({
     }
   };
 
-  const carouselButtons =
-    childrenCount === 1 ? null : (
-      <HorizontalLayout className={styles.actions}>
-        <FlatButton onClick={prevItem}>
-          <Image
-            src="/arrow-left.svg"
-            alt="Previous carousel item icon."
-            height="16"
-            width="16"
-            priority
-          />
+  return (
+    <VerticalLayout alignItems="center" className={styles.container}>
+      <VerticalLayout className="fullWidth">
+        {children[currentIndex]}
+      </VerticalLayout>
+      <HorizontalLayout
+        className="fullWidth"
+        alignItems="center"
+        justifyContent="space-between"
+      >
+        <FlatButton
+          onClick={prevItem}
+          className={classNames(styles.button, styles.leftButton)}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            className={styles.buttonIcon}
+          >
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
         </FlatButton>
-        <p className="secondaryText">
+        <p className={styles.pageIndicatorText}>
           {currentIndex + 1} / {childrenCount}
         </p>
-        <FlatButton onClick={nextItem}>
-          <Image
-            src="/arrow-right.svg"
-            alt="Next carousel item icon."
-            height="16"
-            width="16"
-            priority
-          />
+        <FlatButton
+          onClick={nextItem}
+          className={classNames(styles.button, styles.rightButton)}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            className={styles.buttonIcon}
+          >
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
         </FlatButton>
       </HorizontalLayout>
-    );
-
-  return (
-    <VerticalLayout>
-      {children[currentIndex]}
-      {carouselButtons}
     </VerticalLayout>
   );
 };

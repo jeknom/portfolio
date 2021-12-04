@@ -24,7 +24,11 @@ const Highlight: FC<HighlightProps> = ({ title, description, image }) => {
     );
 
   return (
-    <HorizontalLayout className={styles.highlightroot} alignItems="center">
+    <HorizontalLayout
+      className={styles.highlightroot}
+      alignItems="center"
+      justifyContent="space-between"
+    >
       <VerticalLayout>
         <p className="subtitle">{title}</p>
         <Paragraph text={description} />

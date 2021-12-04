@@ -1,16 +1,19 @@
-import { FC, ButtonHTMLAttributes } from 'react'
-import classNames from 'classnames'
-import styles from './FlatButton.module.css'
+import { FC, ButtonHTMLAttributes } from "react";
+import classNames from "classnames";
+import styles from "./FlatButton.module.css";
 
 interface FlatButtonProps {
-  className?: string
+  className?: string;
 }
 
-const FlatButton: FC<FlatButtonProps & ButtonHTMLAttributes<HTMLButtonElement>> =
-  ({ children, className, ...rest }) => {
+const FlatButton: FC<
+  FlatButtonProps & ButtonHTMLAttributes<HTMLButtonElement>
+> = ({ children, className, ...rest }) => {
   return (
-    <button className={classNames(styles.flatButton, className)} {...rest}>{children}</button>
-  )
-}
+    <button className={classNames(styles.flatButton, className)} {...rest}>
+      <span className={styles.child}>{children}</span>
+    </button>
+  );
+};
 
-export default FlatButton
+export default FlatButton;

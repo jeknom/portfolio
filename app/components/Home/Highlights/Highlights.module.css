@@ -1,4 +1,5 @@
 .highlightroot {
+  width: 100%;
   align-items: center;
   composes: fadeInPrimary from "../../../styles/animations.css";
 }
