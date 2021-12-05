@@ -4,7 +4,7 @@
   flex-direction: column;
   background-color: white;
   padding: 6px 22px 6px 22px;
-  composes: fadeInPrimary from "../../../styles/animations.css";
+  composes: fadeInSecondary from "../../../styles/animations.css";
 }
 
 @media only screen and (max-width: 600px) {
@@ -63,6 +63,7 @@
   left: 0;
   top: 0;
   z-index: 2;
+  composes: fadeInSecondary from "../../../styles/animations.css";
 }
 
 .dialogHeader {
