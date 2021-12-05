@@ -29,6 +29,7 @@
   width: 100%;
   gap: 8px;
   cursor: pointer;
+  max-width: 30vw;
 }
 
 .itemLayout:hover {
@@ -37,4 +38,33 @@
 
 .selected {
   border-bottom: 1px solid black;
+}
+
+.menuButton {
+  position: fixed;
+  top: 6px;
+  right: 6px;
+  z-index: 2;
+}
+
+.mobileMenu {
+  position: fixed;
+  background: white;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  composes: fadeInSecondary from "../../../styles/animations.css";
+}
+
+.mobileMenuRoutes {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  height: 100%;
+  composes: fadeInSecondary from "../../../styles/animations.css";
 }
