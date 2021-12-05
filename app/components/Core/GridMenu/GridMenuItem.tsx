@@ -26,8 +26,8 @@ const GridMenuItem: FC<GridMenuItemProps & HTMLProps<HTMLDivElement>> = ({
               src={imageUrl}
               alt={`${primary} image`}
               layout="responsive"
-              height={200}
-              width={200}
+              height={320}
+              width={320}
               objectFit="contain"
             />
           </div>
