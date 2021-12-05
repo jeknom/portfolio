@@ -1,52 +1,14 @@
 .dialogLayout {
-  margin: 7.5% auto;
   display: flex;
   flex-direction: column;
   background-color: white;
   padding: 6px 22px 6px 22px;
+  margin: 5% auto;
+  border-radius: 12px;
+  width: clamp(10%, 55%, 100%);
+  height: auto;
+  max-height: 80%;
   composes: fadeInSecondary from "../../../styles/animations.css";
-}
-
-@media only screen and (max-width: 600px) {
-  .dialogLayout {
-    border-radius: 0px;
-    margin: 0px;
-    max-height: 100%;
-    max-width: 100%;
-    width: 100%;
-    height: 100%;
-  }
-}
-
-@media only screen and (min-width: 600px) {
-  .dialogLayout {
-    border-radius: 0px;
-    margin: 0px;
-    max-height: 100%;
-    max-width: 100%;
-    width: 100%;
-    height: 100%;
-  }
-}
-
-@media only screen and (min-width: 768px) {
-  .dialogLayout {
-    margin: 5% auto;
-    border-radius: 12px;
-    width: clamp(10%, 65%, 100%);
-    height: auto;
-    max-height: 80%;
-  }
-}
-
-@media only screen and (min-width: 768px) {
-  .dialogLayout {
-    margin: 5% auto;
-    border-radius: 12px;
-    width: clamp(10%, 55%, 100%);
-    height: auto;
-    max-height: 80%;
-  }
 }
 
 .dialogContent {
@@ -70,6 +32,7 @@
   display: flex;
   width: 100%;
   justify-content: space-between;
+  margin-bottom: 1rem;
 }
 
 .closeButton {
@@ -102,4 +65,19 @@
   width: 100%;
   gap: 8px;
   margin: 8px 0px 8px 0px;
+}
+
+@media only screen and (max-width: 768px) {
+  .dialogLayout {
+    border-radius: 0px;
+    margin: 0px;
+    max-height: 100%;
+    max-width: 100%;
+    width: 100%;
+    height: 100%;
+  }
+
+  .dialogContent {
+    padding-bottom: 4rem;
+  }
 }
