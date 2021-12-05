@@ -22,4 +22,9 @@
 6. Run the portfolio with `docker-compose -f docker-compose.prod.yml up`.
 7. Connect to the app container and initialize the database by following [these instructions](database-and-migrations.md#Initialization).
 8. If everything has been set up correctly, the portfolio should now be up and running on your domain.
-9. IMPORTANT: Make sure to login to the dashboard at https://your-domain/dashboard to make changes to the contents. The first one to login will be given admin rights.
+9. Login to the dashboard through https://your-domain/dashboard. This will create a User entry to the database.
+10. Login to Adminer using the credentials you set up in the .env file. You can access it via http://your-domain:8080.
+11. Add an entry to the UserPermissions table. Make sure that the userId matches the one in the User table and the permission should be `ADMIN`.
+12. Add entry to the PermittedUserEmail table. The email address should match the gmail you use to login.
+
+Now you are all set!

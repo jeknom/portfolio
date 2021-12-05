@@ -18,4 +18,9 @@
 6. Run the app with `docker-compose up`.
 7. Connect to the app container and initialize the database by following [these instructions](database-and-migrations.md#Initialization).
 8. If everything is set up correctly, the portfolio will appear on http://localhost:3000. Make any changes to the app's code and you should see hot reload reacting to it.
-9. Make sure to login to the dashboard at http://localhost:3000/dashboard to make changes to the contents.
+9. Login to the dashboard through http://localhost:3000/dashboard. This will create a User entry to the database.
+10. Login to Adminer using the credentials you set up in the .env file. You can access it via http://localhost:8080.
+11. Add an entry to the UserPermissions table. Make sure that the userId matches the one in the User table and the permission should be `ADMIN`.
+12. Add entry to the PermittedUserEmail table. The email address should match the gmail you use to login.
+
+Now you are all set!
