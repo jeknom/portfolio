@@ -24,13 +24,13 @@ const PermissionsList: FC<PermissionsListProps> = ({ permissions = [] }) => {
   }
 
   return (
-    <>
+    <VerticalLayout alignItems="center">
       {permissions.map((p, i) => (
         <p key={i} className="secondaryText">
           {mapPermissionToPrettyName(p)}
         </p>
       ))}
-    </>
+    </VerticalLayout>
   );
 };
 
@@ -41,16 +41,21 @@ const Profile: FC<DashboardProps> = () => {
     <Protected>
       <LoadingContainer loading={loading}>
         <Sidebar selectedRoute={PROFILE} routes={dashboardRoutes} />
-        <VerticalLayout className="fullWidth" alignItems="center">
+        <VerticalLayout className="fullWidth" alignItems="center" gap={16}>
           <Avatar image={session?.user?.image} />
           <p className="primaryText">Hello, {session?.user?.name || ""}!</p>
           <VerticalLayout>
             <p>Your permissions:</p>
             <PermissionsList permissions={session?.user?.permissions} />
           </VerticalLayout>
+          <Button onClick={() => signOut()}>Sign out</Button>
         </VerticalLayout>
-        <Button onClick={() => signOut()}>Sign out</Button>
       </LoadingContainer>
+      <style jsx global>{`
+        .__appRoot {
+          margin-top: 1rem;
+        }
+      `}</style>
     </Protected>
   );
 };

@@ -127,6 +127,11 @@ const Create: FC<CreateProps> = () => {
           onImageSelected={handleImageSelected}
           onClose={handleCloseImagePicker}
         />
+        <style jsx global>{`
+          .__appRoot {
+            min-height: 50vh;
+          }
+        `}</style>
         <style jsx>{`
           .image {
             border: 1px solid black;

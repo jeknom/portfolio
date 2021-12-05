@@ -3,42 +3,12 @@
   gap: 12px 12px;
 }
 
-@media only screen and (max-width: 600px) {
-  .gridMenuRoot {
-    grid-template-columns: repeat(1, 250px);
-  }
-}
-
-@media only screen and (min-width: 600px) {
-  .gridMenuRoot {
-    grid-template-columns: repeat(1, 250px);
-  }
-}
-
-@media only screen and (min-width: 768px) {
-  .gridMenuRoot {
-    grid-template-columns: repeat(2, 250px);
-  }
-}
-
-@media only screen and (min-width: 992px) {
-  .gridMenuRoot {
-    grid-template-columns: repeat(3, 250px);
-  }
-}
-
-@media only screen and (min-width: 1200px) {
-  .gridMenuRoot {
-    grid-template-columns: repeat(4, 250px);
-  }
-}
-
 .menuItemRoot {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  width: 240px;
+  width: 100%;
   margin-bottom: 12px;
   border: 1px solid rgb(241, 241, 241);
   border-radius: 8px;
@@ -68,4 +38,34 @@
 
 .imageRoot {
   width: 100%;
+}
+
+@media only screen and (max-width: 600px) {
+  .gridMenuRoot {
+    grid-template-columns: repeat(1, 320px);
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .gridMenuRoot {
+    grid-template-columns: repeat(1, 320px);
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .gridMenuRoot {
+    grid-template-columns: repeat(2, 320px);
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .gridMenuRoot {
+    grid-template-columns: repeat(3, 250px);
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .gridMenuRoot {
+    grid-template-columns: repeat(4, 250px);
+  }
 }

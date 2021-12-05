@@ -121,6 +121,11 @@ const Posts: FC<PostsProps> = () => {
           <Button onClick={handleCloseDeleteConfirmation}>No</Button>
         </DialogActions>
       </Dialog>
+      <style jsx global>{`
+        .__appRoot {
+          min-height: 50vh;
+        }
+      `}</style>
     </Protected>
   );
 };

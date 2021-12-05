@@ -120,6 +120,11 @@ const Create: FC<CreateProps> = () => {
         images={fetchImagesHandler.data}
         onImageSelected={handleImageChange}
       />
+      <style jsx global>{`
+        .__appRoot {
+          min-height: 50vh;
+        }
+      `}</style>
       <style jsx>{`
         .image {
           border: 1px solid black;

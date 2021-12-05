@@ -23,4 +23,10 @@ The portfolio uses a MySQL as its database and Prisma for ORM.
 
 ## Viewing and making changes
 
+### Adminer
+
 The docker compose file sets up an adminer service which can be used to view and edit the contents of the database easily. To open adminer, run the portfolio app and open http://your-domain:8080 on your favorite browser. You can login using the credentials you wrote down in the [.env](environment-variables.md) file.
+
+### The dashboard
+
+This portfolio comes with its very own dashboard for editing its contents. When you've got the app running, go to https://your-domain/dashboard. The first user to log in will be treated as admin.

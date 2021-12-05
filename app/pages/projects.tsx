@@ -1,13 +1,20 @@
 import { FC, useState } from "react";
 import prisma from "server/prismaClient";
 import { fetchOpenGraphData } from "@endpoints/openGraphData";
-import { Contact, Head, NavBar } from "components/Core";
-import { GridMenu, GridMenuItem } from "components/Core";
+import {
+  Contact,
+  Head,
+  NavBar,
+  GridMenu,
+  GridMenuItem,
+  VerticalLayout,
+} from "components/Core";
 import { ProjectDialog } from "components/Projects";
 import { fetchAllProjects } from "@endpoints/projects";
 import mainRoutes from "@constants/mainNavBarRoutes";
 import { PROJECTS } from "@constants/routes";
 import { fetchAllContactInformation } from "@endpoints/contactInformation";
+import styles from "../styles/Projects.module.css";
 
 interface ProjectsProps {
   openGraphData: OpenGraphData;
@@ -27,6 +34,7 @@ const Projects: FC<ProjectsProps> = ({
   const projectItems = (projects || []).map((d, i) => (
     <GridMenuItem
       key={i}
+      className={styles.projectsGrid}
       onClick={() => setSelectedProject(d)}
       imageUrl={d.imageUrl}
       primary={d.name}
@@ -42,8 +50,10 @@ const Projects: FC<ProjectsProps> = ({
         type={type}
         imagePath={imageUrl}
       />
-      <NavBar selectedRoute={PROJECTS} routes={mainRoutes} />
-      <GridMenu>{projectItems}</GridMenu>
+      <VerticalLayout gap={12} alignItems="center">
+        <NavBar selectedRoute={PROJECTS} routes={mainRoutes} />
+        <GridMenu>{projectItems}</GridMenu>
+      </VerticalLayout>
       <ProjectDialog
         title={selectedProject?.name || ""}
         open={selectedProject !== null}

@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Dialog, Paragraph } from "components/Core";
+import { Dialog, Paragraph, VerticalLayout } from "components/Core";
 import { DialogProps } from "components/Core/Dialog";
 import MediaCarousel from "./MediaCarousel";
 import styles from "./projects.module.css";
@@ -22,8 +22,13 @@ const ProjectDialog: FC<ProjectDialogProps & DialogProps> = ({
         className: styles.dialogContent,
       }}
     >
-      <MediaCarousel project={selectedProject} />
-      <Paragraph className={styles.paragraph} text={selectedProject?.content} />
+      <VerticalLayout gap={16} alignItems="center">
+        <MediaCarousel project={selectedProject} />
+        <Paragraph
+          className={styles.paragraph}
+          text={selectedProject?.content}
+        />
+      </VerticalLayout>
     </Dialog>
   );
 };

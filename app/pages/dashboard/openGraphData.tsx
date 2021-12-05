@@ -164,6 +164,11 @@ const OpenGraphData: FC<OpenGraphDataProps> = () => {
           </Button>
         </VerticalLayout>
       </LoadingContainer>
+      <style jsx global>{`
+        .__appRoot {
+          margin-top: 1rem;
+        }
+      `}</style>
     </Protected>
   );
 };

@@ -42,6 +42,11 @@ const Edit: FC<EditProps> = () => {
           </Button>
         </HorizontalLayout>
       </form>
+      <style jsx global>{`
+        .__appRoot {
+          min-height: 50vh;
+        }
+      `}</style>
     </Protected>
   );
 };

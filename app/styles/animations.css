@@ -4,8 +4,8 @@
 }
 
 .fadeInSecondary {
-  animation: fadeIn ease 0.3s;
-  -webkit-animation: fadeIn ease 0.3s;
+  animation: fadeIn ease 0.5s;
+  -webkit-animation: fadeIn ease 0.5s;
 }
 
 @keyframes fadeIn {

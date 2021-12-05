@@ -2,7 +2,7 @@
 
 # 💡 Glossary
 
-Take a look at the [live demo](https://johku.org) and the [database schema](../app/prisma/schema.prisma), it will give a good idea of what will be written here next. With that out of the way, this portfolio consists of the following types of data:
+Take a look at the [live demo](https://johku.org) and the [database schema](../app/prisma/schema.prisma), it will give a good idea of what will be written here next.
 
 ## Maintainer
 
@@ -23,3 +23,7 @@ If you would like to let people know about some cool event or some other notable
 ## Skills
 
 To showcase all the things you can do, use this. It will store just the name and an icon to keep it short and sweet.
+
+## Dashboard
+
+It can be used to edit the contents of the portfolio. Access it at https://your-domain/dashboard.

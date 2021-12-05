@@ -267,6 +267,11 @@ const Edit: FC<EditProps> = () => {
           selectedProject={previewProject}
         />
       </LoadingContainer>
+      <style jsx global>{`
+        .__appRoot {
+          min-height: 50vh;
+        }
+      `}</style>
     </Protected>
   );
 };

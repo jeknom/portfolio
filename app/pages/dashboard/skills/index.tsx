@@ -147,6 +147,11 @@ const Skills: FC<SkillsProps> = () => {
           <Button onClick={handleCloseDeleteConfirmation}>Close</Button>
         </DialogActions>
       </Dialog>
+      <style jsx global>{`
+        .__appRoot {
+          margin-top: 1rem;
+        }
+      `}</style>
     </Protected>
   );
 };

@@ -116,6 +116,11 @@ const Edit: FC<EditProps> = () => {
           </Link>
         </HorizontalLayout>
       </LoadingContainer>
+      <style jsx global>{`
+        .__appRoot {
+          min-height: 50vh;
+        }
+      `}</style>
     </Protected>
   );
 };
