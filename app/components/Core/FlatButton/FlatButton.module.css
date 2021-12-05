@@ -20,3 +20,9 @@
 .child {
   padding: 0.2rem;
 }
+
+.flatButton:focus {
+  background-color: white;
+  outline: none;
+  box-shadow: none;
+}
