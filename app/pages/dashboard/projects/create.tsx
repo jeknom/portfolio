@@ -173,6 +173,11 @@ const Create: FC<CreateProps> = () => {
         onClose={handleClosePreview}
         selectedProject={previewProject}
       />
+      <style jsx global>{`
+        .__appRoot {
+          min-height: 50vh;
+        }
+      `}</style>
       <style jsx>{`
         .image {
           border: 1px solid black;

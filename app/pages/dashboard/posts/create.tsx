@@ -64,6 +64,11 @@ const CreatePost: FC<CreatePostProps> = () => {
           </span>
         </Link>
       </HorizontalLayout>
+      <style jsx global>{`
+        .__appRoot {
+          min-height: 50vh;
+        }
+      `}</style>
     </Protected>
   );
 };

@@ -174,6 +174,11 @@ const Highlights: FC<HighlightsProps> = () => {
           <Button onClick={handleCloseDeleteConfirmation}>Close</Button>
         </DialogActions>
       </Dialog>
+      <style jsx global>{`
+        .__appRoot {
+          margin-top: 1rem;
+        }
+      `}</style>
     </Protected>
   );
 };
