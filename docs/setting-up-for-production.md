@@ -22,3 +22,4 @@
 6. Run the portfolio with `docker-compose -f docker-compose.prod.yml up`.
 7. Connect to the app container and initialize the database by following [these instructions](database-and-migrations.md#Initialization).
 8. If everything has been set up correctly, the portfolio should now be up and running on your domain.
+9. IMPORTANT: Make sure to login to the dashboard at https://your-domain/dashboard to make changes to the contents. The first one to login will be given admin rights.

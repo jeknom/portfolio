@@ -18,3 +18,4 @@
 6. Run the app with `docker-compose up`.
 7. Connect to the app container and initialize the database by following [these instructions](database-and-migrations.md#Initialization).
 8. If everything is set up correctly, the portfolio will appear on http://localhost:3000. Make any changes to the app's code and you should see hot reload reacting to it.
+9. Make sure to login to the dashboard at http://localhost:3000/dashboard to make changes to the contents.
