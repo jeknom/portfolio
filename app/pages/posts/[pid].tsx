@@ -30,23 +30,16 @@ const PostPage: FC<PostPageProps> = ({ openGraphData, post }) => {
         type={type}
         imagePath={imageUrl}
       />
-      <VerticalLayout
-        className={styles.postRoot}
-        alignItems="center"
-        justifyContent="center"
-        gap={16}
-      >
-        {!post && (
-          <p className="secondaryText">Could not find the requested post</p>
-        )}
-        <Title text={post?.title || ""} />
-        <Paragraph text={post?.content || ""} />
-        <Link href={HOME}>
-          <span>
-            <Button>See my portfolio and CV</Button>
-          </span>
-        </Link>
-      </VerticalLayout>
+      {!post && (
+        <p className="secondaryText">Could not find the requested post</p>
+      )}
+      <Title text={post?.title || ""} />
+      <Paragraph text={post?.content || ""} />
+      <Link href={HOME}>
+        <span>
+          <Button>Back to main page</Button>
+        </span>
+      </Link>
     </>
   );
 };
