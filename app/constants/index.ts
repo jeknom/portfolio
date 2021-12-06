@@ -6,6 +6,7 @@ import mapPermissionToPrettyName from "./permissionPrettyNames";
 
 export const NO_DATA = "Unknown";
 export const DATE_NULL_REPLACEMENT = "Present";
+export const MOBILE_SIZE = 768;
 
 export {
   mainNavBarRoutes,

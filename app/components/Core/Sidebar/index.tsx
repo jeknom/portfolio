@@ -5,8 +5,7 @@ import styles from "./sidebar.module.css";
 import classNames from "classnames";
 import useWindowDimensions from "hooks/useWindowDimensions";
 import FlatButton from "../FlatButton";
-
-const MOBILE_SIZE = 768;
+import { MOBILE_SIZE } from "@constants/index";
 
 interface SidebarProps {
   routes: NavBarRoute[];

@@ -5,6 +5,7 @@ import classNames from "classnames";
 import styles from "./navbar.module.css";
 import useWindowDimensions from "hooks/useWindowDimensions";
 import FlatButton from "../FlatButton";
+import { MOBILE_SIZE } from "@constants/index";
 
 interface RouteItemProps {
   selectedRoute: string;
@@ -26,8 +27,6 @@ interface MobileNavBarProps {
   selectedRoute: string;
   routes: NavBarRoute[];
 }
-
-const MOBILE_SIZE = 768;
 
 const RouteItem: FC<RouteItemProps> = ({
   selectedRoute,
