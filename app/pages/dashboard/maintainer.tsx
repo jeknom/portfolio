@@ -22,9 +22,9 @@ import ImagePreviewButton from "components/Dashboard/ImagePreviewButton";
 import ImagePicker from "components/Dashboard/ImagePicker";
 import { createFetchImagesRequest } from "requests/images";
 
-interface MaintainerProps {}
+interface MaintainerPageProps {}
 
-const Maintainer: FC<MaintainerProps> = () => {
+const MaintainerPage: FC<MaintainerPageProps> = () => {
   const [isImagePickerOpen, setIsImagePickerOpen] = useState(false);
   const [name, setName] = useState("");
   const [headline, setHeadline] = useState("");
@@ -170,4 +170,4 @@ const Maintainer: FC<MaintainerProps> = () => {
   );
 };
 
-export default Maintainer;
+export default MaintainerPage;

@@ -36,7 +36,7 @@ import {
 import DialogActions from "components/Core/Dialog/DialogActions";
 import { permissions } from "@constants/index";
 
-interface ProjectsProps {}
+interface ProjectsPageProps {}
 
 interface ProjectItemProps {
   project: Project & {
@@ -104,7 +104,7 @@ const ProjectItem: FC<ProjectItemProps> = ({ project, onDelete }) => {
   );
 };
 
-const Project: FC<ProjectsProps> = () => {
+const ProjectsPage: FC<ProjectsPageProps> = () => {
   const [searchText, setSearchText] = useState("");
   const [projectToDelete, setProjectToDelete] = useState<
     Project & {
@@ -223,4 +223,4 @@ const Project: FC<ProjectsProps> = () => {
   );
 };
 
-export default Project;
+export default ProjectsPage;

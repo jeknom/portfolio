@@ -32,7 +32,7 @@ import DialogActions from "components/Core/Dialog/DialogActions";
 import { permissions } from "@constants/index";
 import { isValidEmail } from "utils/stringUtils";
 
-interface UsersProps {}
+interface UsersPageProps {}
 
 interface UsersItemProps {
   user: User;
@@ -80,7 +80,7 @@ const PermittedUserEmailItem: FC<PermittedUserEmailItemProps> = ({
   );
 };
 
-const User: FC<UsersProps> = () => {
+const UsersPage: FC<UsersPageProps> = () => {
   const [searchText, setSearchText] = useState("");
   const [permittedUserEmail, setPermittedUserEmail] = useState("");
   const [permittedUserEmailToDelete, setPermittedUserEmailToDelete] =
@@ -243,4 +243,4 @@ const User: FC<UsersProps> = () => {
   );
 };
 
-export default User;
+export default UsersPage;

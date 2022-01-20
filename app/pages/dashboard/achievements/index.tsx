@@ -30,7 +30,7 @@ import {
 import DialogActions from "components/Core/Dialog/DialogActions";
 import { permissions } from "@constants/index";
 
-interface AchievementProps {}
+interface AchievementPageProps {}
 
 interface AchievementItemProps {
   achievement: Achievements & { images: Images };
@@ -69,7 +69,7 @@ const AchievementItem: FC<AchievementItemProps> = ({
   );
 };
 
-const Achievements: FC<AchievementProps> = () => {
+const AchievementPage: FC<AchievementPageProps> = () => {
   const [searchText, setSearchText] = useState("");
   const [achievementToDelete, setAchievementToDelete] = useState<
     Achievements & { images: Images }
@@ -175,4 +175,4 @@ const Achievements: FC<AchievementProps> = () => {
   );
 };
 
-export default Achievements;
+export default AchievementPage;

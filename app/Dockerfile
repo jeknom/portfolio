@@ -1,4 +1,4 @@
-FROM node:alpine AS deps
+FROM node:16-alpine3.14 AS deps
 
 RUN apk add --no-cache libc6-compat
 WORKDIR /portfolio

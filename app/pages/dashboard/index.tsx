@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { signOut, useSession } from "next-auth/client";
+import { signOut, useSession } from "next-auth/react";
 import { dashboardRoutes } from "constants/index";
 import {
   LoadingContainer,
@@ -35,11 +35,11 @@ const PermissionsList: FC<PermissionsListProps> = ({ permissions = [] }) => {
 };
 
 const Profile: FC<DashboardProps> = () => {
-  const [session, loading] = useSession();
+  const { data: session, status } = useSession();
 
   return (
     <Protected>
-      <LoadingContainer loading={loading}>
+      <LoadingContainer loading={status === "loading"}>
         <Sidebar selectedRoute={PROFILE} routes={dashboardRoutes} />
         <VerticalLayout className="fullWidth" alignItems="center" gap={16}>
           <Avatar image={session?.user?.image} />

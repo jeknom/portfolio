@@ -30,7 +30,7 @@ import {
 import DialogActions from "components/Core/Dialog/DialogActions";
 import { permissions } from "@constants/index";
 
-interface ContactInformationProps {}
+interface ContactInformationPageProps {}
 
 interface ContactInformationItemProps {
   contactInformation: ContactInformation & {
@@ -73,7 +73,7 @@ const ContactInformationItem: FC<ContactInformationItemProps> = ({
   );
 };
 
-const ContactInformation: FC<ContactInformationProps> = () => {
+const ContactInformationPage: FC<ContactInformationPageProps> = () => {
   const [searchText, setSearchText] = useState("");
   const [contactInformationToDelete, setContactInformationToDelete] =
     useState<ContactInformation>(null);
@@ -184,4 +184,4 @@ const ContactInformation: FC<ContactInformationProps> = () => {
   );
 };
 
-export default ContactInformation;
+export default ContactInformationPage;

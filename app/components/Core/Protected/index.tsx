@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { signIn, useSession } from "next-auth/client";
+import { signIn, useSession } from "next-auth/react";
 import VerticalLayout from "../VerticalLayout";
 import Title from "../Title";
 import Button from "../Button";
@@ -10,9 +10,9 @@ interface ProtectedProps {
 }
 
 const Protected: FC<ProtectedProps> = ({ children, permissions = [] }) => {
-  const [session, loading] = useSession();
+  const { data: session, status } = useSession();
 
-  if (typeof window !== "undefined" && loading) {
+  if (typeof window !== "undefined" && status === "loading") {
     return null;
   }
 

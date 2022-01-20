@@ -55,11 +55,7 @@ const Edit: FC<EditProps> = () => {
   const { id } = router.query as { id: string };
 
   const fetchUserHandler = useRequest<
-    PortfolioAPIResponse<
-      User & {
-        permissions: UserPermission[];
-      }
-    >
+    PortfolioAPIResponse<User & { UserPermission: UserPermission[] }>
   >(createFetchUsersRequest(id));
 
   const updateUserPermissionsHandler = useRequest<PortfolioAPIResponse<User>>(
@@ -89,7 +85,7 @@ const Edit: FC<EditProps> = () => {
     if (id) {
       const user = await fetchUserHandler.doRequest();
       if (!user.error) {
-        setPermissions(user.permissions.map((p) => p.permission) || []);
+        setPermissions(user.UserPermission.map((p) => p.permission) || []);
       }
     }
   };

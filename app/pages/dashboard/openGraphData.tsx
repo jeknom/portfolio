@@ -21,9 +21,9 @@ import ImagePreviewButton from "components/Dashboard/ImagePreviewButton";
 import ImagePicker from "components/Dashboard/ImagePicker";
 import { createFetchImagesRequest } from "requests/images";
 
-interface OpenGraphDataProps {}
+interface OpenGraphDataPageProps {}
 
-const OpenGraphData: FC<OpenGraphDataProps> = () => {
+const OpenGraphDataPage: FC<OpenGraphDataPageProps> = () => {
   const [isImagePickerOpen, setIsImagePickerOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -173,4 +173,4 @@ const OpenGraphData: FC<OpenGraphDataProps> = () => {
   );
 };
 
-export default OpenGraphData;
+export default OpenGraphDataPage;

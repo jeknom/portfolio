@@ -24,7 +24,7 @@ import {
   createFetchPostsRequest,
 } from "requests/posts";
 
-interface PostsProps {}
+interface PostsPageProps {}
 
 interface PostListItemProps {
   post: Post;
@@ -57,7 +57,7 @@ const PostListItem: FC<PostListItemProps> = ({ post, onDelete }) => {
   );
 };
 
-const Posts: FC<PostsProps> = () => {
+const PostsPage: FC<PostsPageProps> = () => {
   const [postToDelete, setPostToDelete] = useState<Post>(null);
   const getPostsHandler = useRequest<PortfolioAPIResponse<Post[]>>(
     createFetchPostsRequest(),
@@ -130,4 +130,4 @@ const Posts: FC<PostsProps> = () => {
   );
 };
 
-export default Posts;
+export default PostsPage;

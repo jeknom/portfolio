@@ -26,7 +26,7 @@ import { DASHBOARD_SKILLS, DASHBOARD_SKILLS_CREATE } from "@constants/routes";
 import DialogActions from "components/Core/Dialog/DialogActions";
 import { permissions } from "@constants/index";
 
-interface SkillsProps {}
+interface SkillsPageProps {}
 
 interface SkillItemProps {
   skill: Skills & { images: Images };
@@ -57,7 +57,7 @@ const SkillItem: FC<SkillItemProps> = ({ skill, onDelete }) => {
   );
 };
 
-const Skills: FC<SkillsProps> = () => {
+const SkillsPage: FC<SkillsPageProps> = () => {
   const [searchText, setSearchText] = useState("");
   const [skillToDelete, setSkillToDelete] = useState<
     Skills & { images: Images }
@@ -156,4 +156,4 @@ const Skills: FC<SkillsProps> = () => {
   );
 };
 
-export default Skills;
+export default SkillsPage;

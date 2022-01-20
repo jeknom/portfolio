@@ -27,7 +27,7 @@ import { DASHBOARD_IMAGES, DASHBOARD_IMAGES_CREATE } from "@constants/routes";
 import DialogActions from "components/Core/Dialog/DialogActions";
 import { permissions } from "@constants/index";
 
-interface ImagesProps {}
+interface ImagesPageProps {}
 
 interface ImageItemProps {
   image: Images;
@@ -68,7 +68,7 @@ const ImageItem: FC<ImageItemProps> = ({ image, onDelete }) => {
   );
 };
 
-const Images: FC<ImagesProps> = () => {
+const ImagesPage: FC<ImagesPageProps> = () => {
   const [searchText, setSearchText] = useState("");
   const [imageToDelete, setImageToDelete] = useState<Images>(null);
   const fetchImagesHandler = useRequest<PortfolioAPIResponse<Images[]>>(
@@ -166,4 +166,4 @@ const Images: FC<ImagesProps> = () => {
   );
 };
 
-export default Images;
+export default ImagesPage;

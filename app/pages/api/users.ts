@@ -2,27 +2,23 @@ import { User, UserPermission } from ".prisma/client";
 import { permissions as constPermissions } from "@constants/index";
 import ApiRoute from "lib/ApiRoute";
 import { NextApiRequest, NextApiResponse } from "next";
-import { getSession } from "next-auth/client";
+import { getSession } from "next-auth/react";
 import prisma from "server/prismaClient";
 import { sendBadRequest, sendResourceNotFound } from "utils/requestUtils";
 
 async function handleFetchUsers(req: NextApiRequest, res: NextApiResponse) {
   const id = req.query.id as string;
   let response:
-    | (User & {
-        permissions: UserPermission[];
-      })
-    | (User & {
-        permissions: UserPermission[];
-      })[];
+    | (User & { UserPermission: UserPermission[] })
+    | (User & { UserPermission: UserPermission[] })[];
   if (id && id !== "undefined" && id !== "") {
     response = await prisma.user.findFirst({
-      include: { permissions: true },
+      include: { UserPermission: true },
       where: { id },
     });
   } else {
     response = await prisma.user.findMany({
-      include: { permissions: true },
+      include: { UserPermission: true },
       orderBy: { name: "asc" },
     });
   }

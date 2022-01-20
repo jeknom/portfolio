@@ -28,7 +28,7 @@ import DialogActions from "components/Core/Dialog/DialogActions";
 import { permissions } from "@constants/index";
 import { getYoutubeVideoIdFromEmbedUrl } from "utils/stringUtils";
 
-interface VideosProps {}
+interface VideosPageProps {}
 
 interface VideoItemProps {
   video: Video;
@@ -73,7 +73,7 @@ const VideoItem: FC<VideoItemProps> = ({ video, onDelete }) => {
   );
 };
 
-const Videos: FC<VideosProps> = () => {
+const VideosPage: FC<VideosPageProps> = () => {
   const [searchText, setSearchText] = useState("");
   const [videoToDelete, setVideoToDelete] = useState<Video>(null);
   const fetchVideosHandler = useRequest<PortfolioAPIResponse<Video[]>>(
@@ -171,4 +171,4 @@ const Videos: FC<VideosProps> = () => {
   );
 };
 
-export default Videos;
+export default VideosPage;

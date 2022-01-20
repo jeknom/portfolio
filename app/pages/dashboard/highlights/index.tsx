@@ -2,7 +2,7 @@ import { ChangeEvent, FC, useState } from "react";
 import { useRequest } from "hooks/requests";
 import Link from "next/link";
 import Image from "next/image";
-import { Highlights, Images } from ".prisma/client";
+import { Highlights as PrismaHighlights, Images } from ".prisma/client";
 import {
   List,
   LoadingContainer,
@@ -33,8 +33,8 @@ import { permissions } from "@constants/index";
 interface HighlightsProps {}
 
 interface HighlightItemProps {
-  highlight: Highlights & { images: Images };
-  onDelete: (highlight: Highlights & { images: Images }) => void;
+  highlight: PrismaHighlights & { images: Images };
+  onDelete: (highlight: PrismaHighlights & { images: Images }) => void;
 }
 
 const HighlightItem: FC<HighlightItemProps> = ({ highlight, onDelete }) => {
@@ -83,17 +83,17 @@ const HighlightItem: FC<HighlightItemProps> = ({ highlight, onDelete }) => {
 const Highlights: FC<HighlightsProps> = () => {
   const [searchText, setSearchText] = useState("");
   const [highlightToDelete, setHighlightToDelete] = useState<
-    Highlights & { images: Images }
+    PrismaHighlights & { images: Images }
   >(null);
   const fetchHighlightsHandler = useRequest<
-    PortfolioAPIResponse<(Highlights & { images: Images })[]>
+    PortfolioAPIResponse<(PrismaHighlights & { images: Images })[]>
   >(createFetchHighlightsRequest(), {
     doRequestOnMount: true,
     defaultValue: [],
   });
-  const deleteHighlightHandler = useRequest<PortfolioAPIResponse<Highlights>>(
-    createDeleteHighlightRequest(highlightToDelete?.id)
-  );
+  const deleteHighlightHandler = useRequest<
+    PortfolioAPIResponse<PrismaHighlights>
+  >(createDeleteHighlightRequest(highlightToDelete?.id));
 
   const highlightElements = fetchHighlightsHandler.data
     .filter((highlight) =>

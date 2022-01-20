@@ -1,8 +1,8 @@
 import NextAuth, { NextAuthOptions, Session, User } from "next-auth";
-import Providers from "next-auth/providers";
-import { NextApiRequest, NextApiResponse } from "next-auth/internals/utils";
+import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import prisma from "server/prismaClient";
+import { NextApiRequest, NextApiResponse } from "next";
 
 const isDebugEnabled = process.env.DEBUG === "true";
 
@@ -25,7 +25,7 @@ async function fillUserPermissions(
 
 const options: NextAuthOptions = {
   providers: [
-    Providers.Google({
+    GoogleProvider({
       clientId: process.env.AUTH_CLIENT_ID,
       clientSecret: process.env.AUTH_CLIENT_SECRET,
     }),
@@ -36,7 +36,7 @@ const options: NextAuthOptions = {
     async signIn({ user, account, profile, email, credentials }) {
       const isFirstUser = (await prisma.user.count()) === 0;
       const permittedEmail = await prisma.permittedUserEmail.findFirst({
-        where: { email },
+        where: { email: email as string },
       });
 
       if (isFirstUser || permittedEmail) {
@@ -45,8 +45,9 @@ const options: NextAuthOptions = {
 
       return "/unauthorized";
     },
-    async session(session, user) {
-      return await fillUserPermissions(session, user);
+    async session({ session, user }) {
+      const sessionWithPermissions = await fillUserPermissions(session, user);
+      return sessionWithPermissions;
     },
   },
 };
