@@ -5,7 +5,7 @@ WORKDIR /portfolio
 COPY package.json ./
 RUN yarn install --frozen-lockfile
 
-FROM node:alpine AS builder
+FROM node:16-alpine3.14 AS builder
 
 WORKDIR /portfolio
 COPY . .
@@ -14,7 +14,7 @@ ARG DATABASE_URL ${DATABASE_URL}
 RUN npm install && \
   npx prisma generate
 
-FROM node:alpine AS runner
+FROM node:16-alpine3.14 AS runner
 
 WORKDIR /portfolio
 
