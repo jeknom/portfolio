@@ -19,7 +19,7 @@ const Paragraph: FC<ParagraphProps> = ({ className, text }) => {
     <ReactMarkdown
       className={classNames(className, "secondaryText")}
       components={{
-        code({ node, inline, className, children, ref, ...props }) {
+        code({ node, inline, className, children, ...props }) {
           const match = /language-(\w+)/.exec(className || "");
           return !inline && match ? (
             <Prism
