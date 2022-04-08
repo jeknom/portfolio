@@ -30,11 +30,11 @@ const Dialog: FC<DialogProps & HTMLProps<HTMLDivElement>> = ({
   const topRef = useRef(null);
   const outsideAlerterRef = useRef(null);
   const scrollToTop = useCallback(() => topRef.current.scrollTo(0, 0), []);
-  let dialogActions: ReactNode | null = null;
+  let dialogActions: ReactNode | JSX.Element | string | null = null;
   const restChildren: ReactNode[] = [];
 
-  Children.forEach(children, (child: { type?: { displayName?: string } }) => {
-    const type = child?.type?.displayName || "";
+  Children.forEach(children, (child) => {
+    const type = (child as any)?.type?.displayName || "";
 
     switch (type) {
       case "DialogActions":

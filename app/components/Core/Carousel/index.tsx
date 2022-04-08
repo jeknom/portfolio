@@ -1,9 +1,10 @@
-import React, { FC, Children } from "react";
+import React, { FC, Children, ReactNode } from "react";
 import VerticalLayout from "../VerticalLayout";
 import CarouselNavigation from "./CarouselNavigation";
 import styles from "./Carousel.module.css";
 
 interface CarouselProps {
+  children?: ReactNode;
   currentIndex: number;
   onChangeIndex: (index: number) => void;
 }

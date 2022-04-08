@@ -33,4 +33,4 @@ USER portfolio
 
 EXPOSE 3000/tcp
 
-CMD npm run dev
+CMD yarn install && npm run dev

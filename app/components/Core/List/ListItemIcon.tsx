@@ -1,6 +1,8 @@
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 
-interface ListItemIconProps {}
+interface ListItemIconProps {
+  children?: ReactNode;
+}
 
 const ListItemIcon: FC<ListItemIconProps> = ({ children }) => {
   return <div>{children}</div>;

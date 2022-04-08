@@ -1,9 +1,10 @@
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import classNames from "classnames";
 import Image from "next/image";
 
 interface AlertProps {
   type: "info" | "warning" | "error";
+  children?: ReactNode;
 }
 
 const Alert: FC<AlertProps> = ({ type, children }) => {

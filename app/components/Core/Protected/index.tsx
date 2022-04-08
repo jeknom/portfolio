@@ -4,8 +4,10 @@ import VerticalLayout from "../VerticalLayout";
 import Title from "../Title";
 import Button from "../Button";
 import { permissions as permissionsList } from "constants/index";
+import { ReactNode } from "react-markdown/lib/react-markdown";
 
 interface ProtectedProps {
+  children?: ReactNode;
   permissions?: string[];
 }
 

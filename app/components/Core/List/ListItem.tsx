@@ -15,8 +15,8 @@ const ListItem: FC<ListItemProps & HTMLProps<HTMLDivElement>> = ({
   let actions: ReactNode | null = null;
   const restChildren: ReactNode[] = [];
 
-  Children.forEach(children, (child: { type?: { displayName?: string } }) => {
-    const type = child?.type?.displayName || "";
+  Children.forEach(children, (child) => {
+    const type = (child as any)?.type?.displayName || "";
 
     switch (type) {
       case "ListItemIcon":

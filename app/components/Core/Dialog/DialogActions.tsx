@@ -1,7 +1,9 @@
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import styles from "./Dialog.module.css";
 
-interface DialogActionsProps {}
+interface DialogActionsProps {
+  children?: ReactNode;
+}
 
 const DialogActions: FC<DialogActionsProps> = ({ children }) => {
   return <div className={styles.dialogActions}>{children}</div>;
