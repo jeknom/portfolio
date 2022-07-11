@@ -28,8 +28,8 @@ const Paragraph: FC<ParagraphProps> = ({ className, text }) => {
               }}
               wrapLines={true}
               useInlineStyles
-              children={children}
-              style={codeBlockStyle}
+              children={children as string | string[]}
+              style={codeBlockStyle as any}
               customStyle={{
                 fontSize: width <= MOBILE_SIZE ? "0.5rem" : "1rem",
               }}
