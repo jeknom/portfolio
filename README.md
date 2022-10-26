@@ -1,7 +1,6 @@
 # Portfolio
 
 [![Generic badge](https://img.shields.io/github/last-commit/jeknom/portfolio)](https://github.com/jeknom/portfolio/commits/main)
-[![Generic badge](https://img.shields.io/badge/Demo-https%3A%2F%2Fjohku.org-green)](https://johku.org/)
 
 The dockerized, minimal in style Portfolio.
 
